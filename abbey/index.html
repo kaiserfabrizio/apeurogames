@@ -220,8 +220,8 @@ function renderStart(){
 ${art('cloister')}
 <div class="body">${SETUP}</div>
 <div class="modes">
-<button class="mode" type="button" id="btnClass">${rnd('scroll',48)}<span><span class="t">Play as a class</span><span class="s">Projected. The room decides where to go and discusses each paper; the teacher clicks. Four visits out of five.</span></span></button>
-<button class="mode" type="button" id="btnSolo">${rnd('quill',48)}<span><span class="t">Play alone</span><span class="s">All six documents, two questions each. About twenty minutes.</span></span></button>
+<button class="mode" type="button" id="btnClass">${rnd('scroll',48)}<span><span class="t">Play as a class</span></span></button>
+<button class="mode" type="button" id="btnSolo">${rnd('quill',48)}<span><span class="t">Play alone</span></span></button>
 </div>
 ${resume?`<div class="row">${resume}</div>`:''}
 <div class="castrow">${DOCS.map(d=>`<div class="castcard">${rnd(d.icon,60)}<span>${d.who}</span></div>`).join('')}</div>
