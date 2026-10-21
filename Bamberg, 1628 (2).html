@@ -1,0 +1,961 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Bamberg, 1628</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=IM+Fell+English:ital@0;1&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap">
+<style>
+/* Layout: a single printed page on parchment, ~820px wide, with a double-ruled frame. One deliberate look (early-modern print), so one theme. */
+:root{
+  --paper:#E6D8B5; --paper-2:#DCCB9F; --ink:#2B2117; --ink-soft:#5E4B36; --rule:#9C8560; --rubric:#9E2A1C; --water:#5B6E7A; --olive:#5C6B3A;
+  --serif:'EB Garamond', Garamond, 'Times New Roman', serif;
+  --display:'IM Fell English', 'EB Garamond', Georgia, serif;
+  --black:'UnifrakturMaguntia', 'IM Fell English', Georgia, serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font-family:var(--serif);font-size:19px;line-height:1.55;
+  background-color:var(--paper);
+  background-image:radial-gradient(ellipse at center, rgba(0,0,0,0) 55%, rgba(70,45,10,.12) 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.30 0 0 0 0 0.20 0 0 0 0 0.08 0 0 0 0.16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:24px 56px}
+a{color:var(--rubric)}
+.wrap{max-width:860px;margin:0 auto}
+.page{position:relative;border:1.5px solid var(--rule);box-shadow:inset 0 0 0 5px var(--paper), inset 0 0 0 6.5px var(--rule);padding:34px 48px 40px}
+@media (max-width:640px){.page{padding:26px 18px 30px}}
+.corner{position:absolute;width:26px;height:26px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%239C8560' d='M12 1c1.2 4.6 4.8 7.6 10 8-5.2.6-8.8 3.6-10 10-1.2-6.4-4.8-9.4-10-10 5.2-.4 8.8-3.4 10-8z'/%3E%3C/svg%3E") center/18px no-repeat var(--paper)}
+.corner.tl{left:-6px;top:-6px}.corner.tr{right:-6px;top:-6px}.corner.bl{left:-6px;bottom:-6px}.corner.br{right:-6px;bottom:-6px}
+.masthead{text-align:center;padding:4px 0 10px;border-bottom:1px solid var(--rule);margin-bottom:6px;position:relative}
+.masthead h1{font-family:var(--black);font-weight:400;font-size:52px;line-height:1;margin:0;letter-spacing:.01em;color:var(--ink)}
+.masthead .sub{display:block;font-family:var(--display);font-style:italic;color:var(--ink-soft);font-size:19px;margin-top:6px}
+.fleurons{height:16px;margin:10px auto 0;width:120px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%239E2A1C' d='M12 1c1.2 4.6 4.8 7.6 10 8-5.2.6-8.8 3.6-10 10-1.2-6.4-4.8-9.4-10-10 5.2-.4 8.8-3.4 10-8z'/%3E%3C/svg%3E") center/16px repeat-x}
+.masthead button{position:absolute;right:0;top:4px;font:inherit;font-family:var(--display);font-size:15px;color:var(--ink-soft);background:none;border:1px solid var(--rule);padding:3px 10px;cursor:pointer}
+.masthead button:hover{color:var(--rubric);border-color:var(--rubric)}
+@media (max-width:640px){.masthead button{position:static;margin-top:8px}}
+.reading{padding-top:18px;min-width:0}
+.date{font-family:var(--display);color:var(--ink-soft);font-size:16px;letter-spacing:.12em;text-transform:uppercase;margin:0 0 6px}
+.scene h2{font-family:var(--display);font-weight:400;font-size:34px;line-height:1.12;margin:0 0 6px;color:var(--rubric);text-wrap:balance}
+.scene p{margin:0 0 16px}
+.scene p.lead{font-size:21px}
+.who{font-family:var(--display);font-style:italic;font-size:17px;color:var(--ink-soft);margin:0 0 18px;padding-bottom:10px;border-bottom:1px solid var(--rule)}
+/* portraits: an oval frame; shows the character's initial unless a picture is given in PORTRAITS */
+.oval{display:inline-block;flex:none;width:64px;aspect-ratio:5/6;border-radius:50%;overflow:hidden;background:var(--paper);border:1.2px solid var(--ink);box-shadow:inset 0 0 0 3px var(--paper), inset 0 0 0 3.6px rgba(43,33,23,.55), 1px 2px 0 rgba(0,0,0,.18);vertical-align:middle}
+.oval img{width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 25%);display:block;filter:sepia(.22) contrast(1.04)}
+.who.withport{display:flex;align-items:center;gap:12px}
+.who .oval{width:48px}
+.card .oval{grid-row:1/4;width:62px;margin-top:2px}
+.scene .body > p:first-of-type::first-letter{font-family:var(--display);font-size:3.3em;float:left;line-height:.78;padding:7px 9px 0 0;color:var(--rubric)}
+.choices{margin:26px 0 4px;border-top:1px solid var(--rule)}
+.choice{display:block;width:100%;font:inherit;text-align:left;background:none;color:var(--ink);border:0;border-bottom:1px solid var(--rule);padding:12px 10px 12px 42px;cursor:pointer;position:relative;line-height:1.4}
+.choice::before{content:'¶';position:absolute;left:12px;top:10px;font-family:var(--display);font-size:22px;color:var(--rubric)}
+.choice:hover{background:rgba(90,60,20,.07)}
+.choice:focus-visible,.masthead button:focus-visible,.card:focus-visible,.btn:focus-visible{outline:2px solid var(--rubric);outline-offset:2px}
+.choice small{display:block;color:var(--ink-soft);font-size:15.5px;margin-top:2px;font-style:italic}
+.note{margin-top:30px;padding-top:12px;border-top:3px double var(--rule);font-size:17px;color:var(--ink-soft)}
+.note h4{font-family:var(--display);font-weight:400;font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--rubric);margin:0 0 6px}
+.note p{margin:0}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:22px 0}
+@media (max-width:560px){.cards{grid-template-columns:1fr}}
+.card{font:inherit;text-align:left;background:rgba(255,250,235,.35);border:1px solid var(--rule);box-shadow:inset 0 0 0 3px var(--paper), inset 0 0 0 4px var(--rule);padding:18px 18px 16px 20px;cursor:pointer;color:var(--ink);display:grid;grid-template-columns:48px 1fr;column-gap:12px;row-gap:4px;min-width:0;position:relative}
+.card:hover{background:rgba(90,60,20,.08)}
+.card .init{grid-row:1/4;font-family:var(--black);font-size:48px;line-height:1;color:var(--rubric);text-align:center;padding-top:2px}
+.card .n{font-family:var(--display);font-size:23px;line-height:1.15}
+.card .r{font-style:italic;color:var(--ink-soft);font-size:16.5px}
+.card .d{font-size:16.5px}
+.map{display:block;width:100%;max-width:100%;height:auto;margin:18px 0 6px;border:1px solid var(--rule);background:var(--paper)}
+.cap{font-size:15.5px;color:var(--ink-soft);font-style:italic;margin:0 0 18px}
+.btn{font:inherit;font-family:var(--display);background:var(--rubric);color:#F3E9D2;border:0;padding:9px 18px;cursor:pointer}
+.btn.quiet{background:transparent;color:var(--ink);border:1px solid var(--rule)}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:14px 0}
+.ending h2.alive{color:var(--olive)}
+.ending h3{font-family:var(--display);font-weight:400;font-size:26px;margin:34px 0 10px;color:var(--rubric)}
+.scores{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0 20px}
+@media (max-width:560px){.scores{grid-template-columns:1fr}}
+.score{border:1px solid var(--rule);padding:12px 14px;font-size:17px;min-width:0}
+.score .lab{font-family:var(--display);text-transform:uppercase;letter-spacing:.14em;font-size:13px;color:var(--rubric);margin-bottom:6px}
+.segs{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;margin:6px 0}
+.segs span{height:10px;border:1px solid var(--rule)}
+.score.sus .segs span.on{background:var(--rubric);border-color:var(--rubric)}
+.score.stand .segs span.on{background:var(--olive);border-color:var(--olive)}
+.factors{list-style:none;padding:0;margin:0 0 6px}
+.factors li{padding:7px 0 7px 28px;border-top:1px solid var(--rule);position:relative;font-size:18px}
+.factors li::before{content:'';position:absolute;left:7px;top:17px;width:9px;height:9px;border-radius:50%;background:var(--rubric)}
+.factors li.struct::before{background:var(--ink-soft);border-radius:0}
+.recordbox{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:14px;line-height:1.5;background:rgba(255,250,235,.45);border:1px solid var(--rule);padding:12px 14px;white-space:pre-wrap;word-break:break-word;user-select:all}
+.toast{font-size:16px;color:var(--olive)}
+.after p{font-size:17px}
+.sources{font-size:15px;color:var(--ink-soft)}
+.fade{animation:fade .3s ease-out}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion: reduce){.fade{animation:none}}
+/* ===== immersion ===== */
+#reading{transition:opacity .25s ease}
+#reading.out{opacity:0}
+.masthead button.snd{right:auto;left:0}
+.cal{display:flex;flex-wrap:wrap;gap:0 10px;font-family:var(--display);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin:-2px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--rule)}
+.cal span{opacity:.55}
+.cal span.past{text-decoration:line-through;opacity:.4}
+.cal span.now{opacity:1;color:var(--rubric);font-weight:700}
+.cal .yr{margin-left:auto;opacity:.8}
+.names{margin:0 0 18px;padding:10px 14px;border:1px solid var(--rule);background:rgba(255,250,235,.35);font-size:16px}
+.names h4{font-family:var(--display);font-weight:400;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--rubric);margin:0 0 4px}
+.names ul{margin:0;padding-left:18px}
+.names li{margin:2px 0}
+.names .later{font-style:italic;color:var(--ink-soft)}
+.letterbox{background:rgba(255,250,235,.55);border:1px solid var(--ink);padding:16px 22px 12px;margin:10px 0 18px;box-shadow:4px 4px 0 rgba(60,40,10,.14);font-size:17px}
+.letterbox .from{font-family:var(--display);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 10px;padding-bottom:6px;border-bottom:1px solid var(--rule)}
+.letterbox p{margin:0 0 10px}
+.runs{width:100%;border-collapse:collapse;font-size:15.5px;margin:8px 0 18px}
+.runs th,.runs td{border:1px solid var(--rule);padding:7px 10px;vertical-align:top;text-align:left}
+.runs th{font-family:var(--display);font-weight:400;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--rubric)}
+.runs ul{margin:0;padding-left:16px}
+.card .played{display:block;font-size:13px;color:var(--rubric);font-style:italic;margin-top:4px}
+.before{font-style:italic;color:var(--ink-soft);font-size:16.5px;margin:0 0 10px}
+@media (prefers-reduced-motion: reduce){#reading{transition:none}}
+</style>
+
+<div class="wrap"><div class="page">
+<span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+<header class="masthead">
+  <h1>Bamberg, 1628</h1>
+  <span class="sub">a witch hunt</span>
+  <div class="fleurons"></div>
+  <button type="button" id="btnRestart" hidden>Start over</button>
+  <button type="button" id="btnSound" class="snd" hidden>Sound: on</button>
+</header>
+<main class="reading" id="reading"></main>
+</div></div>
+
+<script>
+(function(){
+'use strict';
+
+/* ------------------------------------------------------------------ characters */
+/* ===== EDITABLE: PORTRAITS ======================================================
+   Paste an image address between the quotes to give a character a portrait. It is shown
+   in an oval on the character card, at the top of every scene, and on the ending page.
+   Leave '' to keep the initial letter. The picture is cropped to the oval; 'pos' moves
+   the crop (horizontal% vertical%): '50% 25%' keeps the upper part, where faces usually are.
+   A relative address works if the file sits next to this page, e.g. 'img/anna.png'. */
+const PORTRAITS={
+  margaretha:{src:'', pos:'50% 25%'},
+  hans:{src:'', pos:'50% 25%'},
+  lorenz:{src:'', pos:'50% 25%'},
+  anna:{src:'', pos:'50% 25%'},
+};
+function oval(id,size){ const p=PORTRAITS[id]; if(!p||!p.src) return ''; return `<span class="oval" style="width:${size}px;--pos:${p.pos||'50% 25%'}"><img src="${p.src.replace(/"/g,'&quot;')}" alt="" loading="lazy"></span>`; }
+/* ===== END OF EDITABLE PORTRAITS ================================================= */
+/* ===== EDITABLE: SOUND ============================================================
+   Paste addresses of .mp3 or .ogg files. Leave '' for silence. Sound cannot start before the
+   player's first click. The ambience loops and is silenced during the torture scenes. */
+const SOUND={
+  ambience:'',   // quiet loop under everything: rain, wind, a town at night
+  page:'',       // when a scene changes
+  click:'',      // when a choice is made
+  bell:'',       // a single church bell: the burning in June, the sentence, the endings
+  door:'',       // a heavy door: the arrest and the first day in the Drudenhaus
+  quill:'',      // writing: the confession, its confirmation, the letter
+  volume:0.35
+};
+const SILENT_SCENES=['torture1','torture2','torture3','naming_torture','recant','partial','instruments','executioner'];
+/* ===== EDITABLE: NAMES. What goes on the list "Names you have given" for each choice. ===== */
+const NAMES_GIVEN={
+  clever:['Else Schreiber, baker’s widow (burned in June)','Old Kunz the tanner (in the Drudenhaus since May)','The Weigand woman (died in the Drudenhaus)'],
+  lednames:['Barbara Hofmann, the cooper’s wife','Georg Vetter, journeyman brewer','The Lenz woman, from the Sand','Michael Kraus, vintner','Ursula, servant at the Golden Bear','Dr. Georg Haan’s wife'],
+  enemy:{margaretha:'The Lenz woman, who stood at your gate',hans:'Kaspar Lenz, your neighbor',lorenz:'Two councillors, Dietmayr and Fröhlich',anna:'Frau Ott, your mistress'},
+};
+/* ===== EDITABLE: THE REAL LETTER, shown at every ending. ===== */
+const JUNIUS={from:'Johannes Junius, burgomaster of Bamberg, to his daughter Veronica · written in the Drudenhaus, 24 July 1628 · translation by G. L. Burr, abridged',
+ text:`<p>Many hundred thousand good-nights, dearly beloved daughter Veronica. Innocent have I come into prison, innocent have I been tortured, innocent must I die. For whoever comes into the witch prison must become a witch or be tortured until he invents something out of his head and, God pity him, bethinks him of something.</p>
+<p>And then came also, God in highest heaven have mercy, the executioner, and put the thumb-screws on me, both hands bound together, so that the blood ran out at the nails and everywhere, so that for four weeks I could not use my hands, as you can see from the writing. . . . Now, dear child, here you have all my confession, for which I must die. And they are sheer lies and made-up things, so help me God. For all this I was forced to say through fear of the torture which was threatened beyond what I had already endured.</p>
+<p>Dear child, keep this letter secret so that people do not find it, else I shall be tortured most piteously and the jailers will be beheaded. So strictly is it forbidden. . . . Good night, for your father Johannes Junius will never see you more.</p>`};
+/* ===== END ===================================================================== */
+const CHARS = {
+  margaretha:{ name:'Margaretha Pfister', first:'Margaretha', role:'a midwife and cooper’s widow, 61, in the Sand quarter', she:true,
+    card:'She is the quarter’s midwife. She also keeps bees and makes salves from her garden. She is poor and lives alone.',
+    sus:4, stand:1, money:0, endure:2, literate:false, kin:'the sexton of St. Elisabeth, whose wife you nursed through a bad birth' },
+  hans:{ name:'Hans Vogel', first:'Hans', role:'a vine-grower, 44, on the slopes below St. Michael’s', she:false,
+    card:'The frost of 1626 killed his vines. He owes money to the brewer and is in a long quarrel with his neighbor over a boundary stone.',
+    sus:2, stand:3, money:1, endure:4, literate:false, kin:'your brother-in-law, the cooper Veit' },
+  lorenz:{ name:'Dr. Lorenz Weinmann', first:'Lorenz Weinmann', role:'a city councillor and wine merchant, 53', she:false,
+    card:'He has read the imperial law code and knows the trials do not follow it. He has said so only at home.',
+    sus:1, stand:6, money:3, endure:3, literate:true, kin:'your fellow councillor, Georg Neudecker' },
+  anna:{ name:'Anna Hefner', first:'Anna', role:'a maidservant, 19, in the brewer Ott’s house', she:true,
+    card:'She came from a village on the Main three years ago. In March the baby she nursed died overnight. Her mistress has not spoken to her since.',
+    sus:3, stand:1, money:0, endure:2, literate:false, kin:'the brewer’s journeyman Michel, who is fond of you' },
+};
+
+/* ------------------------------------------------------------------ state */
+let S = null;
+function newState(id){
+  const c = CHARS[id];
+  return { id, sus:c.sus, baseSus:c.sus, stand:c.stand, baseStand:c.stand, money:c.money, endure:c.endure, maxSus:c.sus,
+    choiceSus:0, structSus:0, den:0, tort:0, flags:{}, once:{}, rolls:{}, log:[], factors:[], scene:'intro', ended:false, names:[], month:4, year:1628 };
+}
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function fx(o){
+  const parts=[];
+  if(o.sus){ const before=S.sus; S.sus=clamp(S.sus+o.sus,0,10); const d=S.sus-before; S.maxSus=Math.max(S.maxSus,S.sus); if(o.struct) S.structSus+=d; else S.choiceSus+=d; parts.push('suspicion '+(o.sus>0?'+':'')+o.sus); }
+  if(o.stand){ S.stand=clamp(S.stand+o.stand,0,10); parts.push('standing '+(o.stand>0?'+':'')+o.stand); }
+  if(o.money){ S.money=clamp(S.money+o.money,0,3); parts.push(o.money<0?'money spent':'money earned'); }
+  if(o.flag){ S.flags[o.flag]=true; }
+  if(o.why){ S.factors.push({t:o.why, e:parts.join(', '), s:!!o.struct}); }
+}
+function choose(label){ S.log.push({scene:S.scene, label}); }
+function once(key, fn){ S.once=S.once||{}; if(S.once[key]) return; S.once[key]=true; fn(); }
+const rnd=()=>Math.random();
+const chance=p=>rnd()<p;
+const she=()=>CHARS[S.id].she;
+const her=()=>she()?'her':'him';
+const is=id=>S.id===id;
+function denP(){ return clamp(3 + S.sus, 0, 10)/10; }
+
+/* ------------------------------------------------------------------ scenes */
+const SC = {};
+
+SC.intro = {
+  date:'Bamberg · April 1628',
+  title:'The city after the frost',
+  text(){
+    const you = {
+      margaretha:`You are Margaretha Pfister, sixty-one years old, the widow of a cooper, and you live in the Sand quarter by the river. Your husband died nine years ago and both of your children before him. For thirty years you have been the quarter’s midwife. You also keep bees and make salves from the herbs in your garden. You are poor and you live alone. People need you, and some of them resent needing you.`,
+      hans:`You are Hans Vogel, forty-four, a vine-grower on the slopes below St. Michael’s monastery. The frost killed every vine you owned. You replanted with money borrowed from the brewer Stephan Ott, and the new vines will not produce for three years. Your neighbor Kaspar Lenz has moved the boundary stone between your plots, and the two of you have not spoken civilly since. You have a wife, Barbara, and three children.`,
+      lorenz:`You are Dr. Lorenz Weinmann, fifty-three, a member of the city council and a wine merchant. You own two houses and a full cellar. You have a wife, Apollonia, and a daughter, Veronica, who is twenty. You have read the Carolina, the imperial criminal code, and you know that the procedures used in the Drudenhaus are not in it. You have said so only at home. When a person is condemned, a councillor must witness the inventory of their property before it passes to the bishop’s treasury. You have witnessed four such inventories.`,
+      anna:`You are Anna Hefner, nineteen, a maidservant in the house of the brewer Stephan Ott on the Lange Strasse. You came from a village on the Main River three years ago. In March, the Otts’ infant son, whom you had nursed through the winter, died of a fever in a single night. Since then your mistress has not spoken to you, but she watches you.`,
+    }[S.id];
+    return `
+<p class="lead">On the night of 27 May 1626, in the middle of the growing season, a hard frost struck Franconia and destroyed the vines, the grain, and the fruit trees. People across the region blamed witches, and in the Prince-Bishopric of Bamberg the government agreed with them.</p>
+<p>Bamberg is a city of about twelve thousand people on the Regnitz River, ruled by its Prince-Bishop, Johann Georg II Fuchs von Dornheim, who is both the bishop and the territorial prince. Since the frost, bread costs about three times what it did. Imperial troops pass through on their way north, where the Emperor’s generals are fighting the King of Denmark, and every household pays a war tax, called a contribution, for their upkeep. Last year the bishop built a special prison for witchcraft cases, the Drudenhaus, with about thirty cells, a chapel, and a torture chamber. Over its door is a line from Virgil: <i>Learn justice, you who have been warned, and do not scorn the gods.</i> Executions take place every few weeks. The suffragan bishop, Friedrich Förner, preaches that witches caused the frost, the hunger, and the war, and that the city is full of them.</p>
+<p>${you}</p>
+<p>It is the spring of 1628. How do you conduct yourself?</p>`;
+  },
+  choices(){
+    const c=[
+      {k:'a', t:'Keep to yourself and change nothing.', go(){ fx({why:'Kept to yourself in the spring'}); return 'spring'; }},
+      {k:'b', t:'Make a point of being seen: go to every Mass, and go to the next execution and stand near the front.', sub:'Attending church and attending the burnings is how people show that they have nothing to hide.', go(){ fx({sus:-1,stand:1,flag:'attend',why:'Made a point of being seen at Mass and at the execution'}); return 'spring'; }},
+    ];
+    if(is('lorenz')) c.push({k:'c', t:'Say in council that the trials are unlawful.', sub:'Some councillors agree with you privately. All of them will remember that you said it.', go(){ fx({sus:2,stand:1,flag:'spoke',why:'Said in council that the trials were unlawful'}); return 'spring'; }});
+    else c.push({k:'c', t:'Tell someone you trust that you think the trials are wrong.', go(){ fx({sus:1,flag:'spoke',why:'Told someone the trials were wrong'}); return 'spring'; }});
+    const d={
+      margaretha:{t:'Stop selling salves and close the garden gate.', sub:'Nothing for anyone to point at, but also less to eat, and neighbors who were used to your help.', go(){ fx({sus:-1,stand:-1,why:'Gave up selling salves'}); return 'spring'; }},
+      hans:{t:'Give up the strip of land and make peace with Lenz.', go(){ fx({sus:-1,stand:1,flag:'peace',why:'Made peace with Lenz'}); return 'spring'; }},
+      lorenz:{t:'Send Veronica to your brother-in-law in Nuremberg with a chest of silver, officially as her dowry.', sub:'Nuremberg is a Lutheran city outside the bishop’s territory. People will notice.', go(){ fx({sus:1,flag:'nuremberg',why:'Sent your daughter and your silver to Nuremberg'}); return 'spring'; }},
+      anna:{t:'Ask Frau Ott for permission to go home to your mother’s village.', go(){ fx({sus:1,flag:'askedleave',why:'Asked to leave the Ott household'}); return 'spring'; }},
+    }[S.id];
+    d.k='d'; c.push(d);
+    return c;
+  },
+  note:`The frost of 27 May 1626 is recorded in the local chronicles, and the demand to find the witches responsible followed within weeks. Bishop Dornheim and his suffragan Friedrich Förner directed the trials. The Drudenhaus was built in 1627; an engraving of it survives, with the Virgil quotation over the door. The war in the background is the Danish phase of the Thirty Years’ War, paid for in part by “contributions” levied on towns like Bamberg.`
+};
+
+SC.spring = {
+  date:'Bamberg · May 1628',
+  title(){ return {margaretha:'The Lenz child', hans:'The boundary stone', lorenz:'The council’s signature', anna:'The box under the bed'}[S.id]; },
+  text(){
+    return {
+      margaretha:`<p>The four-year-old son of your neighbors, the Lenz family, has had a cough for two weeks. His mother comes to your gate in the evening with the boy on her hip and asks whether you have anything for it. Several people on the lane see her standing there.</p><p>You know how this can go. If you treat him and he recovers, people will remember that you cured him. If you treat him and he dies, people will remember that you were the last one to touch him. If you refuse, people will remember that too.</p>`,
+      hans:`<p>During the night someone has moved the boundary stone again, a full step into your plot. Lenz is pruning on the other side of it when you come up the hill, and he does not look at you.</p><p>You have a legal right to the land. You also know that Lenz has stood at the back of every execution this year, listening while the names were read.</p>`,
+      lorenz:`<p>The council is called to witness the inventory of the house of Dr. Georg Haan, the bishop’s own chancellor, who has been condemned this year along with his wife and daughter. The list of property runs to eleven pages: silver, books, wine, bed linen. The councillors’ signatures certify that it passes legally to the Prince-Bishop’s treasury.</p><p>The pen is coming down the table toward you.</p>`,
+      anna:`<p>You come in from the yard and find Frau Ott kneeling at your box under the bed with the lid open. In her hand is the paper your mother gave you when you left home: a blessing against fever, copied out by the village priest, folded small and worn soft.</p><p>“What is this?” she asks.</p>`,
+    }[S.id];
+  },
+  choices(){
+    return {
+      margaretha:[
+        {k:'a', t:'Go to the child and sit up with him.', sub:'Honey, thyme, steam, and your hands.', go(){ if(chance(.6)){ fx({stand:1,why:'Treated the Lenz child, who recovered'}); } else { fx({sus:2,why:'Treated the Lenz child, who died'}); } return 'burning'; }},
+        {k:'b', t:'Hand her the syrup at the gate and go back inside.', go(){ fx({sus:1,why:'Handed over a remedy at the gate'}); return 'burning'; }},
+        {k:'c', t:'Send her to the barber-surgeon on the Upper Bridge.', go(){ fx({sus:1,stand:-1,why:'Refused to treat the Lenz child'}); return 'burning'; }},
+      ],
+      hans:[
+        {k:'a', t:'Take the matter to the bishop’s court.', sub:'The same court that runs the Drudenhaus.', go(){ fx({sus:1,why:'Sued Lenz over the boundary stone'}); return 'burning'; }},
+        {k:'b', t:'Tell Lenz in the tavern, in front of everyone, what you will do to him if he touches the stone again.', go(){ fx({sus:2,flag:'threat',why:'Threatened Lenz in public'}); return 'burning'; }},
+        {k:'c', t:'Move the stone back yourself before dawn and say nothing.', go(){ fx({why:'Moved the stone back quietly'}); return 'burning'; }},
+        {k:'d', t:'Let him keep the strip of ground.', go(){ fx({sus:-1,stand:1,flag:'peace',why:'Let Lenz keep the land'}); return 'burning'; }},
+      ],
+      lorenz:[
+        {k:'a', t:'Sign, as you have before.', go(){ fx({stand:1,flag:'signed',why:'Signed the Haan inventory'}); return 'burning'; }},
+        {k:'b', t:'Refuse to sign, and say why: the chancellor was tried without a lawyer on the basis of confessions extracted by torture.', go(){ fx({sus:2,stand:-1,flag:'spoke',why:'Refused to sign the Haan inventory and said why'}); return 'burning'; }},
+        {k:'c', t:'Sign, and tonight write to the Emperor’s court in Vienna describing what you have seen.', sub:'The imperial court has received such letters from Bamberg before. The mail goes through the bishop’s territory.', go(){ S.flags.appeal=true; if(chance(.3)){ fx({sus:2,why:'Wrote to Vienna; the letter was opened on the road'}); } else { fx({why:'Wrote privately to the imperial court'}); } S.flags.signed=true; return 'burning'; }},
+      ],
+      anna:[
+        {k:'a', t:'Tell her it is a prayer, and offer to have it read to her.', go(){ fx({sus:1,why:'Told Frau Ott the paper was a prayer'}); return 'burning'; }},
+        {k:'b', t:'Take it from her and put it in the kitchen fire.', go(){ fx({sus:2,why:'Burned the paper in front of your mistress'}); return 'burning'; }},
+        {k:'c', t:'Ask her to take it to Father Wolfgang at St. Martin’s and let him judge it.', go(){ fx({stand:1,why:'Asked that the priest judge the paper'}); return 'burning'; }},
+      ],
+    }[S.id];
+  },
+  note(){ return {
+    margaretha:'Healers and midwives were not the majority of the accused, but they were exposed in a particular way: when a treatment failed, the knowledge that was supposed to cure could be reinterpreted as the knowledge that harmed. Most accusations began with a quarrel, a refusal, or a death in the neighborhood, long before any court was involved.',
+    hans:'Most accusations started between neighbors, over debts, boundaries, and old insults, and were turned into evidence of a pact with the devil only later. Under the Carolina, the imperial criminal code of 1532, a denunciation from a known enemy was supposed to carry less weight. In practice, the accused were not told who had named them.',
+    lorenz:'Dr. Georg Haan, chancellor of the bishopric, had opposed the trials; he, his wife, and his daughter were all condemned in 1628. Confiscation of the property of the condemned was one of the driving forces of the Bamberg hunt. Councillors did co-sign the inventories.',
+    anna:'Written charms and blessings were common and usually tolerated. The same scrap of paper became evidence once suspicion existed. The household was often where a case began: a mistress’s suspicion of a maid, a master’s of a servant.',
+  }[S.id]; }
+};
+
+SC.burning = {
+  date:'Bamberg · 12 June 1628',
+  title(){ return S.flags.attend ? 'The execution' : 'The day of the execution'; },
+  text(){
+    if(S.flags.attend) return `<p>Eight women and two men are brought out of the Drudenhaus in two carts, each with a Franciscan friar beside them. Among them are the wife of a councillor and a priest from St. Martin’s. On the scaffold a clerk reads the sentences. Each of the ten has confessed to making a pact with the devil, attending the witches’ dances on the heath outside the city, causing the frost of 1626 by throwing powders into the air, and harming cattle and children. Those who confessed without resisting are beheaded before their bodies are burned. The others are burned alive.</p>
+<p>You stand near the front, where the commission’s clerks can see you. When the sentences have been read, the clerk begins on the confessions themselves, which include the names of everyone each prisoner claimed to have seen at the dances.</p>`;
+    return `<p>You stay home. The bells of the cathedral and St. Michael’s ring together in the morning, and by noon the smoke reaches the Sand. By evening everyone knows what happened: eight women and two men, among them the wife of a councillor and a priest from St. Martin’s, all of whom had confessed to the pact, the dances, the frost of 1626, and harm to cattle and children. Those who confessed without resisting were beheaded first. The others were burned alive. After the sentences, the clerk read out the confessions, with the names of everyone each prisoner claimed to have seen at the dances.</p>
+<p>In the evening your neighbor stops at your door and asks, in a friendly way, why you were not there. Everyone was there.</p>`;
+  },
+  choices(){
+    if(S.flags.attend){
+      const c=[
+        {k:'a', t:'Leave before the fires are lit.', go(){ fx({why:'Left the execution early'}); return 'names'; }},
+        {k:'b', t:'Stay and listen to the confessions and the names.', go(){ fx({flag:'heard',why:'Stayed to hear the confessions and the names'}); return 'names'; }},
+      ];
+      if(is('lorenz')) c.push({k:'c', t:'Cross the square and stand with the council delegation beside the commissioners.', go(){ fx({sus:-1,stand:1,why:'Stood with the council beside the commissioners'}); return 'names'; }});
+      return c;
+    }
+    once('absence',()=>fx({sus:1,struct:true,why:'Your absence from the execution was noticed and talked about'}));
+    const c=[
+      {k:'a', t:'Tell him you were ill.', go(){ fx({why:'Told the neighbor you had been ill'}); return 'names'; }},
+      {k:'b', t:'Tell him you have no stomach for burnings.', go(){ fx({sus:1,flag:'spoke',why:'Told the neighbor you had no stomach for burnings'}); return 'names'; }},
+      {k:'c', t:'Say nothing much, and make sure you are seen near the front at the next one.', go(){ fx({sus:-1,flag:'attend',why:'Made a point of attending the next execution'}); return 'names'; }},
+    ];
+    if(is('lorenz')) c.push({k:'d', t:'Tell him the council was not required to attend, and change the subject.', go(){ fx({why:'Told the neighbor the council was not required to attend'}); return 'names'; }});
+    return c;
+  },
+  note:`Executions in Bamberg were public and were preceded by a sermon and the reading of the confessions, which regularly included the frost of 1626. Attendance was not compulsory, but it was noticed. The condemned paid for their own imprisonment, torture, and execution, and whatever property remained went to the bishop’s treasury.`
+};
+
+function denounceScene(id, when, who, pro, count, next, lead){
+  SC[id] = {
+    date:when,
+    title:'The naming of accomplices',
+    text(){
+      let t = (lead||'') + `<p>In the Drudenhaus, the interrogation of ${who} reaches the second degree of torture. As the procedure requires, the commissioner asks who else attended the dances. Under imperial law, two witnesses are needed before a person can be arrested and tortured, and a name given under torture counts as a witness. ${pro} names ${count} people. The clerk writes down each name.</p>`;
+      S.rolls=S.rolls||{};
+      let hit;
+      if(S.rolls[id]!==undefined){ hit=S.rolls[id]; }
+      else { hit=chance(denP()); S.rolls[id]=hit; if(hit){ S.den++; fx({sus:2,struct:true,why:`Named under torture by ${who.replace(/,$/,'')}`}); } }
+      if(hit){
+        t += `<p>The ${['ninth','fourteenth','seventh','nineteenth'][S.den%4]} name is yours.</p>`;
+        if(S.den===1) t += `<p>You do not know this. One name is not yet enough for an arrest. The commission opens a file and waits.</p>`;
+        else t += `<p>You do not know this yet.</p>`;
+      } else {
+        t += `<p>Your name is not on the list.</p>`;
+      }
+      return t;
+    },
+    choices(){ return [{k:'→', t:'Continue', go(){ return next(); }}]; },
+    note:`This is how the hunts grew. Every confession ended with the demand for accomplices, and every name given became a witness against someone else. The commission kept lists, and a name that appeared twice was enough. Johannes Junius, the mayor of Bamberg, was arrested in June 1628 on denunciations of this kind.`
+  };
+}
+denounceScene('names','Bamberg · July 1628','Else Schreiber, a baker’s widow from the Steinweg,','She','twenty-two', ()=> 'summer');
+denounceScene('names2','Bamberg · August 1628','the schoolmaster of St. Gangolf,','He','thirty', ()=> (S.den>=2 || (S.den>=1 && S.sus>=7)) ? 'warning' : 'names3');
+denounceScene('names3','Bamberg · October 1628','a vine-grower’s wife from the Kaulberg, on her third day of questioning,','She','sixteen', ()=> (S.den>=2 || (S.den>=1 && S.sus>=7)) ? 'warning' : 'end_unnamed',
+  `<p>The harvest is poor. In the Sand quarter a child dies with dark marks on his skin, and his mother says in the street that someone did it to him.</p>`);
+
+SC.summer = {
+  date:'Bamberg · July 1628',
+  title:'The contribution',
+  text(){ return `<p>A company of imperial cavalry is quartered in the city for a week on its way north. Each household is assessed for the soldiers’ bread, beer, and fodder, and the bishop’s officers collect it. News from the north says that Wallenstein has driven the King of Denmark out of Germany and now holds the Baltic ports. The Emperor is at the height of his power, and the bishop, who is the Emperor’s ally, has no one above him to restrain him.</p>
+<p>The mayor of Bamberg, Johannes Junius, has been in the Drudenhaus since the end of June. People in the market say that if the mayor can be a witch, anyone can.</p>`; },
+  choices(){
+    const c=[
+      {k:'a', t:'Pay the contribution in full.', go(){ fx({money:S.money>0?-1:0,why:'Paid the war contribution'}); return 'names2'; }},
+      {k:'b', t:'Quarter the soldiers, but hide part of your grain in the cellar.', go(){ if(chance(.4)) fx({sus:1,why:'Hid grain from the assessors; it was found'}); else fx({why:'Hid grain from the assessors'}); return 'names2'; }},
+    ];
+    if(is('lorenz')) c.push({k:'c', t:'Propose in council that the city petition the bishop against the assessment.', go(){ fx({stand:1,sus:1,why:'Led a petition against the contribution'}); return 'names2'; }});
+    if(is('hans')) c.push({k:'c', t:'Hire yourself out to carry the company’s fodder to Forchheim.', sub:'Some money, and a week out of the city.', go(){ fx({money:1,why:'Carted fodder for the soldiers'}); return 'names2'; }});
+    return c;
+  },
+  note:`1628 was the high point of imperial power in the Danish phase of the war: Christian IV defeated, Wallenstein in control of the Baltic coast, and the Edict of Restitution less than a year away. Catholic prince-bishops like Dornheim were the Emperor’s allies and faced no pressure from above. The war taxes fell on the same households that were paying for the trials.`
+};
+
+SC.warning = {
+  date:'Bamberg · the same week',
+  title(){ return S.stand>=3 ? 'A visitor after dark' : 'No warning'; },
+  text(){
+    const c=CHARS[S.id];
+    if(S.stand>=3) return `<p>${c.kin.charAt(0).toUpperCase()+c.kin.slice(1)}, comes to your door after dark and will not sit down. He tells you that your name has been given to the commission${S.den>=2?' twice':' once, and that for someone talked about as much as you are, the commission counts the talk as the second witness'}. He heard it from one of the clerks. The warrant is being drawn up tonight.</p><p>You have until morning.</p>`;
+    return `<p>No one warns you. Nobody you know is close enough to the commission’s clerks to hear your name read out, or close enough to you to risk repeating it. You find out what has happened when the bailiffs knock.</p>`;
+  },
+  choices(){
+    if(S.stand<3){ once('nowarn',()=>fx({struct:true,why:'No one with influence was in a position to warn you'})); return [{k:'→', t:'Continue', go(){ return 'arrest'; }}]; }
+    const c=[];
+    const canRun = S.money>=1 || S.stand>=4;
+    c.push({k:'a', t:'Leave the city tonight.', sub: canRun ? 'Nuremberg is a Lutheran imperial city about sixty kilometers south. Its council has refused to hand fugitives back to the bishop before.' : 'You have no money and no horse. You would be on foot on the bishop’s roads by dawn.', go(){ if(!canRun){ fx({flag:'fled',why:'Fled on foot, without money'}); return chance(.65)?'flight_caught':'nuremberg'; } fx({flag:'fled',why:'Fled the city'}); return is('anna')?'flight_where':'flight'; }});
+    c.push({k:'b', t:'Go to the commission in the morning and ask to clear your name.', go(){ fx({flag:'voluntary',why:'Went to the commission voluntarily'}); return 'arrest'; }});
+    c.push({k:'c', t:'Stay. You are innocent, and the law requires proof.', go(){ fx({why:'Stayed and waited'}); return 'arrest'; }});
+    if(is('lorenz')) c.push({k:'d', t:'Send your wife and daughter to Nuremberg tonight with the property deeds and a petition to the Emperor. You stay.', sub:'A petition sent from outside the bishop’s territory can reach the imperial court in Vienna. It will take months.', go(){ fx({money:-2,flag:'appeal',why:'Sent your family out with a petition to the Emperor'}); return 'arrest'; }});
+    if(is('lorenz') && S.flags.signed) c.push({k:'e', t:'Go to the commissioner yourself and offer to help the commission: your knowledge of the council, your signature, your name.', go(){ fx({flag:'collab',why:'Offered to work for the commission'}); return 'end_haan'; }});
+    return c;
+  },
+  note:`Flight was a real option. Nuremberg, a Lutheran imperial city sixty kilometers to the south, took in refugees from Bamberg and refused the bishop’s demands to send them back. Within the bishop’s own territory there was nowhere to hide: the map on the first page shows how close the border was.`
+};
+
+SC.flight_where = {
+  date:'Bamberg · that night',
+  title:'Which way',
+  text(){ return `<p>Michel’s cousin has a boat. From the river you can go south toward Nuremberg, where you know no one, or up the Main to your mother’s village, where you know everyone and everyone knows you.</p><p>Your village is inside the bishop’s territory.</p>`; },
+  choices(){ return [
+    {k:'a', t:'South, to Nuremberg.', go(){ fx({why:'Chose Nuremberg over home'}); return 'flight'; }},
+    {k:'b', t:'Home, to your mother in Zeil.', go(){ fx({why:'Went home to Zeil, inside the bishopric'}); return 'flight_zeil'; }},
+  ]; }
+};
+
+SC.flight_zeil = {
+  date:'Zeil am Main · three days later',
+  title:'Home',
+  text(){ return `<p>Your mother takes you in, then looks down the lane to see who has noticed. Zeil has its own prison tower by the river and its own execution ground. For a town of its size, more people have been burned here than in Bamberg itself. The bailiff of Zeil receives a letter from the commission within the week. He has known your mother for forty years, and he comes to the house himself.</p>`; },
+  choices(){ once('zeil',()=>fx({struct:true,why:'Zeil was inside the bishop’s jurisdiction'})); return [{k:'→', t:'Continue', go(){ return 'arrest'; }}]; },
+  note:`Zeil am Main, a small town belonging to the bishopric, was one of its main execution sites; several hundred people were burned there between 1626 and 1631. In the Holy Roman Empire, law and religion followed territory. Your safety depended on whose land you were standing on, a principle your students have already met in the Peace of Augsburg.`
+};
+
+SC.flight = {
+  date:'The road south · that night',
+  title:'The road to Nuremberg',
+  text(){ return `<p>It is about sixty kilometers to Nuremberg. Imperial soldiers are on the roads in both directions, the bishop’s bailiffs know every ford, and anyone who sees you leaving will know why.</p>`; },
+  choices(){
+    const c=[
+      {k:'a', t:'Take the main road through Forchheim.', sub:'Fastest, but it belongs to the bishop and his men patrol it.', go(){ if(chance(.5)){ fx({why:'Taken on the Forchheim road'}); return 'flight_caught'; } fx({why:'Got through on the Forchheim road'}); return 'nuremberg'; }},
+      {k:'b', t:'Follow the Regnitz by night to Erlangen, in the Lutheran territory of the Margrave of Brandenburg, and go on from there.', sub:'Slower. Once you cross the border the bishop’s bailiffs have no authority.', go(){ if(chance(.25)){ fx({why:'Caught before reaching the border'}); return 'flight_caught'; } if(chance(.4)){ fx({money:-S.money,why:'Robbed by soldiers on the river road'}); } else fx({why:'Reached the Margrave’s territory by the river'}); return 'nuremberg'; }},
+    ];
+    if(S.money>=1) c.push({k:'c', t:'Pay the carter who takes Bamberg beer to Nuremberg to hide you among the casks.', sub:'It costs everything you have. Carters are searched less often than travelers.', go(){ fx({money:-S.money,why:'Paid the beer carter to hide you'}); if(chance(.15)){ return 'flight_caught'; } return 'nuremberg'; }});
+    return c;
+  }
+};
+
+SC.flight_caught = {
+  date:'The road · before dawn',
+  title:'Taken',
+  text(){ return `<p>Two bailiffs with a lantern, and a third man you recognize from the market, who has been paid to recognize you. Under the law, running from a charge is itself evidence of guilt.</p>`; },
+  choices(){ once('caught',()=>fx({sus:3,struct:true,flag:'caughtfleeing',why:'Flight was treated as evidence of guilt'})); return [{k:'→', t:'Continue', go(){ return 'arrest'; }}]; }
+};
+
+SC.nuremberg = {
+  date:'Nuremberg · 1628 and after',
+  title:'Exile',
+  ending:true, alive:true,
+  text(){
+    const fam = {margaretha:'There is no one left in Bamberg to be questioned about you. Your house in the Sand is sold to pay the cost of the search.',
+      hans:'Barbara is questioned twice by the commission and released; your brother-in-law stands surety for her. Your new vines are sold to the brewer Ott to pay the cost of the search.',
+      lorenz:'Apollonia and Veronica are already in the city. Your houses are inventoried and your wine is sold to the bishop’s own cellarer. Your petition reaches the imperial court in Vienna, where it is read, which is more than most petitions get.',
+      anna:'Frau Ott tells the commission that you ran because you were guilty. Michel is questioned about the boat and says he knows nothing about any boat. Your mother is not arrested. You never learn why.'}[S.id];
+    return `<p>The gates of Nuremberg close behind you. The council of this Lutheran imperial city has refused the bishop’s requests for fugitives before, and it refuses again. You are not safe, exactly, but you are out of reach.</p>
+<p>${fam}</p>
+<p>News comes up the road over the next few years. In May 1630 the commission in Bamberg rushes the execution of Dorothea Flock, a councillor’s young wife, to finish before an imperial order for her release can take effect. The order arrives anyway, and the scandal reaches Vienna and Rome. In 1630 and again in 1631 the Emperor orders the bishop to try witchcraft cases only according to imperial law, with defense lawyers and without confiscations, and the commission, which cannot operate under those rules, stops. In October 1631 the Swedish army takes Würzburg. On 11 February 1632 it enters Bamberg. The Prince-Bishop has already fled to Austria, where he will die the following year.</p>
+<p>You can go home now, to a city that would rather not remember any of it.</p>`;
+  },
+  note:`Nuremberg sheltered refugees and petitioners from Bamberg. The Flock case of 1630 was the one that broke the Bamberg hunt open: her husband had escaped to Nuremberg and obtained imperial orders, and the commission executed her anyway. Ferdinand II’s mandates of 1630 and 1631, pressure from the papal nuncio, and finally the Swedish invasion ended the trials. Dornheim died in exile in 1633.`
+};
+
+SC.arrest = {
+  date(){ return S.flags.voluntary ? 'Bamberg · the next morning' : 'Bamberg · five in the morning'; },
+  title:'The warrant',
+  text(){
+    const inv={margaretha:'the bed, two pots, the beehives in the garden, and the box of salves, which is sealed as evidence',
+      hans:'the bed, the wine press, the barrels, the new vines on the hillside, and the debt to Ott, which is noted',
+      lorenz:'the silver, the books, every cask in both cellars, the deeds, the beds, the clothes in the presses, and the copy of the Carolina on your desk, which a clerk turns over and puts back',
+      anna:'your box, your second shift, a comb, and eleven kreuzer'}[S.id];
+    if(S.flags.voluntary) return `<p>You present yourself at the gate of the Drudenhaus at eight in the morning and ask to speak to the commissioner. You are admitted, and the door is locked behind you. A clerk reads you the warrant that was drawn up the night before: on the testimony of two witnesses, for the crime of witchcraft, by order of the Prince-Bishop’s commission. Coming in on your own has changed nothing except that you walked here.</p>
+<p>While you wait, two bailiffs and a clerk are sent to your house to make an inventory of your property. They write down ${inv}. Everything you own now stands as security for the costs of your trial.</p>`;
+    return `<p>Two bailiffs and a clerk come at five in the morning. The warrant is read in the doorway, loud enough for the neighbors to hear: on the testimony of two witnesses, for the crime of witchcraft, by order of the Prince-Bishop’s commission.</p>
+<p>Before you are taken away, the clerk makes an inventory of your property. He writes down ${inv}. Everything you own now stands as security for the costs of your trial.</p>`;
+  },
+  choices(){ return [{k:'→', t:'Continue', go(){ return 'drudenhaus'; }}]; },
+  note:`The inventory at the moment of arrest is documented in case after case. The accused paid for their cells, their food, the executioner’s fees, and the wood for their own execution, and the balance went to the treasury. People who went to the commission voluntarily to clear their names are also on record; they were treated exactly as anyone else was.`
+};
+
+SC.drudenhaus = {
+  date:'The Drudenhaus · the first day',
+  title:'The witch prison',
+  text(){
+    let t = `<p>The prison is new and still smells of lime. On the ground floor is a chapel, where you are made to kneel. Along the corridor are the cells, men on one side and women on the other, each with a window too high to see out of. At the end is the interrogation room, with a table, a desk for the clerk, and a set of objects under a cloth.</p>
+<p>The executioner, Master Georg, examines your body for the devil’s mark, a spot that is supposed to be insensitive to pain. He finds ${{margaretha:'a brown mole below your shoulder blade',hans:'the old scar on your calf from a pruning hook',lorenz:'a patch of pale skin on your forearm',anna:'a mole at the back of your neck'}[S.id]} and pushes a needle into it. Whether you flinch or not, the clerk writes it down.</p>`;
+    if(is('margaretha')) t += `<p>The clerk also notes that you did not cry. It was commonly believed that witches could not weep.</p>`;
+    return t;
+  },
+  choices(){ return [{k:'→', t:'Continue', go(){ return 'questioning'; }}]; },
+  note:`The Drudenhaus had this plan: cells, a chapel, and a torture chamber under one roof. The search for the devil’s mark and the observation that the accused could not weep were standard pieces of evidence. The record of Suzanne Gaudry’s trial in 1652, which you have read, includes both: the probing of the mark, and the note that she struggled to cry without shedding a tear.`
+};
+
+SC.questioning = {
+  date:'The Drudenhaus · the second day',
+  title:'The kindly questioning',
+  text(){ return `<p>At the table sits the commissioner, a doctor of law, with a file in front of him. Beside him is the clerk. Against the wall stands a Jesuit, Father Kaspar, who has been assigned as confessor to the prisoners. The executioner waits by the door.</p>
+<p>The commissioner is polite. This is the <i>gütliche Frage</i>, the “kindly questioning,” which the law requires before any force is used. He tells you that two credible witnesses have named you, that your guilt is therefore established, and that the only question before the court is whether you will confess freely, as a Christian should, or force him to use other means. He asks when you first attended the dance. He asks who brought you. He asks in what form the devil appeared to you.</p>`; },
+  choices(){
+    const c=[
+      {k:'a', t:'Deny everything, point by point.', go(){ fx({why:'Denied everything at the first questioning'}); return 'instruments'; }},
+      {k:'b', t:'Ask who accused you, and ask for a lawyer.', sub:'The Carolina gives you both rights.', go(){ fx({why:'Asked for the names of your accusers and for a lawyer'}); S.flags.askedcounsel=true; return 'instruments'; }},
+      {k:'c', t:'Confess now, before they touch you.', sub:'Those who confess without resisting are beheaded before they are burned.', go(){ fx({flag:'freely',why:'Confessed before any torture'}); return 'confession'; }},
+    ];
+    const d={
+      margaretha:{t:'Explain what is in the salves: wax, honey, comfrey, nothing else.', go(){ fx({why:'Explained the salves'}); S.flags.explained=true; return 'instruments'; }},
+      hans:{t:'Tell them that Lenz is your enemy and that anything he says about you is a lie.', go(){ fx({why:'Said your accuser was your enemy'}); S.flags.explained=true; return 'instruments'; }},
+      lorenz:{t:'Cite the Carolina: no torture without lawful evidence, and a denunciation extracted by torture is not lawful evidence.', go(){ fx({sus:1,why:'Argued the law to the commissioner'}); S.flags.explained=true; return 'instruments'; }},
+      anna:{t:'Tell them the child was sick for three days before he died, and that the whole house knew it.', go(){ fx({why:'Explained how the child died'}); S.flags.explained=true; return 'instruments'; }},
+    }[S.id]; d.k='d'; c.push(d);
+    return c;
+  },
+  note:`The sequence is the real one: “kindly” questioning first, then the showing of the instruments, then torture by degrees, each step required by the procedure. Jesuit confessors did attend the prisoners in the Drudenhaus.`
+};
+
+SC.instruments = {
+  date:'The Drudenhaus · the second day',
+  title:'The instruments',
+  text(){
+    let r='';
+    if(S.flags.askedcounsel) r = `<p>“In this crime the names of the witnesses are kept secret, so that the accused cannot harm them,” the commissioner says. “And no lawyer is allowed, because the devil would speak through him.” He says it as if he were reading a rule aloud.</p>`;
+    if(S.flags.explained) r += `<p>He listens to your explanation to the end, and the clerk writes none of it down.</p>`;
+    return r + `<p>Master Georg lifts the cloth and names the instruments, because the law requires that they be shown and explained before they are used: the thumbscrews; the leg screws, which are called the Spanish boots; and the rope that runs through a pulley in the ceiling, for the strappado. He explains briefly what each one does.</p>
+<p>The commissioner asks again when you first attended the dance.</p>`;
+  },
+  choices(){ return [
+    {k:'a', t:'Confess.', go(){ fx({why:'Confessed when the instruments were shown'}); S.flags.freely=true; return 'confession'; }},
+    {k:'b', t:'Refuse. You are innocent.', go(){ fx({why:'Refused to confess when the instruments were shown'}); return 'torture1'; }},
+  ]; },
+  note:`Showing and explaining the instruments, the <i>territio</i>, was a formal legal step, and a confession at this stage was recorded as voluntary. Witchcraft was treated as a <i>crimen exceptum</i>, an exceptional crime, in which the ordinary protections of the Carolina (named accusers, a defense lawyer, limits on torture) were suspended. The imperial mandates of 1630 and 1631 later named both the secret accusers and the lack of a lawyer as abuses.`
+};
+
+function brk(p){ return chance(p); }
+
+SC.torture1 = {
+  date:'The Drudenhaus · the second day',
+  title:'The first degree',
+  text(){ return `<p>He fits the screws over the first joints of your fingers and tightens them a quarter turn at a time, waiting between turns. The commissioner asks the same questions in the same tone. The clerk writes: <i>would confess nothing.</i> Father Kaspar looks at the floor.</p><p>It lasts about as long as a Mass.</p>`; },
+  choices(){
+    S.tort=1;
+    return [
+      {k:'a', t:'Confess.', go(){ fx({why:'Confessed under the thumbscrews'}); return 'confession'; }},
+      {k:'b', t:'Admit something small.', sub:{margaretha:'A charm your mother taught you to say over the bees.',hans:'A curse you once muttered at Lenz’s cow.',lorenz:'That you once consulted an astrological almanac.',anna:'That you once wished your mistress ill.'}[S.id], go(){ fx({why:'Admitted a small thing'}); return 'partial'; }},
+      {k:'c', t:'Say nothing except that you are innocent.', go(){ fx({why:'Held out through the first degree'}); return 'torture2'; }},
+    ];
+  },
+  note:`Thumbscrews were the first degree in Bamberg’s sequence, followed by the leg screws and the strappado. “Would confess nothing” is the clerks’ standard entry.`
+};
+
+SC.partial = {
+  date:'The Drudenhaus · the second day',
+  title:'A small admission',
+  text(){ return `<p>The clerk writes it down. The commissioner nods. “So you admit the harm,” he says. “Then the pact is only a matter of detail. Who taught you?”</p><p>Master Georg does not remove the screws.</p>`; },
+  choices(){ once('partial',()=>fx({struct:true,why:'A small admission was recorded as proof of the whole charge'})); return [
+    {k:'a', t:'Confess the rest.', go(){ fx({why:'Confessed after the small admission'}); return 'confession'; }},
+    {k:'b', t:'Take it back. It was nothing.', go(){ fx({why:'Tried to take back the small admission'}); return 'torture2'; }},
+  ]; },
+  note:`Partial admissions were fatal. Any confession of harm done (<i>maleficium</i>) was treated as proof that a pact with the devil existed, and the questioning simply moved on to the next item in the formula.`
+};
+
+SC.torture2 = {
+  date:'The Drudenhaus · the third day',
+  title:'The second degree',
+  text(){ return `<p>The leg screws. He fits the iron over your shins and closes it slowly. The commissioner watches your face rather than your legs. He asks when you first attended the dance.</p>`; },
+  choices(){
+    S.tort=2;
+    const p = (S.endure<=2)?.5:.3;
+    return [
+      {k:'a', t:'Confess.', go(){ fx({why:'Confessed under the leg screws'}); return 'confession'; }},
+      {k:'b', t:'Hold out.', go(){ if(brk(p)){ fx({struct:true,why:'Your body gave way in the second degree'}); S.flags.broken=true; return 'confession_broken'; } fx({why:'Held out through the second degree'}); return 'executioner'; }},
+    ];
+  }
+};
+
+SC.executioner = {
+  date:'The Drudenhaus · that night',
+  title:'The executioner',
+  text(){ return `<p>He comes to your cell alone after dark with a cup of water and crouches by the door. He has done this to more than two hundred people.</p>
+<p>“Confess,” he says. “For God’s sake, confess something, whether it is true or not. You cannot bear what comes next, and if you do bear it, they will say the devil gave you the strength and begin again. I have never seen anyone leave this house except by the fire. Confess and make an end of it, and they will give you the sword first. That is all I can get for you.”</p>`; },
+  choices(){ return [
+    {k:'a', t:'Take his advice. Confess in the morning.', go(){ fx({why:'Took the executioner’s advice'}); return 'confession'; }},
+    {k:'b', t:'Hold out.', go(){ fx({why:'Refused the executioner’s advice'}); return 'torture3'; }},
+  ]; },
+  note:`This scene comes almost directly from Johannes Junius’s letter to his daughter Veronica, smuggled out of the Drudenhaus in July 1628. The executioner, he wrote, “begged me for God’s sake to confess something, whether it be true or not. Invent something, for you cannot endure the torture which you will be put to; and even if you bear it all, yet you will not escape.” Junius was executed on 6 August 1628.`
+};
+
+SC.torture3 = {
+  date:'The Drudenhaus · the fourth day',
+  title:'The third degree',
+  text(){ return `<p>Your hands are tied behind your back and the rope is run through the ring in the ceiling. Master Georg and his assistant haul on it until your feet leave the floor, and leave you hanging. The commissioner reads the questions from his sheet. After a while he has the clerk read them.</p>`; },
+  choices(){
+    S.tort=3;
+    const p = (S.endure<=2)?.8:(S.endure===3?.6:.5);
+    const pd = is('margaretha')?.25:.08;
+    return [
+      {k:'a', t:'Confess.', go(){ fx({why:'Confessed in the strappado'}); return 'confession'; }},
+      {k:'b', t:'Hold out.', go(){ if(brk(pd)){ fx({struct:true,why:'Your heart failed in the strappado'}); return 'end_died'; } if(brk(p)){ fx({struct:true,why:'Your body gave way in the third degree'}); S.flags.broken=true; return 'confession_broken'; } fx({why:'Withstood all three degrees of torture'}); return 'withstood'; }},
+    ];
+  },
+  note:`The strappado, hoisting the prisoner by the bound wrists, dislocated the shoulders and was the usual third degree. Deaths under torture were recorded as the devil breaking the prisoner’s neck to prevent a confession.`
+};
+
+SC.withstood = {
+  date:'The Drudenhaus · the fifth day',
+  title:'Cleared, in theory',
+  text(){ return `<p>Under imperial law, a prisoner who withstands torture without confessing has cleared the charge and must be released. The commissioner knows this. Instead he has the clerk write: <i>obstinate; silence under torture is a sign of the devil’s help.</i></p>
+<p>You are carried back to your cell. Master Georg sets your shoulders. The cost of four days of questioning, fourteen gulden, is charged against your property. The commission waits for the next confession that includes your name.</p>`; },
+  choices(){
+    once('withstood',()=>fx({struct:true,why:'After you withstood torture, you were held anyway as “obstinate”'}));
+    return [{k:'→', t:'Continue', go(){
+      if(S.flags.appeal && chance(.6)) return 'mandate';
+      if(chance(.6)) return 'second_round';
+      return 'end_doors';
+    }}];
+  },
+  note:`The Carolina did provide that a suspect who withstood torture had cleared the charge. Witch commissions got around this with the doctrine of <i>taciturnitas</i>, the devil’s gift of silence, and by waiting for “new evidence,” meaning the next denunciation. A few prisoners nevertheless outlasted the process.`
+};
+
+SC.second_round = {
+  date:'The Drudenhaus · November 1628',
+  title:'New evidence',
+  text(){ return `<p>In November a new confession names you. The law permits new torture when there is new evidence, and the commissioner has it. You are weaker than you were in October.</p>`; },
+  choices(){ return [
+    {k:'a', t:'Confess.', go(){ fx({why:'Confessed in the second round'}); return 'confession'; }},
+    {k:'b', t:'Hold out.', go(){ if(brk(.75)){ fx({struct:true,why:'Broke in the second round of torture'}); S.flags.broken=true; return 'confession_broken'; } fx({why:'Withstood a second round of torture'}); return 'end_doors'; }},
+  ]; }
+};
+
+SC.mandate = {
+  date:'Bamberg · spring 1630',
+  title:'A letter under the imperial seal',
+  ending:true, alive:true,
+  text(){ return `<p>It takes eighteen months. Your wife’s petition travels from Nuremberg to the imperial court in Vienna, where it is one of many from Bamberg. In the spring of 1630 a mandate under the Emperor’s seal arrives at the bishop’s court. It names you, requires that you be tried according to the Carolina or released, and reminds the Prince-Bishop that he holds his lands from the Emperor.</p>
+<p>The commission delays. In May it hurries the execution of Dorothea Flock, whose husband had obtained a similar letter, to finish before her order can take effect, and the scandal reaches Vienna and Rome within weeks. A second mandate follows, and this time the bishop does not dare to ignore it. You walk out of the Drudenhaus in June 1630. You have lost two houses, a wine cellar, and the use of your right hand.</p>
+<p>Within a year the commission stops meeting. Within two, the Swedes are in the city and the bishop is gone.</p>`; },
+  note:`The imperial mandates of 1630 and 1631 ordered Bamberg to observe imperial law, admit defense lawyers, and stop confiscations. They came too late for Dorothea Flock, executed on 17 May 1630, but together with the Swedish advance they ended the trials. A release like this one was rare, and it required exactly what Lorenz had: money, literacy, family outside the bishopric, and time.`
+};
+
+SC.confession_broken = {
+  date:'The Drudenhaus',
+  title:'You hear yourself say yes',
+  text(){ return `<p>You do not decide it. At some point the pain and the questions become the same thing, and the word that ends the pain comes out of your mouth. The rope slackens. The commissioner says, “Good. Now, from the beginning.”</p>`; },
+  choices(){ return [{k:'→', t:'Continue', go(){ return 'confession'; }}]; }
+};
+
+SC.confession = {
+  date:'The Drudenhaus',
+  title:'The confession',
+  text(){ return `<p>A confession is not a single sentence. It is a document with a set form. When did the devil first come to you? In what shape? What name did he give? What did he promise you, and what did you promise him? Where were the dances, and how did you travel to them? What harm did you do, to whom, and by what means? The clerk has written this document many times and knows what it is supposed to say.</p>
+<p>You can let the commissioner lead and answer yes to his questions, which takes about an hour. Or you can try to tell your own story, which he will correct until it fits the form.</p>`; },
+  choices(){ return [
+    {k:'a', t:'Let him lead. Answer yes.', sub:'“Was it not a young man dressed in green? Was it not on the heath? Was it not you who threw the powder in May of 1626?”', go(){ fx({flag:'led',why:'Let the commissioner dictate the confession'}); return 'naming'; }},
+    {k:'b', t:'Tell your own story, and keep it small and ordinary.', sub:'He will adjust the details. The frost has to be in it.', go(){ fx({why:'Told your own version, which was corrected to fit the form'}); return 'naming'; }},
+  ]; },
+  note:`Bamberg confessions are strikingly similar to one another because the questions were the same: the commissioners worked from a standard list, and leading questions were permitted. The frost of 1626 appears in confession after confession as a crime the accused had committed together.`
+};
+
+SC.naming = {
+  date:'The Drudenhaus',
+  title:'Who else was there',
+  text(){ return `<p>The last section of the confession is the one the court cares most about: who else was at the dances? The commissioner has a list of names from the city. He reads it slowly, pausing after each name and watching you. Every name you confirm becomes a witness against that person. Two witnesses are enough for an arrest.</p>`; },
+  choices(){
+    const en={margaretha:'the Lenz woman, who stood at your gate',hans:'Kaspar Lenz',lorenz:'two councillors who have long been your rivals',anna:'Frau Ott'}[S.id];
+    return [
+      {k:'a', t:'Refuse to give any names.', go(){ fx({why:'Refused to name anyone'}); return 'naming_torture'; }},
+      {k:'b', t:'Name only people who are already dead or already in the Drudenhaus.', sub:'They cannot be harmed any further.', go(){ fx({flag:'clever',why:'Named only the dead and the already arrested'}); giveNames('clever'); return 'urgicht'; }},
+      {k:'c', t:'Confirm the names he reads to you.', sub:'Six of them. You know four.', go(){ fx({flag:'lednames',why:'Confirmed six names from the commissioner’s list'}); giveNames('lednames'); return 'urgicht'; }},
+      {k:'d', t:'Name '+en+'.', go(){ fx({flag:'enemy',why:'Named your enemy'}); giveNames('enemy'); return 'urgicht'; }},
+    ];
+  },
+  note:`Naming accomplices was what kept the hunt going. Johannes Junius, the mayor, named others under torture in 1628, as nearly everyone did. Naming people who were already dead or already arrested was a documented strategy of the accused, a way to satisfy the court without harming the living. Commissioners countered it by reading lists of names and asking the prisoner to confirm them.`
+};
+
+SC.naming_torture = {
+  date:'The Drudenhaus',
+  title:'Until you do',
+  text(){ return `<p>A confession without accomplices is not complete, and an incomplete confession counts as a retraction. Master Georg puts the screws back on. It does not take long now. The commissioner reads his list, you say yes to the names he pauses on, and the clerk writes down six.</p>`; },
+  choices(){ once('namingt',()=>{ fx({struct:true,flag:'lednames',why:'Tortured until you confirmed names'}); giveNames('lednames'); }); return [{k:'→', t:'Continue', go(){ return 'urgicht'; }}]; }
+};
+
+SC.urgicht = {
+  date:'The Drudenhaus · two days later',
+  title:'The confirmation',
+  text(){ return `<p>The law requires that a confession made under torture be repeated afterward, freely, outside the torture chamber, so that it counts as the prisoner’s own statement. This is called the <i>Urgicht</i>. You are brought to the chapel. The commissioner reads your confession back to you from the clerk’s clean copy and asks whether it is true and whether you affirm it of your own free will.</p>
+<p>Father Kaspar is present. Master Georg is not in the room. He is in the next one.</p>`; },
+  choices(){ return [
+    {k:'a', t:'Affirm it.', go(){ fx({why:'Affirmed the confession'}); return 'letter'; }},
+    {k:'b', t:'Retract it. Say it was the pain, and that you are innocent.', sub:'That is the truth, and the law says a forced confession is void.', go(){ fx({why:'Retracted the confession'}); return 'recant'; }},
+  ]; },
+  note:`The <i>Urgicht</i> was the Carolina’s safeguard against forced confessions: a confession made under torture had to be repeated voluntarily, at least a day later and away from the instruments, or it did not count as evidence.`
+};
+
+SC.recant = {
+  date:'The Drudenhaus · the same day',
+  title:'The retraction',
+  text(){ return `<p>“The devil is making ${her()} deny it,” the commissioner says to the clerk, who writes it down. A retracted confession is not treated as a false confession. It is treated as proof that the devil has returned to the prisoner, and the remedy for that is more torture.</p>`; },
+  choices(){ once('recant',()=>fx({struct:true,flag:'obstinate',why:'Your retraction was treated as the devil’s work, not as a defense'})); return [
+    {k:'→', t:'Continue', go(){ if(brk(.8)){ fx({struct:true,why:'Tortured again until you reaffirmed the confession'}); return 'letter'; } fx({struct:true,why:'Died under the renewed torture'}); return 'end_died'; }},
+  ]; },
+  note:`The safeguard of the <i>Urgicht</i> was defeated by the rule that a retraction sent the prisoner back to torture. Compare Suzanne Gaudry in 1652: at her third interrogation she retracted, was tortured until she reaffirmed, and the reaffirmation was what the verdict cited.`
+};
+
+SC.letter = {
+  date:'The Drudenhaus · the night before',
+  title(){ return CHARS[S.id].literate ? 'A letter' : 'The real confession'; },
+  text(){
+    if(CHARS[S.id].literate) return `<p>The guard who brings the evening bread will carry a letter out for a gulden. Your hands are damaged, but you can hold a pen if you grip it like a child. You write to Veronica. You tell her that you came into this prison innocent, were tortured innocent, and will die innocent; that whoever is brought into the Drudenhaus must either become a witch or be tortured until he invents something; that she should pray for you, and that she should not come home.</p>`;
+    return `<p>You cannot write, and there is no one who could read a letter if you sent one. Father Kaspar comes to hear your confession, the real one, under the seal of the sacrament. You tell him the truth. He listens with his eyes closed.</p><p>“I know,” he says. He has a notebook, and he has been keeping it for two years.</p>`;
+  },
+  choices(){ return [{k:'→', t:'Continue', go(){ return 'sentence'; }}]; },
+  note(){ return CHARS[S.id].literate
+    ? `Johannes Junius’s letter to his daughter, dated 24 July 1628, survives. It begins: “Many hundred thousand good-nights, dearly beloved daughter Veronica. Innocent have I come into prison, innocent have I been tortured, innocent must I die. For whoever comes into the witch prison must become a witch or be tortured until he invents something out of his head.” He was executed on 6 August.`
+    : `In 1631 a book called the <i>Cautio Criminalis</i> was published anonymously. Its author was Friedrich Spee, a Jesuit who had served as confessor to condemned witches. He wrote that torture would make anyone confess, that he had never accompanied a prisoner to the stake whom he believed to be guilty, and that if the judges and the bishops were put to the same torture they would all be found to be witches. The book did not end the hunts by itself, but it was the argument educated people remembered when the hunts ended.`; }
+};
+
+SC.sentence = {
+  date:'Bamberg · the market square',
+  title:'The sentence',
+  text(){
+    const merciful = !S.flags.obstinate && !S.flags.caughtfleeing;
+    const reason = S.flags.obstinate && S.flags.caughtfleeing ? 'Because you fled from the law and later retracted a confession' : S.flags.obstinate ? 'Because you retracted a confession' : 'Because you fled from the law';
+    return `<p>The clerk reads the sentence from the scaffold: the pact, the mark, the dances, the powders thrown into the air in May 1626, the harm to cattle and children, the names of your accomplices, your confession and its confirmation. ${merciful?'Because you confessed, the sentence of burning is mitigated: you will be beheaded first and your body burned afterward.':reason+', the sentence is not mitigated. You will be burned alive.'}</p>
+<p>Then the costs are read out: the days of imprisonment, the sessions of questioning, the executioner’s fees, the wood. The total is charged against your property. Whatever remains goes to the Prince-Bishop’s treasury.</p>`;
+  },
+  choices(){ const merciful = !S.flags.obstinate && !S.flags.caughtfleeing; return [{k:'→', t:'Continue', go(){ return merciful?'end_sword':'end_stake'; }}]; }
+};
+
+/* ------------------------------------------------------------------ endings */
+function namedLine(){
+  if(S.flags.enemy) return `<p>Of the names you gave, one person was arrested within the month and executed in the spring. ${is('hans')?'Barbara lived to hear of it.':''}</p>`;
+  if(S.flags.lednames) return `<p>Of the six names you confirmed, four people were arrested before the end of the year. Two of them named others.</p>`;
+  if(S.flags.clever) return `<p>None of the people you named could be harmed any further. The commissioner noticed, said nothing, and used the list anyway: a dead witch’s accomplices still count as witnesses against the living.</p>`;
+  return '';
+}
+const REGISTER = `<p>Your name is entered in the commission’s register, which still exists. You are one of about nine hundred people executed for witchcraft in the Prince-Bishopric of Bamberg between 1626 and 1631.</p>`;
+SC.end_sword = {
+  date:'Bamberg · a Tuesday morning', title:'The sword, then the fire', ending:true, alive:false,
+  text(){ return `<p>The execution takes place in the morning so that the market can open afterward. A Franciscan walks beside the cart. Master Georg is quick; he has had a great deal of practice. Your body is burned, and the smoke drifts down the river.</p>${namedLine()}${REGISTER}`; }
+};
+SC.end_stake = {
+  date:'Bamberg · a Tuesday morning', title:'The fire', ending:true, alive:false,
+  text(){ return `<p>There is no beheading. The clerk has written <i>obstinate</i> in the margin of your file, and that decides it. Father Kaspar walks beside the cart and keeps talking to you, which is the only thing he can do. The square is full.</p>${namedLine()}${REGISTER}`; }
+};
+SC.end_died = {
+  date:'The Drudenhaus', title:'Died under torture', ending:true, alive:false,
+  text(){ return `<p>The clerk records that the devil broke your neck to prevent a confession, which is the standard formula for a death under torture. Your body is burned anyway, since the charge stands, and the costs are charged to your estate.</p>
+<p>${CHARS[S.id].literate?'Veronica receives the inventory and the bill.':'There is no one to receive the bill.'}</p>${REGISTER}`; }
+};
+SC.end_doors = {
+  date:'The Drudenhaus · 1629 to 1632', title:'The doors open', ending:true, alive:true,
+  text(){ return `<p>The commission does not torture you again, but it does not release you either. You are kept in the Drudenhaus, at your own expense, while the lists continue. In 1629 the Emperor issues the Edict of Restitution, and the Catholic cause seems unstoppable. In May 1630 the commission rushes the execution of Dorothea Flock, a councillor’s young wife, to finish before an imperial order for her release can take effect. The order arrives anyway, and the scandal reaches Vienna and Rome. In 1630 and 1631 the Emperor orders the bishop to try witchcraft cases only according to imperial law, with defense lawyers and without confiscations. The commission cannot operate under those rules, and it stops.</p>
+<p>In October 1631 the Swedish army takes Würzburg. In February 1632 it enters Bamberg. The Prince-Bishop has already fled to Austria. The Drudenhaus is opened. You walk out into a city under Swedish occupation, still owing fourteen gulden for your own torture, with no house to return to.</p>`; },
+  note:`Some prisoners did survive in the Drudenhaus until the end. The trials stopped in 1631 under imperial pressure; the Swedish occupation of 11 February 1632 and the bishop’s flight finished them. The building was demolished in 1635.`
+};
+SC.end_unnamed = {
+  date:'Bamberg · 1628 to 1632', title:'Never named', ending:true, alive:true,
+  text(){ return `<p>Your name is never read out in the interrogation room, or if it is, never twice. You never know this. All you know is that the bailiffs did not come.</p>
+${S.den===1?'<p>In fact your name was given once. The file waited for a second witness who never appeared, for no reason anyone could have explained.</p>':''}
+<p>The winter is hard, and the next one harder. In 1629 the Emperor issues the Edict of Restitution. In 1630 the commission executes a councillor’s wife in defiance of an imperial order, and the scandal reaches Vienna. In 1631 the Emperor forbids the bishop’s procedures and the trials stop. In February 1632 the Swedes enter the city and the bishop is gone.</p>
+<p>About nine hundred people from the bishopric were executed between 1626 and 1631. You attended some of the executions. Nothing you did explains why you survived and they did not.</p>`; }
+};
+SC.end_haan = {
+  date:'Bamberg · 1628 to 1630', title:'Inside the commission', ending:true, alive:false,
+  text(){ return `<p>The commissioner accepts your offer. Your name does not go on a warrant. Your signature goes on the inventories, more of them than before, and your name goes on the list of councillors the commission trusts. For two years you are safe.</p>
+<p>In the autumn of 1630 a woman from the Steinweg, under torture, names nineteen people, including the councillor Weinmann, whom she says she saw at the dances. The commissioner you worked for signs the warrant himself. Your trial takes nine days and ends the way the others end. The council witnesses the inventory of your two houses.</p>${REGISTER}`; },
+  note:`Working for the commission was no protection. The bishop’s chancellor, Dr. Georg Haan, had helped administer the trials before he turned against them, and he was executed in 1628 with his wife and daughter. Councillors who signed inventories were later inventoried themselves. In a system driven by denunciations under torture, being close to power was a form of exposure.`
+};
+
+/* ------------------------------------------------------------------ afterword */
+const AFTER = `
+<h3>What is real, and what is invented</h3>
+<p>The individual people in this simulation are invented. Everything around them is documented: the frost of 27 May 1626 and the demand for trials that followed it; Prince-Bishop Johann Georg II Fuchs von Dornheim and his suffragan Friedrich Förner; the Drudenhaus, built in 1627, with its chapel, cells, and torture chamber and the line from Virgil over the door; the legal sequence of kindly questioning, the showing of instruments, three degrees of torture, the demand for accomplices, and the confirmation of the confession afterward; the confiscation of property and the bills for imprisonment and execution; the arrest of Mayor Johannes Junius in June 1628 and his letter to his daughter; the execution of Chancellor Georg Haan and his family in 1628; the execution of Dorothea Flock in May 1630 in defiance of an imperial order; the imperial mandates of 1630 and 1631; Friedrich Spee’s <i>Cautio Criminalis</i> of 1631; and the Swedish occupation of Bamberg on 11 February 1632. About nine hundred people were executed in the Prince-Bishopric of Bamberg between 1626 and 1631. Most of them were women. A noticeable minority were councillors, clergy, and wealthy citizens whose property was worth confiscating.</p>
+<p>Two things the simulation leaves out. In neighboring Würzburg the commission also executed children, which a classroom simulation should not ask you to play. And most people in Bamberg were never accused at all; the hunt lasted about six years in a city that had existed for seven hundred.</p>
+<p>Protestant territories also hunted witches, among them Lutheran Sweden, Calvinist Scotland, and Puritan New England. The Bamberg hunt was run by Catholics because Bamberg was Catholic. The methods (denunciation, torture, confession, confiscation) were the same wherever they were used, and the people who finally stopped the Bamberg trials were also Catholics: the Emperor’s court, the papal nuncio, and a Jesuit who wrote down what he had seen.</p>
+<p class="sources">Sources: Spielvogel, <i>Western Civilization</i>, ch. 15 (“The Witchcraft Craze”); the letter of Johannes Junius (24 July 1628), in G. L. Burr, ed., <i>The Witch Persecutions</i> (1897); Kors and Peters, eds., <i>Witchcraft in Europe, 1100–1700</i>; Brian Levack, <i>The Witch-Hunt in Early Modern Europe</i>; Wolfgang Behringer, <i>Witches and Witch-Hunts</i>; Britta Gehm, <i>Die Hexenverfolgung im Hochstift Bamberg</i>; Friedrich Spee, <i>Cautio Criminalis</i> (1631), trans. Marcus Hellyer.</p>`;
+
+/* ------------------------------------------------------------------ rendering */
+const $ = id=>document.getElementById(id);
+const reading=$('reading'), btnRestart=$('btnRestart');
+/* ---- sound ---- */
+const AUDIO={music:null,on:true}; try{ AUDIO.on=localStorage.getItem('bambergSound')!=='off'; }catch(e){}
+const btnSound=$('btnSound');
+function soundConfigured(){ return typeof SOUND!=='undefined' && !!(SOUND.ambience||SOUND.page||SOUND.click||SOUND.bell||SOUND.door||SOUND.quill); }
+function vol(){ return Math.min(1,Math.max(0,SOUND.volume||0.35)); }
+function sfx(kind){ if(!soundConfigured()||!AUDIO.on||!SOUND[kind]) return; try{ const a=new Audio(SOUND[kind]); a.volume=vol(); a.play().catch(()=>{}); }catch(e){} }
+function startMusic(){ if(!soundConfigured()||!SOUND.ambience||AUDIO.music) return; try{ AUDIO.music=new Audio(SOUND.ambience); AUDIO.music.loop=true; AUDIO.music.volume=vol()*0.6; if(AUDIO.on) AUDIO.music.play().catch(()=>{}); }catch(e){} }
+function musicFor(scene){ if(!AUDIO.music) return; if(SILENT_SCENES.includes(scene)){ AUDIO.music.pause(); } else if(AUDIO.on && AUDIO.music.paused){ AUDIO.music.play().catch(()=>{}); } }
+function paintSound(){ if(!btnSound) return; btnSound.hidden=!soundConfigured(); btnSound.textContent='Sound: '+(AUDIO.on?'on':'off'); }
+if(btnSound) btnSound.addEventListener('click',()=>{ AUDIO.on=!AUDIO.on; try{localStorage.setItem('bambergSound',AUDIO.on?'on':'off')}catch(e){} if(AUDIO.music){ if(AUDIO.on) AUDIO.music.play().catch(()=>{}); else AUDIO.music.pause(); } else if(AUDIO.on) startMusic(); paintSound(); });
+document.addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; startMusic(); if(b.classList.contains('choice')) sfx('click'); },true);
+paintSound();
+const SCENE_SFX={burning:'bell',sentence:'bell',end_sword:'bell',end_stake:'bell',arrest:'door',drudenhaus:'door',urgicht:'quill',letter:'quill',confession:'quill'};
+/* ---- transitions ---- */
+function transition(paint){ const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches; if(reduce){ paint(); return; } reading.classList.add('out'); setTimeout(()=>{ paint(); reading.classList.remove('out'); },250); }
+/* ---- calendar ---- */
+const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+function trackDate(str){ if(!S) return; const m=MONTHS.findIndex(mn=>str.includes(mn)); if(m>=0) S.month=m+1; const y=str.match(/16(2[6-9]|3[0-9])/); if(y) S.year=+y[0]; }
+function calStrip(){ if(!S) return ''; const past=S.year>1628; return `<div class="cal">${MONTHS.map((mn,i)=>`<span class="${past||i+1<S.month?'past':(i+1===S.month?'now':'')}">${mn.slice(0,3)}</span>`).join('')}<span class="yr">${S.year}</span></div>`; }
+/* ---- names ---- */
+function giveNames(kind){ S.names=S.names||[]; const add = kind==='enemy' ? [NAMES_GIVEN.enemy[S.id]] : (NAMES_GIVEN[kind]||[]); add.forEach(n=>{ if(!S.names.includes(n)) S.names.push(n); }); }
+function namesBox(){ if(!S||!S.names||!S.names.length) return ''; return `<div class="names"><h4>Names you have given</h4><ul>${S.names.map(n=>`<li>${n}</li>`).join('')}</ul></div>`; }
+/* ---- runs kept between plays ---- */
+function loadRuns(){ try{ return JSON.parse(localStorage.getItem('bamberg1628_runs')||'[]'); }catch(e){ return []; } }
+function saveRun(sc,rec){ try{ const runs=loadRuns(); const code=rec.split('Record code: ')[1]; if(runs.some(r=>r.code===code)) return runs; runs.push({code, id:S.id, name:CHARS[S.id].name, ending:val(sc.title), alive:!!sc.alive, maxSus:S.maxSus, baseSus:S.baseSus, den:S.den, chosen:S.factors.filter(f=>!f.s).map(f=>f.t), struct:S.factors.filter(f=>f.s).map(f=>f.t), names:S.names||[]}); localStorage.setItem('bamberg1628_runs', JSON.stringify(runs.slice(-6))); return runs; }catch(e){ return []; } }
+function val(v){ return typeof v==='function'?v():v; }
+function segs(n){ let h=''; for(let i=0;i<10;i++) h+=`<span class="${i<n?'on':''}"></span>`; return `<div class="segs">${h}</div>`; }
+
+function renderStart(){
+  S=null; btnRestart.hidden=true;
+  let resume='';
+  try{ const raw=localStorage.getItem('bamberg1628'); if(raw){ const st=JSON.parse(raw); if(st && !st.ended && st.id) resume=`<div class="row"><button class="btn quiet" type="button" id="btnResume">Resume as ${CHARS[st.id].name}</button></div>`; } }catch(e){}
+  reading.innerHTML=`<div class="scene fade">
+<p class="date">Franconia · the Prince-Bishopric of Bamberg</p>
+<h2>Choose your character</h2>
+<div class="body"><p>This is a simulation of a witch hunt, based on the trials held in Bamberg between 1626 and 1631. You play one of four people living in the city in the spring of 1628. The people are invented. The city, the laws, the prison, and the procedures are real, and a note at the end of each scene tells you which is which. Play more than once, as different people, and compare what happened.</p></div>
+<svg class="map" viewBox="0 0 760 600" role="img" aria-label="Map of Franconia in 1628 showing Bamberg, Nuremberg, Würzburg, Zeil, Forchheim and Erlangen, with Catholic and Lutheran territories">
+<defs>
+<pattern id="hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="#3B2A1A" stroke-width="0.9" opacity=".55"/></pattern>
+<pattern id="stipple" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="0.7" fill="#3B2A1A" opacity=".5"/></pattern>
+</defs>
+<rect width="760" height="600" fill="none"/>
+<g stroke="#3B2A1A" stroke-width="1.1" stroke-linejoin="round">
+<polygon points="0.0,573.3 0.0,105.3 152.0,93.6 266.0,204.8 304.0,397.8 209.0,573.3" fill="url(#stipple)"/>
+<polygon points="304.0,397.8 266.0,204.8 380.0,134.5 520.6,134.5 570.0,41.0 646.0,41.0 634.6,245.7 551.0,380.2 456.0,432.9" fill="url(#stipple)"/>
+<polygon points="399.0,602.6 399.0,491.4 505.4,491.4 532.0,432.9 665.0,468.0 684.0,602.6" fill="url(#hatch)"/>
+<polygon points="634.6,245.7 646.0,41.0 760.0,41.0 760.0,456.3 665.0,456.3" fill="url(#hatch)"/>
+<polygon points="380.0,134.5 380.0,0.0 570.0,0.0 570.0,41.0 520.6,134.5" fill="url(#hatch)"/>
+<circle cx="475.0" cy="468.0" r="17" fill="url(#hatch)"/>
+<circle cx="182.4" cy="204.8" r="13" fill="url(#hatch)"/>
+</g>
+<g fill="none" stroke="#5B6E7A" stroke-width="2.4" stroke-linecap="round"><path d="M646.0,175.5 C600,150 540,165 497.8,152.1 C462,150 438,245 418,275 C396,300 340,232 319.2,228.2 C290,222 230,192 182.4,204.8 C130,225 112,300 68.4,356.8 C50,382 20,388 0,392"/><path d="M505.4,555.7 C496,522 480,500 475.0,468.0 C470,440 500,420 497.8,397.8 C495,362 452,330 433.2,298.3 C426,286 420,280 418,275"/></g>
+<g fill="none" stroke="#E6D8B5" stroke-width="0.8" stroke-linecap="round"><path d="M646.0,175.5 C600,150 540,165 497.8,152.1 C462,150 438,245 418,275 C396,300 340,232 319.2,228.2 C290,222 230,192 182.4,204.8 C130,225 112,300 68.4,356.8 C50,382 20,388 0,392"/><path d="M505.4,555.7 C496,522 480,500 475.0,468.0 C470,440 500,420 497.8,397.8 C495,362 452,330 433.2,298.3 C426,286 420,280 418,275"/></g>
+<g font-family="'IM Fell English', Georgia, serif" fill="#3B2A1A" paint-order="stroke" stroke="#E6D8B5" stroke-width="3" stroke-linejoin="round">
+<text x="150" y="300" font-size="13" letter-spacing="1" text-anchor="middle">PRINCE-BISHOPRIC</text><text x="150" y="317" font-size="13" letter-spacing="1" text-anchor="middle">OF WÜRZBURG</text><text x="150" y="334" font-size="12" font-style="italic" text-anchor="middle">Catholic</text>
+<text x="330" y="118" font-size="13" letter-spacing="1" text-anchor="middle">PRINCE-BISHOPRIC</text><text x="330" y="135" font-size="13" letter-spacing="1" text-anchor="middle">OF BAMBERG</text><text x="330" y="152" font-size="12" font-style="italic" text-anchor="middle">Catholic</text>
+<text x="698" y="340" font-size="11.5" letter-spacing="1" text-anchor="middle">MARGRAVIATE OF</text><text x="698" y="356" font-size="11.5" letter-spacing="1" text-anchor="middle">BRANDENBURG-</text><text x="698" y="372" font-size="11.5" letter-spacing="1" text-anchor="middle">KULMBACH</text><text x="698" y="389" font-size="12" font-style="italic" text-anchor="middle">Lutheran</text>
+<text x="560" y="520" font-size="13" letter-spacing="1" text-anchor="middle">NUREMBERG</text><text x="560" y="537" font-size="12" font-style="italic" text-anchor="middle">imperial city, Lutheran</text>
+<text x="585" y="55" font-size="13" letter-spacing="1" text-anchor="middle">SAXE-COBURG</text><text x="585" y="71" font-size="12" font-style="italic" text-anchor="middle">Lutheran</text>
+<text x="560" y="175" font-size="12" font-style="italic" fill="#5B6E7A">Main</text>
+<text x="517" y="470" font-size="12" font-style="italic" fill="#5B6E7A">Regnitz</text>
+<text x="40" y="330" font-size="12" font-style="italic" fill="#5B6E7A">Main</text>
+<circle cx="433.2" cy="298.3" r="5" fill="#9E2A1C" stroke="#E6D8B5" stroke-width="1.2"/><path d="M424.2,291.3 v-9 l3,-4 l3,4 v9 M436.2,291.3 v-9 l3,-4 l3,4 v9" fill="none" stroke="#9E2A1C" stroke-width="1.6"/><text x="443.2" y="304.3" font-size="15" font-weight="600" text-anchor="start">Bamberg</text><circle cx="505.4" cy="555.7" r="3.5" fill="#3B2A1A" stroke="#E6D8B5" stroke-width="1.2"/><text x="515.4" y="560.7" font-size="13" font-weight="400" text-anchor="start">Nuremberg</text><circle cx="68.4" cy="356.8" r="3.5" fill="#3B2A1A" stroke="#E6D8B5" stroke-width="1.2"/><text x="78.4" y="361.8" font-size="13" font-weight="400" text-anchor="start">Würzburg</text><circle cx="319.2" cy="228.2" r="3.5" fill="#3B2A1A" stroke="#E6D8B5" stroke-width="1.2"/><text x="311.2" y="220.2" font-size="13" font-weight="400" text-anchor="end">Zeil</text><circle cx="497.8" cy="397.8" r="3.5" fill="#3B2A1A" stroke="#E6D8B5" stroke-width="1.2"/><text x="507.8" y="402.8" font-size="13" font-weight="400" text-anchor="start">Forchheim</text><circle cx="475.0" cy="468.0" r="3.5" fill="#3B2A1A" stroke="#E6D8B5" stroke-width="1.2"/><text x="499" y="472.0" font-size="13" font-weight="400" text-anchor="start">Erlangen</text><circle cx="459.8" cy="81.9" r="3.5" fill="#3B2A1A" stroke="#E6D8B5" stroke-width="1.2"/><text x="469.8" y="86.9" font-size="13" font-weight="400" text-anchor="start">Coburg</text><circle cx="695.4" cy="263.2" r="3.5" fill="#3B2A1A" stroke="#E6D8B5" stroke-width="1.2"/><text x="705.4" y="268.2" font-size="13" font-weight="400" text-anchor="start">Bayreuth</text><circle cx="646.0" cy="175.5" r="3.5" fill="#3B2A1A" stroke="#E6D8B5" stroke-width="1.2"/><text x="656.0" y="169.5" font-size="13" font-weight="400" text-anchor="start">Kulmbach</text><circle cx="182.4" cy="204.8" r="3.5" fill="#3B2A1A" stroke="#E6D8B5" stroke-width="1.2"/><text x="164.4" y="209.8" font-size="13" font-weight="400" text-anchor="end">Schweinfurt</text><circle cx="497.8" cy="152.1" r="3.5" fill="#3B2A1A" stroke="#E6D8B5" stroke-width="1.2"/><text x="507.8" y="146.1" font-size="13" font-weight="400" text-anchor="start">Lichtenfels</text><circle cx="600.4" cy="93.6" r="3.5" fill="#3B2A1A" stroke="#E6D8B5" stroke-width="1.2"/><text x="610.4" y="98.6" font-size="13" font-weight="400" text-anchor="start">Kronach</text>
+<text x="497.0" y="488.0" font-size="11" font-style="italic" dx="24" dy="4">the Margrave’s town</text>
+<text x="164.4" y="224.8" font-size="11" font-style="italic" text-anchor="end">imperial city, Lutheran</text>
+</g>
+<g transform="translate(40,40)" font-family="'IM Fell English', Georgia, serif" fill="#3B2A1A">
+<rect x="0" y="0" width="190" height="46" fill="#E6D8B5" stroke="#3B2A1A" stroke-width="1"/><rect x="4" y="4" width="182" height="38" fill="none" stroke="#3B2A1A" stroke-width="0.6"/>
+<text x="95" y="21" font-size="16" letter-spacing="2" text-anchor="middle">FRANCONIA</text><text x="95" y="37" font-size="12" font-style="italic" text-anchor="middle">in the year 1628</text>
+</g>
+<g transform="translate(700,100)" stroke="#3B2A1A" fill="#3B2A1A" font-family="'IM Fell English', Georgia, serif">
+<line x1="0" y1="28" x2="0" y2="-24" stroke-width="1.2"/><polygon points="0,-30 -5,-18 5,-18"/><text x="0" y="-36" font-size="13" text-anchor="middle" stroke="none">N</text>
+</g>
+<g transform="translate(40,540)" font-family="'IM Fell English', Georgia, serif" fill="#3B2A1A" font-size="12">
+<rect x="0" y="-8" width="14" height="10" fill="url(#stipple)" stroke="#3B2A1A" stroke-width="0.8"/><text x="20" y="1">Catholic territory</text>
+<rect x="150" y="-8" width="14" height="10" fill="url(#hatch)" stroke="#3B2A1A" stroke-width="0.8"/><text x="170" y="1">Lutheran territory</text>
+<line x1="0" y1="24" x2="106" y2="24" stroke="#3B2A1A" stroke-width="1.5"/><line x1="0" y1="19" x2="0" y2="29" stroke="#3B2A1A"/><line x1="106" y1="19" x2="106" y2="29" stroke="#3B2A1A"/><text x="112" y="28">20 km</text>
+</g>
+</svg>
+<p class="cap">Bamberg lies in Franconia, in the middle of the Holy Roman Empire. The Prince-Bishop rules the stippled territory. The hatched lands belong to Lutheran rulers, where his officers have no authority. Nuremberg is about sixty kilometers to the south.</p>
+${resume}
+<div class="cards">
+${(()=>{ const runs=loadRuns(); const last=runs[runs.length-1]; return last?`<p class="before">You have been here before, as ${last.name}. Choose someone else for your second run; the ending will set the two lives side by side.</p>`:''; })()}
+${Object.entries(CHARS).map(([id,c])=>{ const pr=loadRuns().filter(r=>r.id===id); return `<button class="card" type="button" data-char="${id}">${oval(id,62)||`<span class="init">${c.first.charAt(0)}</span>`}<span class="n">${c.name}</span><span class="r">${c.role}</span><span class="d">${c.card}${pr.length?`<span class="played">Played: ${pr[pr.length-1].ending}</span>`:''}</span></button>`; }).join('')}
+</div>
+<p style="font-size:16px;color:var(--ink-soft);font-style:italic">The trials ran on torture. The simulation describes it plainly and does not dwell on it.</p>
+</div>`;
+  reading.querySelectorAll('.card').forEach(b=>b.addEventListener('click',()=>{ S=newState(b.dataset.char); go('intro'); }));
+  const r=$('btnResume'); if(r) r.addEventListener('click',()=>{ try{ S=JSON.parse(localStorage.getItem('bamberg1628')); go(S.scene,true); }catch(e){ renderStart(); } });
+  window.scrollTo(0,0);
+}
+
+function save(){ try{ localStorage.setItem('bamberg1628', JSON.stringify(S)); }catch(e){} }
+
+function go(id, resuming){
+  const sc=SC[id]; if(!sc){ renderStart(); return; }
+  const prev=S.scene; S.scene=id; btnRestart.hidden=false;
+  if(sc.ending){ if(resuming) renderEnding(sc); else transition(()=>{ renderEnding(sc); if(SCENE_SFX[id]) sfx(SCENE_SFX[id]); else sfx('page'); }); return; }
+  if(resuming) paintScene(id,sc); else transition(()=>{ paintScene(id,sc); if(SCENE_SFX[id]) sfx(SCENE_SFX[id]); else sfx('page'); musicFor(id); if(!resuming) window.scrollTo({top:0,behavior:'auto'}); });
+}
+function paintScene(id,sc){
+  const text = val(sc.text);
+  const choices = val(sc.choices);
+  const note = val(sc.note);
+  const c=CHARS[S.id];
+  const dateStr=val(sc.date); trackDate(dateStr);
+  reading.innerHTML=`<article class="scene fade">
+<p class="date">${dateStr}</p>
+${calStrip()}
+<h2>${val(sc.title)}</h2>
+<div class="who${PORTRAITS[S.id]&&PORTRAITS[S.id].src?' withport':''}">${oval(S.id,48)}<span>${c.name}, ${c.role}</span></div>
+${namesBox()}
+<div class="body">${text}</div>
+<div class="choices">${choices.map((ch,i)=>`<button class="choice" type="button" data-i="${i}" data-k="${ch.k}">${ch.t}${ch.sub?`<small>${ch.sub}</small>`:''}</button>`).join('')}</div>
+${note?`<div class="note"><h4>What is real here</h4><p>${note}</p></div>`:''}
+</article>`;
+  reading.querySelectorAll('.choice').forEach(b=>b.addEventListener('click',()=>{
+    const ch=choices[+b.dataset.i]; choose(ch.t); const next=ch.go(); save(); go(next);
+  }));
+  save();
+}
+
+function recordText(sc){
+  const c=CHARS[S.id];
+  const path=S.log.filter(e=>e.label!=='Continue').map(e=>e.label.replace(/[.“”"]/g,'').replace(/:.*$/,'')).join(' > ');
+  const code=hash(S.log.map(e=>e.label).join('|')+S.id+val(sc.title));
+  return `BAMBERG 1628 — RUN RECORD\nCharacter: ${c.name} (${c.role})\nEnding: ${val(sc.title)}\nSuspicion: started ${S.baseSus}, highest ${S.maxSus} · Named under torture: ${S.den} · Degrees of torture reached: ${S.tort}\nChoices: ${path}\nRecord code: ${code}`;
+}
+function hash(s){ let h=5381; for(let i=0;i<s.length;i++){ h=((h<<5)+h+s.charCodeAt(i))|0; } return 'B-'+(Math.abs(h)%46656).toString(36).toUpperCase().padStart(3,'0'); }
+
+function renderEnding(sc){
+  S.ended=true; save();
+  const chosen=S.factors.filter(f=>!f.s), struct=S.factors.filter(f=>f.s);
+  const rec=recordText(sc);
+  const c=CHARS[S.id];
+  const li=f=>`<li class="${f.s?'struct':''}">${f.t}${f.e?` <span style="color:var(--fg-muted)">(${f.e})</span>`:''}</li>`;
+  const worst=Math.min(10,3+S.maxSus);
+  const dateStr=val(sc.date); trackDate(dateStr);
+  const runs=saveRun(sc,rec); const prevRun=[...runs].reverse().find(r=>r.id!==S.id) || (runs.length>=2?runs[runs.length-2]:null);
+  const li2=t=>`<li>${t}</li>`;
+  const cmp = prevRun ? `<h3>Two lives side by side</h3>
+<p>Your earlier run as ${prevRun.name}, next to this one. The worksheet asks what each person controlled and what was decided for them; here it is.</p>
+<table class="runs"><thead><tr><th></th><th>${prevRun.name}</th><th>${c.name}</th></tr></thead><tbody>
+<tr><td>Ending</td><td>${prevRun.ending}</td><td>${val(sc.title)}</td></tr>
+<tr><td>Suspicion at the start</td><td>${prevRun.baseSus}</td><td>${S.baseSus}</td></tr>
+<tr><td>Named under torture by others</td><td>${prevRun.den} time${prevRun.den===1?'':'s'}</td><td>${S.den} time${S.den===1?'':'s'}</td></tr>
+<tr><td>What they chose</td><td><ul>${prevRun.chosen.map(li2).join('')||'<li>Nothing recorded</li>'}</ul></td><td><ul>${chosen.map(f=>li2(f.t)).join('')||'<li>Nothing recorded</li>'}</ul></td></tr>
+<tr><td>What was decided for them</td><td><ul>${prevRun.struct.map(li2).join('')||'<li>Nothing</li>'}</ul></td><td><ul>${struct.map(f=>li2(f.t)).join('')||'<li>Nothing</li>'}</ul></td></tr>
+<tr><td>Names given</td><td>${prevRun.names.length?prevRun.names.join('; '):'None'}</td><td>${(S.names||[]).length?S.names.join('; '):'None'}</td></tr>
+</tbody></table>` : '';
+  reading.innerHTML=`<article class="scene ending fade">
+<p class="date">${dateStr}</p>
+${calStrip()}
+<h2 class="${sc.alive?'alive':''}">${val(sc.title)}</h2>
+<div class="who${PORTRAITS[S.id]&&PORTRAITS[S.id].src?' withport':''}">${oval(S.id,48)}<span>${c.name}, ${c.role}</span></div>
+${namesBox()}
+<div class="body">${val(sc.text)}</div>
+${sc.note?`<div class="note"><h4>What is real here</h4><p>${val(sc.note)}</p></div>`:''}
+
+<h3>How this run was decided</h3>
+<p>While you played, the simulation kept two scores that you could not see. <b>Suspicion</b> measured how much talk there was about you. <b>Standing</b> measured how many influential people would have spoken up for you. Before you made a single choice, you started at suspicion ${S.baseSus} and standing ${S.baseStand}, because of who ${c.first} was: ${c.she?'her':'his'} sex, age, money, and position in the city.</p>
+<div class="scores">
+<div class="score sus"><div class="lab">Suspicion</div>started ${S.baseSus} · highest ${S.maxSus}${segs(S.maxSus)}<span style="color:var(--fg-muted)">Each time a prisoner was asked for names, the chance that yours came up was (3 + suspicion) in 10: ${3+S.baseSus} in 10 at the start${S.maxSus!==S.baseSus?`, ${worst} in 10 at the worst`:''}.</span></div>
+<div class="score stand"><div class="lab">Standing</div>started ${S.baseStand} · ended ${S.stand}${segs(S.stand)}<span style="color:var(--fg-muted)">Standing of 3 or more meant someone warned you before the arrest. Below that, no one did.</span></div>
+</div>
+<p>Your choices moved your suspicion by a total of <b>${S.choiceSus>0?'+':''}${S.choiceSus}</b>. Things that happened to you moved it by <b>${S.structSus>0?'+':''}${S.structSus}</b>.${S.den>0?` Being named under torture, which no choice of yours caused, accounted for +${2*S.den} of that.`:''}</p>
+
+<h3>What you chose</h3>
+${chosen.length?`<ul class="factors">${chosen.map(li).join('')}</ul>`:'<p>Nothing was recorded.</p>'}
+<h3>What happened to you that you did not choose</h3>
+${struct.length?`<ul class="factors">${struct.map(li).join('')}</ul>`:'<p>Nothing. Every turn in this run came from a choice of yours, which is rare.</p>'}
+
+${cmp}
+<h3>A letter from the Drudenhaus</h3>
+<p>The people in this simulation are invented. This is not. It was written in the same building, in the same month, by a man who had confessed and named others, and smuggled out to his daughter.</p>
+<div class="letterbox"><div class="from">${JUNIUS.from}</div>${JUNIUS.text}</div>
+<div class="row"><button class="btn quiet" type="button" id="btnAgain">Play again as ${c.name}</button><button class="btn quiet" type="button" id="btnOther">Play as someone else</button></div>
+<div class="after">${AFTER}</div>
+</article>`;
+  $('btnAgain').addEventListener('click',()=>{ const id=S.id; S=newState(id); go('intro'); });
+  $('btnOther').addEventListener('click',()=>{ try{ localStorage.removeItem('bamberg1628'); }catch(e){} renderStart(); });
+  window.scrollTo({top:0,behavior:'auto'});
+}
+
+btnRestart.addEventListener('click',()=>{ try{ localStorage.removeItem('bamberg1628'); }catch(e){} renderStart(); });
+
+function start(data){
+  if(data && data.S && data.S.id){ S=data.S; if(S.ended) renderEnding(SC[S.scene]); else go(S.scene,true); }
+  else renderStart();
+}
+try{
+  if(window.claude && window.claude.hot){
+    if(window.claude.hot.snapshot) window.claude.hot.snapshot(()=>({S}));
+    if(window.claude.hot.ready) window.claude.hot.ready(start); else start(window.claude.hot.data||{});
+  } else start({});
+}catch(e){ start({}); }
+})();
+</script>
+
+</body></html>
