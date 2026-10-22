@@ -557,33 +557,33 @@ const CLOCK=['Langendorf · 1 February 1755 · evening, by lamplight','Langendor
 const PLACES=[
  {id:'grave', link:'It is dark by five. You could walk out to the churchyard wall.', again:'Walk out to the churchyard again.', title:'The churchyard wall', date:'Langendorf · after dark', back:'Go back inside',
   visits:[
-   {text:`<p>You go out past the mill with a lantern. The churchyard lies above the stream behind a wall of fieldstone. The snow has not covered the place against the wall where the fire was; the stones are black to the height of a man, and someone has swept the ashes into the corner and set a small wooden cross over them. If the priest knows of the cross, he has not removed it.</p>
-<p>The grave is still open. It is a trench in frozen ground with the earth piled beside it and a few boards in the bottom. From here you can see the lights of the village, eleven houses. In the nearest window there is a face, which withdraws when you lift the lantern.</p>
-<p>Nothing here is evidence. You go back inside.</p>`, seen:'The burned place on the churchyard wall, the open grave with boards in it, and a small cross set over the ashes.'},
-   {text:`<p>The cross is gone. The ashes have been raked flat and new snow has started to cover them. There are two sets of footprints to the wall and back: a man’s boots from the direction of the judge’s house, and a smaller pair, from the Polak house, that came later and stepped in the first.</p>
-<p>You do not know who took the cross, or who came to look at the place where it had been. You know only the order of the footprints.</p>`, seen:'The cross gone, the ashes raked flat, two sets of footprints: boots from the judge’s side first, a smaller pair from the Polak house after.'},
-   {text:`<p>Someone has been here since you last came. There is a stub of candle in the snow against the wall, burned down to nothing, and a sprig of rosemary frozen into the ash. Rosemary is for remembrance, and it is also what the village puts in a coffin against the smell.</p>
-<p>You stand long enough for the cold to get into your boots, and no one comes.</p>`, seen:'A burned-down candle stub and a sprig of rosemary in the ash.'},
+   {text:`<p>You go out past the mill with a lantern. The churchyard lies above the stream behind a wall of fieldstone. The snow has not yet covered the place where the fire was. Someone has swept the ashes into the corner and set a small wooden cross over them. If the priest knows of the cross, he has not removed it.</p>
+<p>The grave is still open. It is a trench in frozen ground with dirt piled beside it. From here you can see the lights of the village, eleven houses. In the nearest window there is a face, which withdraws when you lift the lantern.</p>
+<p>Nothing here is evidence. You go back inside.</p>`, seen:'The burned place on the churchyard wall, the open grave, and a small cross set over the ashes.'},
+   {text:`<p>The cross is gone. The ashes have been raked flat and new snow has started to cover them. There are two sets of footprints: a man’s boots from the direction of the judge’s house, and a smaller pair, from the Polak house, that came later.</p>
+<p>You do not know who took the cross, or who came to look at the place where it had been. You know only the order of the footprints.</p>`, seen:'The cross gone, the ashes raked flat, two sets of footprints: boots from the judge’s side, a smaller pair from the Polak house that came later.'},
+   {text:`<p>Someone has been here since you last came. There is a stub of candle in the snow against the wall, burned down to nothing, and a sprig of rosemary frozen into the ash. Rosemary is for remembrance.</p>
+<p>You stand long enough for the cold to get into your boots.</p>`, seen:'A burned-down candle stub and a sprig of rosemary in the ash.'},
   ],
   random:[
-   {text:`<p>Dorothea Polak is at the wall when you arrive, without a lantern. She does not turn around. You go back without speaking, and you do not write down that you saw her, and then you do.</p>`, seen:'Dorothea Polak at the wall one night, alone.'},
+   {text:`<p>Dorothea Polak is at the wall when you arrive, without a lantern. She does not turn around. You go back silently, and you do not write down that you saw her.</p>`, seen:'Dorothea Polak at the wall one night, alone.'},
    {text:`<p>The sexton is there with a spade, filling the grave by lantern light. He says the district captain sent word that it was to be closed. He does not look up from the work. “Took three of us a day to open it,” he says. “Ground like iron.”</p>`, heard:'The sexton: it took three men a day to open the grave in the frozen ground.'},
    {text:`<p>Nothing has changed. The village is dark. A dog barks on the far side of the stream and stops. You go back inside.</p>`},
   ]},
  {id:'kitchen', link:'The housekeeper is still up. You could go through to the kitchen.', again:'Go through to the kitchen again.', title:'The priest’s kitchen', date:'Langendorf · late', back:'Go back to the papers',
   visits:[
-   {text:`<p>The housekeeper is banking the fire. Without being asked she tells you that the judge’s wife has not been out of her house since January, that the Polak boy has been drinking at the mill, and that the miller’s wife, who died, was the judge’s cousin. She says it the way people say things they have been waiting to say.</p>
-<p>None of it is in any paper. You cannot check any of it tonight. You do not write it down, and then you do, with her name beside it.</p>`, heard:'The housekeeper: the judge’s wife has not left her house since January; the miller’s wife who died was the judge’s cousin.'},
-   {text:`<p>She asks whether it is true that in Vienna they cut open the dead to look inside them. You say that it is, in the hospital, and that the physicians learn from it. She crosses herself and gives you bread and a piece of cheese, and does not ask anything else.</p>`},
+   {text:`<p>The housekeeper is banking the fire. Without being asked she tells you that the judge’s wife has not been out of her house since January, that the Polak boy has been drinking at the mill, and that the miller’s wife, who died, was the judge’s cousin.</p>
+<p>You cannot check any of it tonight. You do not write it down at first, but then you do, with her name beside it.</p>`, heard:'The housekeeper: the judge’s wife has not left her house since January; the miller’s wife who died was the judge’s cousin.'},
+   {text:`<p>She asks whether it is true that in Vienna they cut open the dead to look inside them. You say that it is, in hospitals, and that the physicians learn from it. She crosses herself and gives you bread and a piece of cheese, and does not ask anything else.</p>`},
   ],
   random:[
    {text:`<p>The kitchen is dark and the fire is covered. You take a piece of bread from the board and go back.</p>`},
-   {text:`<p>She is sitting by the fire with her hands in her lap. She says the priest has not slept since you came. She says it is not your fault, in a voice that means it is.</p>`, heard:'The housekeeper: the priest has not slept since the commission arrived.'},
+   {text:`<p>She is sitting by the fire with her hands in her lap. She says the priest has not slept since you came.</p>`, heard:'The housekeeper: the priest has not slept since the commission arrived.'},
   ]},
  {id:'upstairs', link:'There is a light under van Swieten’s door.', again:'Go up to van Swieten’s door again.', title:'Van Swieten’s room', date:'Langendorf · at night', back:'Go back down',
   visits:[
-   {text:`<p>He is reading with his coat over his shoulders and his feet on the stove. He does not look up. “Not yet,” he says, and you go back down.</p>`},
-   {text:`<p>He is asleep in the chair with Calmet open on his chest. You move the candle away from the book and leave him.</p>`},
+   {text:`<p>He is reading with his coat over his shoulders. He does not look up. “Not yet,” he says, and you leave.</p>`},
+   {text:`<p>He is asleep in the chair with Calmet’s book open on his chest. You move the candle away from the book and leave him.</p>`},
    {text:`<p>He is writing, fast, in French. You can read one line upside down before he covers it with his hand: a question about who gave the priest permission the last time this was done in the diocese.</p>`, seen:'Van Swieten writing in French at night; one line about who gave permission the last time.'},
   ],
   random:[
@@ -598,13 +598,13 @@ const PLACES=[
   ],
   random:[
    {text:`<p>Someone has left a candle burning under the picture of St. Wenceslas. The church is empty and very cold.</p>`},
-   {text:`<p>The sexton is sweeping between the benches. He says a man from the Consistory came through before Christmas, read the register, and said nothing to anyone. He says it without stopping the broom.</p>`, heard:'The sexton: a man from the Consistory read the register before Christmas and said nothing.'},
+   {text:`<p>The sexton is sweeping between the benches. He says a man from the Consistory came through before Christmas, read the register, and said nothing to anyone.</p>`, heard:'The sexton: a man from the Consistory read the register before Christmas and said nothing.'},
   ]},
  {id:'mill', link:'The mill is the only house with a light in it.', again:'Walk down to the mill again.', title:'The mill', date:'Langendorf · night', back:'Go back up the lane',
   visits:[
-   {text:`<p>The miller sells beer in his kitchen. Dorothea Polak’s brother is there, and has been for some time. When he sees who you are he says, loud enough for the room, that his sister has not told you everything: that the night before the burning she went to the judge’s house to beg him to stop it, that the judge’s wife let her in, and that the judge put her out into the snow.</p>
-<p>No one in the room contradicts him. No one agrees with him either. He is drunk, and he is her brother, and he was not in the judge’s house. You write it down with all three of those things beside it.</p>`, heard:'Dorothea’s brother, drunk: his sister went to the judge’s house the night before the burning to beg him to stop, and the judge put her out.'},
-   {text:`<p>The boy is not there. The miller will not serve you, and says so politely. He says the boy talks when he drinks, that half of what he says is true, and that nobody in the village knows which half.</p>`, heard:'The miller: half of what the Polak boy says is true, and nobody knows which half.'},
+   {text:`<p>The miller sells beer in his kitchen. Dorothea Polak’s brother is there, and has been for some time. When he sees you he says, loud enough for the room, that his sister has not told you everything. He says that the night before the burning, she went to the judge’s house to beg him to stop it, and that the judge put her out into the snow.</p>
+<p>No one in the room says anything.</p>`, heard:'Dorothea’s brother, drunk: his sister went to the judge’s house the night before the burning to beg him to stop, and the judge put her out.'},
+   {text:`<p>The boy is not there. The miller will not serve you, but he says so politely. He says the boy talks when he drinks, that half of what he says is true.</p>`, heard:'The miller: half of what the Polak boy says is true.'},
   ],
   random:[
    {text:`<p>The room goes quiet when you come in and does not start again until you have gone.</p>`},
@@ -653,6 +653,7 @@ const SOUND={
   click:'page.mp3',      // on buttons (not played on the buttons that have their own sound)
   bell:'bell.mp3',       // once, when the village statements first open
   quill:'writing1.mp3',  // when notes are handed to van Swieten
+  steps:'snow.mp3',              // footsteps in snow: going out to a village place, and coming back in
   volume:0.35    // 0 to 1
 };
 /* ================================================================== END OF EDITABLE CONTENT */
@@ -703,7 +704,8 @@ const reading=$('reading'), btnRestart=$('btnRestart');
 /* ---- sound ---- */
 const AUDIO={music:null,on:true}; try{ AUDIO.on=localStorage.getItem('vampireSound')!=='off'; }catch(e){}
 const btnSound=$('btnSound');
-function soundConfigured(){ return typeof SOUND!=='undefined' && !!(SOUND.ambience||SOUND.page||SOUND.click||SOUND.bell||SOUND.quill); }
+function soundConfigured(){ return typeof SOUND!=='undefined' && !!(SOUND.ambience||SOUND.page||SOUND.click||SOUND.bell||SOUND.quill||SOUND.steps); }
+let nextSfx='';
 function vol(){ return Math.min(1,Math.max(0,(typeof SOUND!=='undefined'&&SOUND.volume)||0.35)); }
 function sfx(kind){ if(!soundConfigured()||!AUDIO.on||!SOUND[kind]) return; try{ const a=new Audio(SOUND[kind]); a.volume=vol(); a.play().catch(()=>{}); }catch(e){} }
 const AMBIENT_SCENES=['road','work','grave','place','report','roadback'];
@@ -796,7 +798,7 @@ function go(scene,resuming){
   if(resuming) paint(); else transition(paint);
 }
 function transition(paint){ const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce){ paint(); musicFor(S?S.scene:''); return; } reading.classList.add('out'); setTimeout(()=>{ paint(); sfx('page'); reading.classList.remove('out'); musicFor(S?S.scene:''); },250); }
+  if(reduce){ paint(); musicFor(S?S.scene:''); return; } reading.classList.add('out'); setTimeout(()=>{ paint(); sfx(nextSfx||'page'); nextSfx=''; reading.classList.remove('out'); musicFor(S?S.scene:''); },250); }
 
 function renderPlace(pid){
   const P=PLACES.find(p=>p.id===pid)||PLACES[0]; S.place=pid; S.visits=S.visits||{}; S.seen=S.seen||[]; S.heard=S.heard||[];
@@ -813,7 +815,7 @@ function renderPlace(pid){
 <div class="body">${v.text}${pid==='grave'?WEATHER[Math.min(clockPhase(),4)].grave:''}</div>
 <div class="row"><button class="btn quiet" type="button" id="btnBackIn">${P.back}</button></div>
 </article>`;
-  $('btnBackIn').addEventListener('click',()=>{ S.tab='p2'; go('work'); });
+  $('btnBackIn').addEventListener('click',()=>{ S.tab='p2'; if(SOUND.steps) nextSfx='steps'; go('work'); });
 }
 function renderRoadBack(){
   mood('road');
@@ -930,7 +932,7 @@ ${s.claims.map(c=>{ const a=S.claims[c.id], lk=!!S.locked[c.id]; const wr=!lk &&
 <div class="row" style="margin:18px 0 0"><button class="btn" type="button" id="btnCheck" ${docAnswered(id)&&!docAllLocked(id)?'':'disabled'}>${docAllLocked(id)?'Van Swieten agrees with all of it':'Hand your notes on '+id+' to van Swieten'}</button>${next?`<button class="btn quiet" type="button" id="btnNextDoc">Next: Document ${next}</button>`:(p===1?`<button class="btn quiet" type="button" id="btnNextPart" ${partDone(1)?'':'disabled'}>On to the village</button>`:`<button class="btn quiet" type="button" id="btnNextPart" ${partDone(2)?'':'disabled'}>Lay the papers side by side</button>`)}</div>
 </div>
 </div>`;
-  pane.querySelectorAll('.placebtn').forEach(b=>b.addEventListener('click',()=>{ S.place=b.dataset.place; save(); go('place'); }));
+  pane.querySelectorAll('.placebtn').forEach(b=>b.addEventListener('click',()=>{ S.place=b.dataset.place; save(); if(SOUND.steps) nextSfx='steps'; go('place'); }));
   pane.querySelectorAll('.srcbtn').forEach(b=>b.addEventListener('click',()=>{ S.open[key]=b.dataset.src; save(); renderWork(true); }));
   pane.querySelectorAll('.q input[type=radio]').forEach(r=>r.addEventListener('change',()=>{ S.srcAns[r.name]=+r.value; S.srcTries[r.name]=(S.srcTries[r.name]||0)+1; save(); r.closest('.q').querySelectorAll('.opt').forEach(o=>o.classList.toggle('sel',o.querySelector('input').checked)); refreshNav(); }));
   pane.querySelectorAll('.claim input[type=radio]').forEach(r=>r.addEventListener('change',()=>{ S.claims[r.name]=r.value; S.claimTries[r.name]=(S.claimTries[r.name]||0)+1; save(); r.closest('.claim').querySelectorAll('.ans label').forEach(l=>l.classList.toggle('sel',l.querySelector('input').checked)); refreshNav(); }));
