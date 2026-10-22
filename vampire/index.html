@@ -169,7 +169,9 @@ body.dusk .port{filter:drop-shadow(1px 2px 0 rgba(0,0,0,.18)) drop-shadow(0 0 5p
 .writelate{opacity:0;animation:fade .8s ease-out forwards}
 @media (prefers-reduced-motion: reduce){.write p,.write .clerk,.writelate{animation:none;opacity:1}}
 /* the churchyard */
-.gravewalk{margin:0 0 14px;font-size:16px;color:var(--ink-soft);font-style:italic}
+.gravewalk{margin:0 0 8px;font-size:16px;color:var(--ink-soft);font-style:italic}
+.places{margin:0 0 14px}
+.weather{font-style:italic;color:var(--ink-soft);font-size:16px;margin:-4px 0 10px}
 .gravewalk button{font:inherit;font-style:italic;background:none;border:0;border-bottom:1px solid var(--rule);color:var(--ink);cursor:pointer;padding:0 2px}
 .gravewalk button:hover{border-color:var(--ink)}
 .grave .body p{font-size:19px}
@@ -549,11 +551,80 @@ const VARIANTS=[
 /* ---- THE CLOCK. The date shown in the village: before any interview, then after each of the three, then for the comparison. */
 const CLOCK=['Langendorf · 1 February 1755 · evening, by lamplight','Langendorf · 2 February 1755 · morning','Langendorf · 2 February 1755 · late afternoon','Langendorf · 3 February 1755 · morning','Langendorf · 3 February 1755 · evening'];
 /* ---- THE CHURCHYARD. An optional walk; nothing to answer. */
-const GRAVE={link:'It is dark by five. You could walk out to the churchyard wall.', again:'Walk out to the churchyard again.', title:'The churchyard wall', date:'Langendorf · after dark',
- text:`<p>You go out past the mill with a lantern. The churchyard lies above the stream behind a wall of fieldstone. The snow has not covered the place against the wall where the fire was; the stones are black to the height of a man, and someone has swept the ashes into the corner and set a small wooden cross over them. If the priest knows of the cross, he has not removed it.</p>
+/* ---- SMALL PLACES in the village. Nothing to answer; each visit shows the next text, then one of
+   the 'random' texts. 'seen' and 'heard' are entered in the ledger under "You", as things you saw
+   yourself or were only told. Add a place by copying one block. */
+const PLACES=[
+ {id:'grave', link:'It is dark by five. You could walk out to the churchyard wall.', again:'Walk out to the churchyard again.', title:'The churchyard wall', date:'Langendorf · after dark', back:'Go back inside',
+  visits:[
+   {text:`<p>You go out past the mill with a lantern. The churchyard lies above the stream behind a wall of fieldstone. The snow has not covered the place against the wall where the fire was; the stones are black to the height of a man, and someone has swept the ashes into the corner and set a small wooden cross over them. If the priest knows of the cross, he has not removed it.</p>
 <p>The grave is still open. It is a trench in frozen ground with the earth piled beside it and a few boards in the bottom. From here you can see the lights of the village, eleven houses. In the nearest window there is a face, which withdraws when you lift the lantern.</p>
-<p>Nothing here is evidence. You go back inside.</p>`,
- back:'Go back inside'};
+<p>Nothing here is evidence. You go back inside.</p>`, seen:'The burned place on the churchyard wall, the open grave with boards in it, and a small cross set over the ashes.'},
+   {text:`<p>The cross is gone. The ashes have been raked flat and new snow has started to cover them. There are two sets of footprints to the wall and back: a man’s boots from the direction of the judge’s house, and a smaller pair, from the Polak house, that came later and stepped in the first.</p>
+<p>You do not know who took the cross, or who came to look at the place where it had been. You know only the order of the footprints.</p>`, seen:'The cross gone, the ashes raked flat, two sets of footprints: boots from the judge’s side first, a smaller pair from the Polak house after.'},
+   {text:`<p>Someone has been here since you last came. There is a stub of candle in the snow against the wall, burned down to nothing, and a sprig of rosemary frozen into the ash. Rosemary is for remembrance, and it is also what the village puts in a coffin against the smell.</p>
+<p>You stand long enough for the cold to get into your boots, and no one comes.</p>`, seen:'A burned-down candle stub and a sprig of rosemary in the ash.'},
+  ],
+  random:[
+   {text:`<p>Dorothea Polak is at the wall when you arrive, without a lantern. She does not turn around. You go back without speaking, and you do not write down that you saw her, and then you do.</p>`, seen:'Dorothea Polak at the wall one night, alone.'},
+   {text:`<p>The sexton is there with a spade, filling the grave by lantern light. He says the district captain sent word that it was to be closed. He does not look up from the work. “Took three of us a day to open it,” he says. “Ground like iron.”</p>`, heard:'The sexton: it took three men a day to open the grave in the frozen ground.'},
+   {text:`<p>Nothing has changed. The village is dark. A dog barks on the far side of the stream and stops. You go back inside.</p>`},
+  ]},
+ {id:'kitchen', link:'The housekeeper is still up. You could go through to the kitchen.', again:'Go through to the kitchen again.', title:'The priest’s kitchen', date:'Langendorf · late', back:'Go back to the papers',
+  visits:[
+   {text:`<p>The housekeeper is banking the fire. Without being asked she tells you that the judge’s wife has not been out of her house since January, that the Polak boy has been drinking at the mill, and that the miller’s wife, who died, was the judge’s cousin. She says it the way people say things they have been waiting to say.</p>
+<p>None of it is in any paper. You cannot check any of it tonight. You do not write it down, and then you do, with her name beside it.</p>`, heard:'The housekeeper: the judge’s wife has not left her house since January; the miller’s wife who died was the judge’s cousin.'},
+   {text:`<p>She asks whether it is true that in Vienna they cut open the dead to look inside them. You say that it is, in the hospital, and that the physicians learn from it. She crosses herself and gives you bread and a piece of cheese, and does not ask anything else.</p>`},
+  ],
+  random:[
+   {text:`<p>The kitchen is dark and the fire is covered. You take a piece of bread from the board and go back.</p>`},
+   {text:`<p>She is sitting by the fire with her hands in her lap. She says the priest has not slept since you came. She says it is not your fault, in a voice that means it is.</p>`, heard:'The housekeeper: the priest has not slept since the commission arrived.'},
+  ]},
+ {id:'upstairs', link:'There is a light under van Swieten’s door.', again:'Go up to van Swieten’s door again.', title:'Van Swieten’s room', date:'Langendorf · at night', back:'Go back down',
+  visits:[
+   {text:`<p>He is reading with his coat over his shoulders and his feet on the stove. He does not look up. “Not yet,” he says, and you go back down.</p>`},
+   {text:`<p>He is asleep in the chair with Calmet open on his chest. You move the candle away from the book and leave him.</p>`},
+   {text:`<p>He is writing, fast, in French. You can read one line upside down before he covers it with his hand: a question about who gave the priest permission the last time this was done in the diocese.</p>`, seen:'Van Swieten writing in French at night; one line about who gave permission the last time.'},
+  ],
+  random:[
+   {text:`<p>The door is shut and the light is out.</p>`},
+   {text:`<p>He opens the door before you knock. “Go to bed,” he says. “You will need your eyes tomorrow.”</p>`},
+  ]},
+ {id:'church', link:'The church door is not locked.', again:'Go into the church again.', title:'The church', date:'Langendorf · after compline', back:'Go back', 
+  visits:[
+   {text:`<p>One lamp burns at the altar. In the sacristy the burial register lies open on a stand, as the priest left it after the last entry. The entries are in his hand. Seven names between Martinmas and Epiphany, with ages. Under them, in the same ink, a line dated 22 January: a child, Anna Weber, aged two years.</p>
+<p>The page has not been turned. You do not touch it. You note the date and the name and go out the way you came.</p>`, seen:'In the burial register, in the priest’s hand: a child, Anna Weber, buried 22 January, after the burning.'},
+   {text:`<p>The register has been put away. Father Wenzel is at the altar rail on his knees with his back to the door. You do not think he hears you. You leave.</p>`},
+  ],
+  random:[
+   {text:`<p>Someone has left a candle burning under the picture of St. Wenceslas. The church is empty and very cold.</p>`},
+   {text:`<p>The sexton is sweeping between the benches. He says a man from the Consistory came through before Christmas, read the register, and said nothing to anyone. He says it without stopping the broom.</p>`, heard:'The sexton: a man from the Consistory read the register before Christmas and said nothing.'},
+  ]},
+ {id:'mill', link:'The mill is the only house with a light in it.', again:'Walk down to the mill again.', title:'The mill', date:'Langendorf · night', back:'Go back up the lane',
+  visits:[
+   {text:`<p>The miller sells beer in his kitchen. Dorothea Polak’s brother is there, and has been for some time. When he sees who you are he says, loud enough for the room, that his sister has not told you everything: that the night before the burning she went to the judge’s house to beg him to stop it, that the judge’s wife let her in, and that the judge put her out into the snow.</p>
+<p>No one in the room contradicts him. No one agrees with him either. He is drunk, and he is her brother, and he was not in the judge’s house. You write it down with all three of those things beside it.</p>`, heard:'Dorothea’s brother, drunk: his sister went to the judge’s house the night before the burning to beg him to stop, and the judge put her out.'},
+   {text:`<p>The boy is not there. The miller will not serve you, and says so politely. He says the boy talks when he drinks, that half of what he says is true, and that nobody in the village knows which half.</p>`, heard:'The miller: half of what the Polak boy says is true, and nobody knows which half.'},
+  ],
+  random:[
+   {text:`<p>The room goes quiet when you come in and does not start again until you have gone.</p>`},
+   {text:`<p>The miller’s daughter asks whether the Empress will hang the judge. You tell her the Empress does not hang village judges. She looks disappointed and goes back to the fire.</p>`},
+  ]},
+];
+/* ---- WEATHER, one line for each day in the village (same order as CLOCK), and what it does to the churchyard. */
+const WEATHER=[
+ {line:'Snow since noon. The roofs are white and the stream is loud under the ice.', grave:'<p>It is snowing again as you stand there, small dry flakes that do not melt on your sleeve.</p>'},
+ {line:'Clear and bitter. The smoke from the chimneys goes straight up.', grave:'<p>Under a clear sky the cold is worse, and the stars are very close. The ash on the wall is frozen hard.</p>'},
+ {line:'Grey and still. The old men say more snow before morning.', grave:'<p>A grey sky, no wind, and the stream quieter than it was. The village smells of woodsmoke.</p>'},
+ {line:'A thaw. Water runs off the roofs and the lane is mud to the ankle.', grave:'<p>The thaw has taken the snow off the burned place, and the ash has run down the wall in a long black streak into the mud.</p>'},
+ {line:'Rain on the old snow. The road south will be mud by the end of the week.', grave:'<p>Rain, and the lantern hisses. The water standing in the grave has a skin of ice on it already.</p>'},
+];
+/* ---- THE ROAD BACK, shown after the report is sealed and before the reply. */
+const ROADBACK={title:'Olomouc to Vienna', date:'February 1755 · the post road south', who:'The report goes ahead of you by post',
+ lines:['You follow it three days later, in the same coach, with the file on your knees. Van Swieten sleeps most of the way.',
+        'At Brno the snow turns to rain. The driver says the roads will be mud by March.',
+        'In Vienna there is a letter waiting.'],
+ button:'Open the letter'};
 
 /* ---- EPILOGUE: two lines from the real documents, shown after the player's own verdict. */
 const EPILOGUE=[
@@ -568,8 +639,8 @@ const EPILOGUE=[
    and shown in black and white. 'landing' and 'village' are wide banners (about 3:1, cropped to fit)
    shown at the top of the first page and above the village statements. Leave '' to show nothing. */
 const IMAGES={
-  A:'', B:'', C:'', D:'', E:'', F:'', G:'', H:'', I:'',   // the nine writers (D and V are both van Swieten)
-  V:'',                                                   // van Swieten in the study
+  A:'frombald.jpeg', B:'fluck2.jpeg', C:'calmet.jpeg', D:'swieten.jpeg', E:'hartmann.jpeg', F:'polak.jpeg', G:'beck.jpeg', H:'krause.jpeg', I:'kreis.jpeg',   // the nine writers (D and V are both van Swieten)
+  V:'swieten.jpeg',                                                   // van Swieten in the study
   landing:'',                                       // banner on the first page
   village:'',                                       // banner above the village statements
 };
@@ -577,7 +648,7 @@ const IMAGES={
    Sound cannot start before the player's first click; the ambience loops from then on.
    A "Sound: on/off" button appears in the masthead once any address is filled in. */
 const SOUND={
-  ambience:'wind.mp3',   // loops quietly from the first click (wind)
+  ambience:'betterwind.mp3',   // loops quietly from the first click (wind)
   page:'page.mp3',       // when a scene changes
   click:'page.mp3',      // on buttons (not played on the buttons that have their own sound)
   bell:'bell.mp3',       // once, when the village statements first open
@@ -626,7 +697,7 @@ SIL.D=SIL.D||SIL.V;
 /* ================================================================== engine */
 const ANS={obs:'Observed', inf:'Inference', hear:'Hearsay'};
 let S=null;
-function newState(){ return { scene:'start', tab:'p1', open:{p1:'A',p2:'E'}, claims:{}, claimTries:{}, srcAns:{}, srcTries:{}, x:{}, xTries:{}, locked:{}, lockedSrc:{}, lockedX:{}, nb:{}, checks:{}, flash:'', report:null, ended:false, letters:{}, bell:false, order:[], vars:{}, rev:{}, grave:false }; }
+function newState(){ return { scene:'start', tab:'p1', open:{p1:'A',p2:'E'}, claims:{}, claimTries:{}, srcAns:{}, srcTries:{}, x:{}, xTries:{}, locked:{}, lockedSrc:{}, lockedX:{}, nb:{}, checks:{}, flash:'', report:null, ended:false, letters:{}, bell:false, order:[], vars:{}, rev:{}, grave:false, visits:{}, seen:[], heard:[] }; }
 const $=id=>document.getElementById(id);
 const reading=$('reading'), btnRestart=$('btnRestart');
 /* ---- sound ---- */
@@ -635,10 +706,12 @@ const btnSound=$('btnSound');
 function soundConfigured(){ return typeof SOUND!=='undefined' && !!(SOUND.ambience||SOUND.page||SOUND.click||SOUND.bell||SOUND.quill); }
 function vol(){ return Math.min(1,Math.max(0,(typeof SOUND!=='undefined'&&SOUND.volume)||0.35)); }
 function sfx(kind){ if(!soundConfigured()||!AUDIO.on||!SOUND[kind]) return; try{ const a=new Audio(SOUND[kind]); a.volume=vol(); a.play().catch(()=>{}); }catch(e){} }
-function startMusic(){ if(!soundConfigured()||!SOUND.ambience||AUDIO.music) return; try{ AUDIO.music=new Audio(SOUND.ambience); AUDIO.music.loop=true; AUDIO.music.volume=vol()*0.6; if(AUDIO.on) AUDIO.music.play().catch(()=>{}); }catch(e){} }
+const AMBIENT_SCENES=['road','work','grave','place','report','roadback'];
+function startMusic(){ if(!soundConfigured()||!SOUND.ambience) return; if(!S||!AMBIENT_SCENES.includes(S.scene)) return; if(!AUDIO.music){ try{ AUDIO.music=new Audio(SOUND.ambience); AUDIO.music.loop=true; AUDIO.music.volume=vol()*0.6; }catch(e){ return; } } if(AUDIO.on && AUDIO.music.paused) AUDIO.music.play().catch(()=>{}); }
+function musicFor(scene){ if(!AUDIO.music) { if(AMBIENT_SCENES.includes(scene)) startMusic(); return; } if(AMBIENT_SCENES.includes(scene)){ if(AUDIO.on && AUDIO.music.paused) AUDIO.music.play().catch(()=>{}); } else { AUDIO.music.pause(); } }
 function paintSound(){ if(!btnSound) return; btnSound.hidden=!soundConfigured(); btnSound.textContent='Sound: '+(AUDIO.on?'on':'off'); }
-if(btnSound) btnSound.addEventListener('click',()=>{ AUDIO.on=!AUDIO.on; try{localStorage.setItem('vampireSound',AUDIO.on?'on':'off')}catch(e){} if(AUDIO.music){ if(AUDIO.on) AUDIO.music.play().catch(()=>{}); else AUDIO.music.pause(); } else if(AUDIO.on) startMusic(); paintSound(); });
-function quietButton(b){ if(['btnSound','btnCheck','btnCheckX','btnSend'].includes(b.id)) return true; if(b.classList.contains('tab') && b.dataset.tab==='p2' && S && !S.bell) return true; return false; }
+if(btnSound) btnSound.addEventListener('click',()=>{ AUDIO.on=!AUDIO.on; try{localStorage.setItem('vampireSound',AUDIO.on?'on':'off')}catch(e){} if(AUDIO.music){ if(AUDIO.on && S && AMBIENT_SCENES.includes(S.scene)) AUDIO.music.play().catch(()=>{}); else AUDIO.music.pause(); } else if(AUDIO.on) startMusic(); paintSound(); });
+function quietButton(b){ if(['btnSound','btnCheck','btnCheckX','btnSend','btnBegin','btnGo','btnRoad','btnRoadBack','btnBackIn','btnReport','btnNextPart','btnAgain'].includes(b.id)) return true; if(b.classList.contains('placebtn')) return true; if(b.classList.contains('tab') && b.dataset.tab==='p2' && S && !S.bell) return true; return false; }
 document.addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; startMusic(); if(!quietButton(b)) sfx('click'); },true);
 function save(){ try{ localStorage.setItem('vampire1755v2', JSON.stringify(S)); }catch(e){} }
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
@@ -650,9 +723,9 @@ const INTERVIEWS=['F','G','H'];
 function interviewsDone(){ return (S&&S.order||[]).filter(x=>INTERVIEWS.includes(x)); }
 function clockPhase(){ if(!S) return 0; if(S.tab==='x') return 4; if(S.tab!=='p2') return 4; const id=S.open.p2; const done=interviewsDone(); if(INTERVIEWS.includes(id)){ const i=done.indexOf(id); return i<0?done.length+1:i+1; } return done.length; }
 function mood(scene,tab){ const b=document.body; const village = scene==='work' && (tab==='p2'||tab==='x'||tab==='nb');
-  let phase='none'; if(scene==='report'||scene==='grave') phase='night'; else if(village){ const ph=clockPhase(); phase = (tab==='nb'||ph===0||ph===4)?'night':(ph===2?'dusk':'day'); }
+  let phase='none'; if(scene==='report'||scene==='grave'||scene==='place') phase='night'; else if(village){ const ph=clockPhase(); phase = (tab==='nb'||ph===0||ph===4)?'night':(ph===2?'dusk':'day'); }
   b.classList.toggle('night', phase==='night'); b.classList.toggle('dusk', phase==='dusk');
-  b.classList.toggle('snow', (scene==='work' && tab==='p2') || scene==='grave'); b.classList.toggle('fog', scene==='start' || scene==='road'); }
+  b.classList.toggle('snow', (scene==='work' && tab==='p2') || scene==='grave' || scene==='place'); b.classList.toggle('fog', scene==='start' || scene==='road' || scene==='roadback'); }
 
 /* checking happens one document (or the cross-check section) at a time: all items in it must be answered; the correct ones are confirmed, the rest stay open to be changed */
 function docAnswered(id){ const d=SRCMAP[id]; return d.qs.every((q,i)=>S.srcAns[sq(id,i)]!==undefined) && d.claims.every(c=>S.claims[c.id]!==undefined); }
@@ -712,7 +785,9 @@ function go(scene,resuming){
   const paint=()=>{
     if(scene==='brief') renderBrief();
     else if(scene==='road') renderRoad();
-    else if(scene==='grave') renderGrave();
+    else if(scene==='grave') renderPlace('grave');
+    else if(scene==='place') renderPlace(S.place||'grave');
+    else if(scene==='roadback') renderRoadBack();
     else if(scene==='work') renderWork(resuming);
     else if(scene==='report') renderReport();
     else if(scene==='end') renderEnd();
@@ -721,18 +796,37 @@ function go(scene,resuming){
   if(resuming) paint(); else transition(paint);
 }
 function transition(paint){ const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce){ paint(); return; } reading.classList.add('out'); setTimeout(()=>{ paint(); sfx('page'); reading.classList.remove('out'); },250); }
+  if(reduce){ paint(); musicFor(S?S.scene:''); return; } reading.classList.add('out'); setTimeout(()=>{ paint(); sfx('page'); reading.classList.remove('out'); musicFor(S?S.scene:''); },250); }
 
-function renderGrave(){
-  mood('grave'); S.grave=true; save();
+function renderPlace(pid){
+  const P=PLACES.find(p=>p.id===pid)||PLACES[0]; S.place=pid; S.visits=S.visits||{}; S.seen=S.seen||[]; S.heard=S.heard||[];
+  const n=S.visits[pid]||0; let v;
+  if(n<P.visits.length) v=P.visits[n]; else { const r=P.random||[]; v=r.length?r[Math.floor(Math.random()*r.length)]:P.visits[P.visits.length-1]; }
+  S.visits[pid]=n+1; if(pid==='grave') S.grave=true;
+  if(v.seen && !S.seen.includes(v.seen)) S.seen.push(v.seen);
+  if(v.heard && !S.heard.includes(v.heard)) S.heard.push(v.heard);
+  save(); mood('grave');
   reading.innerHTML=`<article class="scene grave fade">
-<p class="date">${GRAVE.date}</p>
-<h2>${GRAVE.title}</h2>
+<p class="date">${P.date}</p>
+<h2>${P.title}</h2>
 <div class="who">You are assistant to Gerard van Swieten, physician to the Empress</div>
-<div class="body">${GRAVE.text}</div>
-<div class="row"><button class="btn quiet" type="button" id="btnBackIn">${GRAVE.back}</button></div>
+<div class="body">${v.text}${pid==='grave'?WEATHER[Math.min(clockPhase(),4)].grave:''}</div>
+<div class="row"><button class="btn quiet" type="button" id="btnBackIn">${P.back}</button></div>
 </article>`;
   $('btnBackIn').addEventListener('click',()=>{ S.tab='p2'; go('work'); });
+}
+function renderRoadBack(){
+  mood('road');
+  const route='<path class="route" pathLength="1" d="M301.3 33.3 C 297 42, 292 50, 285 52.5 C 272 58, 256 66, 250.3 82.1 C 244 104, 238 128, 237.2 154.6" fill="none" stroke="#1E1A16" stroke-width="2.4" stroke-linecap="round"/>';
+  reading.innerHTML=`<article class="scene fade">
+<p class="date">${ROADBACK.date}</p>
+<h2>${ROADBACK.title}</h2>
+<div class="who">${ROADBACK.who}</div>
+${MAPSVG.replace('</svg>', route+'</svg>')}
+<div class="roadlines body">${ROADBACK.lines.map(l=>`<p>${l}</p>`).join('')}</div>
+<div class="row"><button class="btn" type="button" id="btnRoadBack">${ROADBACK.button}</button></div>
+</article>`;
+  $('btnRoadBack').addEventListener('click',()=>go('end'));
 }
 function renderRoad(){
   mood('road');
@@ -775,7 +869,7 @@ function renderWork(resuming){
   if(S.tab==='p2' && !S.bell){ S.bell=true; save(); sfx('bell'); }
   const newLetter = LETTERS.find(L=>L.when===S.tab && !S.letters[L.id]); if(newLetter){ S.letters[newLetter.id]=true; save(); }
   reading.innerHTML=`<article class="scene fade">
-<p class="date">${head.date}</p>
+<p class="date">${head.date}</p>${(S.tab==='p2'||S.tab==='x')?`<p class="weather">${WEATHER[Math.min(clockPhase(),4)].line}</p>`:''}
 <h2>${head.title}</h2>
 <div class="who">You are assistant to Gerard van Swieten, physician to the Empress · ${nLocked()+nLockedSrc()+nLockedX()} notes he agrees with</div>
 ${newLetter?letterHTML(newLetter,true):''}
@@ -788,7 +882,7 @@ ${flash?`<div class="flash">${flash}</div>`:''}
   $('btnReport').addEventListener('click',()=>go('report'));
   const pane=$('pane');
   if(S.tab==='p1') renderPart(pane,1); else if(S.tab==='p2') renderPart(pane,2); else if(S.tab==='x') renderX(pane); else renderNotebook(pane);
-  mood('work', S.tab); const dt=reading.querySelector('.date'); if(dt && S.tab==='p2') dt.textContent=CLOCK[Math.min(clockPhase(),4)];
+  mood('work', S.tab); const dt=reading.querySelector('.date'); if(dt && S.tab==='p2') dt.textContent=CLOCK[Math.min(clockPhase(),4)]; const wt=reading.querySelector('.weather'); if(wt && S.tab==='p2') wt.textContent=WEATHER[Math.min(clockPhase(),4)].line;
 }
 
 function letterHTML(L,isNew){ return `<div class="letter${isNew?' new':''}"><div class="from">A letter · ${L.from}</div>${L.text}${L.aside?`<p class="aside">${L.aside}</p>`:''}</div>`; }
@@ -821,7 +915,7 @@ function renderPart(pane,p){
     ? `<p class="stage">${STAGE[id]||''}</p><div class="${firstRead&&!reduce?'write':''}"><div class="clerk" style="animation-delay:.2s">Dr. Gasser writes</div>${paras.map((pp,i)=>pp.replace('<p', `<p style="animation-delay:${(0.5+i*step).toFixed(1)}s"`)).join('')}</div>`
     : (prefix+s.text);
   const lateStyle = (isInterview&&firstRead&&!reduce) ? ` class="writelate" style="animation-delay:${(0.8+n*step).toFixed(1)}s"` : '';
-  const graveLink = p===2 ? `<p class="gravewalk"><button type="button" id="btnGrave">${S.grave?GRAVE.again:GRAVE.link}</button></p>` : '';
+  const graveLink = p===2 ? `<div class="places">${PLACES.map(pl=>`<p class="gravewalk"><button type="button" class="placebtn" data-place="${pl.id}">${(S.visits&&S.visits[pl.id])?pl.again:pl.link}</button></p>`).join('')}</div>` : '';
   pane.innerHTML=`${p===2?banner('village'):''}<p class="prog">${P.intro}</p>
 <div class="srcgrid">${P.ids.map(x=>`<button class="srcbtn${x===id?' on':''}" type="button" data-src="${x}">${portrait(x,46)}<span class="sb"><span class="l">Document ${x}<span class="ok">${docStatus(x)}</span></span><span class="t">${SRCMAP[x].short}</span><span class="w">${SRCMAP[x].who}</span></span></button>`).join('')}</div>
 ${graveLink}<div class="docbox">
@@ -836,7 +930,7 @@ ${s.claims.map(c=>{ const a=S.claims[c.id], lk=!!S.locked[c.id]; const wr=!lk &&
 <div class="row" style="margin:18px 0 0"><button class="btn" type="button" id="btnCheck" ${docAnswered(id)&&!docAllLocked(id)?'':'disabled'}>${docAllLocked(id)?'Van Swieten agrees with all of it':'Hand your notes on '+id+' to van Swieten'}</button>${next?`<button class="btn quiet" type="button" id="btnNextDoc">Next: Document ${next}</button>`:(p===1?`<button class="btn quiet" type="button" id="btnNextPart" ${partDone(1)?'':'disabled'}>On to the village</button>`:`<button class="btn quiet" type="button" id="btnNextPart" ${partDone(2)?'':'disabled'}>Lay the papers side by side</button>`)}</div>
 </div>
 </div>`;
-  const bg=$('btnGrave'); if(bg) bg.addEventListener('click',()=>go('grave'));
+  pane.querySelectorAll('.placebtn').forEach(b=>b.addEventListener('click',()=>{ S.place=b.dataset.place; save(); go('place'); }));
   pane.querySelectorAll('.srcbtn').forEach(b=>b.addEventListener('click',()=>{ S.open[key]=b.dataset.src; save(); renderWork(true); }));
   pane.querySelectorAll('.q input[type=radio]').forEach(r=>r.addEventListener('change',()=>{ S.srcAns[r.name]=+r.value; S.srcTries[r.name]=(S.srcTries[r.name]||0)+1; save(); r.closest('.q').querySelectorAll('.opt').forEach(o=>o.classList.toggle('sel',o.querySelector('input').checked)); refreshNav(); }));
   pane.querySelectorAll('.claim input[type=radio]').forEach(r=>r.addEventListener('change',()=>{ S.claims[r.name]=r.value; S.claimTries[r.name]=(S.claimTries[r.name]||0)+1; save(); r.closest('.claim').querySelectorAll('.ans label').forEach(l=>l.classList.toggle('sel',l.querySelector('input').checked)); refreshNav(); }));
@@ -853,14 +947,15 @@ ${XCHECK.map(x=>{ const a=S.x[x.id], lk=!!S.lockedX[x.id]; const wr=!lk && S.che
   $('btnCheckX').addEventListener('click',()=>{ sfx('quill'); checkX(); save(); renderWork(true); });
 }
 
+function youRow(){ const seen=S.seen||[], heard=S.heard||[]; if(!seen.length&&!heard.length) return ''; const L=a=>a.length?`<ul>${a.map(t=>`<li>${t}</li>`).join('')}</ul>`:'<span class="empty">—</span>'; return `<tr><td>You, in the village</td><td>${L(seen)}</td><td><span class="empty">—</span></td><td>${L(heard)}</td><td>A page for the Empress</td></tr>`; }
 function ledgerHTML(){
   const rows=SRC.filter(d=>d.claims.some(c=>S.locked[c.id]) || S.lockedSrc[sq(d.id,0)]);
-  if(!rows.length) return `<p class="ledgercap">The ledger is empty. It fills as van Swieten agrees with your notes: what each writer saw, what he worked out, what he only heard said, and what he wanted from his reader.</p>`;
+  if(!rows.length && !(S.seen&&S.seen.length) && !(S.heard&&S.heard.length)) return `<p class="ledgercap">The ledger is empty. It fills as van Swieten agrees with your notes: what each writer saw, what he worked out, what he only heard said, and what he wanted from his reader.</p>`;
   const cell=(d,k)=>{ const L=d.claims.filter(c=>S.locked[c.id]&&c.ans===k); return L.length?`<ul>${L.map(c=>`<li>${c.t}</li>`).join('')}</ul>`:'<span class="empty">—</span>'; };
   const purpose=d=>{ const k=sq(d.id,0); return S.lockedSrc[k]?d.qs[0].opts[S.srcAns[k]].t:'<span class="empty">—</span>'; };
   return `<p class="ledgercap">Kept by the commission’s clerk. Only what van Swieten has agreed with is entered.</p>
 <table class="ledger"><thead><tr><th>Paper</th><th>Seen</th><th>Worked out</th><th>Heard said</th><th>What the writer wanted</th></tr></thead>
-<tbody>${rows.map(d=>`<tr><td>${d.id} · ${d.who}</td><td>${cell(d,'obs')}</td><td>${cell(d,'inf')}</td><td>${cell(d,'hear')}</td><td>${purpose(d)}</td></tr>`).join('')}</tbody></table>`;
+<tbody>${rows.map(d=>`<tr><td>${d.id} · ${d.who}</td><td>${cell(d,'obs')}</td><td>${cell(d,'inf')}</td><td>${cell(d,'hear')}</td><td>${purpose(d)}</td></tr>`).join('')}${youRow()}</tbody></table>`;
 }
 function renderNotebook(pane){
   const letters=LETTERS.filter(L=>S.letters[L.id]);
@@ -898,13 +993,13 @@ ${RECS.map(x=>`<label class="opt"><input type="radio" name="rec" value="${x.id}"
   reading.querySelectorAll('input[name=th]').forEach(r=>r.addEventListener('change',()=>{ th=r.value; upd(); }));
   reading.querySelectorAll('input[name=rec]').forEach(r=>r.addEventListener('change',()=>{ rec=r.value; upd(); }));
   reading.querySelectorAll('#atts input').forEach(c=>c.addEventListener('change',()=>{ if(c.checked){ if(att.size>=4){ c.checked=false; return; } att.add(c.value);} else att.delete(c.value); upd(); }));
-  $('btnSend').addEventListener('click',()=>{ const nm=($('deadName').value||'').trim(); S.report={th,rec,docs:[...att],name:nm,nameOk:DEAD_WOMAN.includes(nm.toLowerCase().replace(/\s+/g,' '))}; S.ended=true; save(); seal(()=>go('end')); });
+  $('btnSend').addEventListener('click',()=>{ const nm=($('deadName').value||'').trim(); S.report={th,rec,docs:[...att],name:nm,nameOk:DEAD_WOMAN.includes(nm.toLowerCase().replace(/\s+/g,' '))}; S.ended=true; save(); seal(()=>go('roadback')); });
 }
 function seal(then){ const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches; if(reduce){ then(); return; }
   const art=reading.querySelector('article'); if(!art){ then(); return; }
   reading.querySelectorAll('button,input').forEach(b=>b.disabled=true);
   art.style.height=art.offsetHeight+'px'; void art.offsetHeight; art.classList.add('folding'); window.scrollTo({top:0,behavior:'smooth'});
-  setTimeout(()=>{ const w=document.createElement('div'); w.className='sealwrap'; w.innerHTML='<div class="seal">S</div>'; reading.appendChild(w); const c=document.createElement('p'); c.className='sealcap'; c.textContent='Sealed, and sent to Vienna by the morning post.'; reading.appendChild(c); sfx('quill'); },950);
+  setTimeout(()=>{ const w=document.createElement('div'); w.className='sealwrap'; w.innerHTML='<div class="seal">S</div>'; reading.appendChild(w); const c=document.createElement('p'); c.className='sealcap'; c.textContent='Sealed. It goes to Vienna by the morning post.'; reading.appendChild(c); sfx('quill'); },950);
   setTimeout(then, 2600);
 }
 
