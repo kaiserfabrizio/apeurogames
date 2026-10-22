@@ -709,7 +709,7 @@ let nextSfx='';
 function vol(){ return Math.min(1,Math.max(0,(typeof SOUND!=='undefined'&&SOUND.volume)||0.35)); }
 function sfx(kind){ if(!soundConfigured()||!AUDIO.on||!SOUND[kind]) return; try{ const a=new Audio(SOUND[kind]); a.volume=vol(); a.play().catch(()=>{}); }catch(e){} }
 const AMBIENT_SCENES=['road','work','grave','place','report','roadback'];
-function startMusic(){ if(!soundConfigured()||!SOUND.ambience) return; if(!S||!AMBIENT_SCENES.includes(S.scene)) return; if(!AUDIO.music){ try{ AUDIO.music=new Audio(SOUND.ambience); AUDIO.music.loop=true; AUDIO.music.volume=vol()*0.6; }catch(e){ return; } } if(AUDIO.on && AUDIO.music.paused) AUDIO.music.play().catch(()=>{}); }
+function startMusic(){ if(!soundConfigured()||!SOUND.ambience) return; if(!S||!AMBIENT_SCENES.includes(S.scene)) return; if(!AUDIO.music){ try{ AUDIO.music=new Audio(SOUND.ambience); AUDIO.music.loop=true; AUDIO.music.volume=vol()*0.3; }catch(e){ return; } } if(AUDIO.on && AUDIO.music.paused) AUDIO.music.play().catch(()=>{}); }
 function musicFor(scene){ if(!AUDIO.music) { if(AMBIENT_SCENES.includes(scene)) startMusic(); return; } if(AMBIENT_SCENES.includes(scene)){ if(AUDIO.on && AUDIO.music.paused) AUDIO.music.play().catch(()=>{}); } else { AUDIO.music.pause(); } }
 function paintSound(){ if(!btnSound) return; btnSound.hidden=!soundConfigured(); btnSound.textContent='Sound: '+(AUDIO.on?'on':'off'); }
 if(btnSound) btnSound.addEventListener('click',()=>{ AUDIO.on=!AUDIO.on; try{localStorage.setItem('vampireSound',AUDIO.on?'on':'off')}catch(e){} if(AUDIO.music){ if(AUDIO.on && S && AMBIENT_SCENES.includes(S.scene)) AUDIO.music.play().catch(()=>{}); else AUDIO.music.pause(); } else if(AUDIO.on) startMusic(); paintSound(); });
