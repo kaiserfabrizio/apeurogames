@@ -52,6 +52,8 @@ a{color:var(--rubric)}
 .choice small{display:block;color:var(--ink-soft);font-size:15.5px;margin-top:2px;font-style:italic}
 .note{margin-top:30px;padding-top:12px;border-top:3px double var(--rule);font-size:17px;color:var(--ink-soft)}
 .follow p{color:var(--ink-soft)}
+.follow.remember{margin-top:6px;border-top:1px dashed var(--rule);padding-top:12px}
+.follow.remember .offlabel{font-style:normal;font-family:var(--display);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--rubric);margin:0 0 6px}
 .follow{margin:0 0 18px;padding-bottom:14px;border-bottom:1px dashed var(--rule)}
 .offstage{font-style:italic;border-left:2px solid var(--rule);padding-left:16px;margin:0 0 16px}
 .offstage .offlabel{font-style:normal;font-family:var(--display);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 8px}
@@ -71,6 +73,20 @@ a{color:var(--rubric)}
 .btn.quiet{background:transparent;color:var(--ink);border:1px solid var(--rule)}
 .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:14px 0}
 .ending h2.alive{color:var(--olive)}
+/* the death endings: the page goes grey, the red goes out, the border turns to mourning black */
+body.dead{--paper:#B8B2A4;--paper-2:#A9A294;--rubric:#3E3732;--rule:#6E675C;--ink-soft:#4A443C}
+body.dead::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse at center, rgba(0,0,0,0) 40%, rgba(20,15,10,.45) 100%)}
+body.dead .page{position:relative;z-index:1;border-color:#2B2117;border-width:3px;box-shadow:inset 0 0 0 5px var(--paper), inset 0 0 0 6.5px #2B2117}
+body.dead .corner{opacity:.35}
+body.dead .fleurons{opacity:.4;filter:grayscale(1)}
+body.dead .oval img,body.dead .map{filter:grayscale(1) contrast(.95)}
+body.dead .ending h2{color:#2B2117;border-bottom:2px solid #2B2117;padding-bottom:10px}
+body.dead .ending h3{color:#2B2117}
+body.dead .scene .body > p:first-of-type::first-letter{color:#2B2117}
+body.dead .choice::before,body.dead .names h4,body.dead .note h4{color:#3E3732}
+body.dead .ending.fade{animation:fadeslow 2.4s ease-out}
+@keyframes fadeslow{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion: reduce){body.dead .ending.fade{animation:none}}
 .ending h3{font-family:var(--display);font-weight:400;font-size:26px;margin:34px 0 10px;color:var(--rubric)}
 .scores{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0 20px}
 @media (max-width:560px){.scores{grid-template-columns:1fr}}
@@ -388,7 +404,7 @@ SC.intro = {
 <p class="lead">On the night of 27 May 1626, in the middle of the growing season, a sudden hard frost struck Franconia and destroyed the vines, the grain, and the fruit trees. People across the region blamed witches, and in the Prince-Bishopric of Bamberg, the government agreed with them.</p>
 <p>Bamberg is a city of about 12,000 people on the Regnitz River, ruled by its Prince-Bishop, Johann Georg II Fuchs von Dornheim, who is both the bishop and the territorial prince. Since the frost, bread now costs about three times what it did before. Imperial troops pass through on their way north, where the Emperor’s generals are fighting the King of Denmark, and every household pays a war tax, called a contribution, for their upkeep. Last year, the bishop built a special prison for witchcraft cases, the Drudenhaus, with about thirty cells, a chapel, and a torture chamber. Over its door is a line from Virgil: <i>Learn justice, you who have been warned, and do not scorn the gods.</i> Executions take place every few weeks. The deputy bishop, Friedrich Förner, preaches that witches caused the frost, the hunger, and the war, and that the city is full of them.</p>
 <p>${you}</p>
-${(()=>{ const runs=loadRuns().filter(r=>r.id!==S.id); if(!runs.length) return ''; const seen={}; const lines=runs.filter(r=>{ if(seen[r.id]) return false; seen[r.id]=true; return true; }).map(r=>{ const tpl=REMEMBER[r.ending]; if(!tpl) return ''; const nm=REMEMBER.who[r.id]; return tpl.replace('{name}', nm.charAt(0).toUpperCase()+nm.slice(1)); }).filter(Boolean); return lines.length?`<p>You know what has happened to others in this city. ${lines.join(' ')}</p>`:''; })()}
+${(()=>{ const runs=loadRuns().filter(r=>r.id!==S.id); if(!runs.length) return ''; const seen={}; const lines=runs.filter(r=>{ if(seen[r.id]) return false; seen[r.id]=true; return true; }).map(r=>{ const tpl=REMEMBER[r.ending]; if(!tpl) return ''; const nm=REMEMBER.who[r.id]; return tpl.replace('{name}', nm.charAt(0).toUpperCase()+nm.slice(1)); }).filter(Boolean); return lines.length?`<div class="follow remember"><p class="offlabel">The city remembers</p><p>${lines.join(' ')}</p></div>`:''; })()}
 <p>It is the spring of 1628. How do you conduct yourself?</p>`;
   },
   choices(){
@@ -977,7 +993,7 @@ function gauge(){ if(!S) return ''; const n=S.sus; let h=''; for(let i=0;i<10;i+
 const NIGHT=['warning','flight_where','flight','flight_caught','executioner','letter'];
 const CELL=['drudenhaus','questioning','instruments','torture1','partial','torture2','torture3','withstood','second_round','confession_broken','confession','naming','naming_torture','urgicht','recant','end_doors','end_died'];
 const DUSK=['burning','sentence','end_sword','end_stake'];
-function mood(id){ const b=document.body; b.classList.toggle('night', NIGHT.includes(id)); b.classList.toggle('cell', CELL.includes(id)); b.classList.toggle('dusk', DUSK.includes(id)); }
+function mood(id){ const b=document.body; b.classList.toggle('dead', id==='end_dead'); b.classList.toggle('night', NIGHT.includes(id)); b.classList.toggle('cell', CELL.includes(id)); b.classList.toggle('dusk', DUSK.includes(id)); }
 /* ---- the commission's file ---- */
 const FILE_OPEN_FROM=['arrest','drudenhaus','questioning','instruments','torture1','partial','torture2','executioner','torture3','withstood','second_round','mandate','confession_broken','confession','naming','naming_torture','urgicht','recant','letter','sentence','end_sword','end_stake','end_died','end_doors','end_haan','flight_caught'];
 function fileHTML(){ const f=S.file||[]; return `<div class="doc"><p class="dochead">Acta · the commission for witchcraft · ${CHARS[S.id].name}</p>${f.length?f.map(e=>`<div class="entry"><span class="d">${e.d}</span><span class="hand">${e.t}</span></div>`).join(''):'<p class="hand">Nothing yet. A file is opened when a name is first given.</p>'}<p class="sig">Read and found in order. — the Commissioner</p></div>`; }
