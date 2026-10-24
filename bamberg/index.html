@@ -51,6 +51,8 @@ a{color:var(--rubric)}
 .choice:focus-visible,.masthead button:focus-visible,.card:focus-visible,.btn:focus-visible{outline:2px solid var(--rubric);outline-offset:2px}
 .choice small{display:block;color:var(--ink-soft);font-size:15.5px;margin-top:2px;font-style:italic}
 .note{margin-top:30px;padding-top:12px;border-top:3px double var(--rule);font-size:17px;color:var(--ink-soft)}
+.follow p{color:var(--ink-soft)}
+.follow{margin:0 0 18px;padding-bottom:14px;border-bottom:1px dashed var(--rule)}
 .offstage{font-style:italic;border-left:2px solid var(--rule);padding-left:16px;margin:0 0 16px}
 .offstage .offlabel{font-style:normal;font-family:var(--display);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 8px}
 .note h4{font-family:var(--display);font-weight:400;font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--rubric);margin:0 0 6px}
@@ -93,6 +95,44 @@ a{color:var(--rubric)}
 #reading{transition:opacity .25s ease}
 #reading.out{opacity:0}
 .masthead button.snd{right:auto;left:0}
+.masthead button.file{right:auto;left:0;top:40px}
+/* the suspicion gauge, shown under the calendar on every scene */
+.gauge{display:flex;align-items:center;gap:10px;margin:-6px 0 16px;font-family:var(--display);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+.gauge .segs{flex:1;margin:0;max-width:260px}
+.gauge .segs span{height:8px}
+.gauge .segs span.on{background:var(--rubric);border-color:var(--rubric)}
+.gauge .segs span.up{animation:gup .8s ease-out}
+@keyframes gup{0%{background:transparent}60%{background:#E07B6A}100%{background:var(--rubric)}}
+.gauge .word{font-style:italic;text-transform:none;letter-spacing:0;font-family:var(--serif);font-size:15px}
+/* documents: the warrant, the commission's file, the register */
+.doc{background:#F1E7CC;border:1px solid var(--rule);box-shadow:3px 3px 0 rgba(60,40,10,.12);padding:22px 28px;margin:18px 0 22px;font-size:17px;line-height:1.5;position:relative;transform:rotate(-.4deg)}
+.doc .dochead{font-family:var(--display);font-size:13px;letter-spacing:.2em;text-transform:uppercase;text-align:center;color:var(--rubric);margin:0 0 10px}
+.doc p{margin:0 0 10px}
+.doc .hand{font-family:var(--display);font-style:italic}
+.doc .black{background:var(--ink);color:var(--ink);padding:0 2px;border-radius:1px}
+.doc .sig{text-align:right;font-family:var(--display);font-style:italic;margin-top:10px}
+.doc .entry{display:grid;grid-template-columns:7.5em 1fr;gap:4px 14px;border-bottom:1px dotted var(--rule);padding:5px 0}
+.doc .entry .d{font-family:var(--display);font-size:14px;color:var(--ink-soft);padding-top:3px}
+.doc.sealed{text-align:center;color:var(--ink-soft);font-style:italic}
+table.register{width:100%;border-collapse:collapse;font-size:16px;margin:8px 0 18px}
+table.register th{font-family:var(--display);font-weight:400;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);text-align:left;border-bottom:1px solid var(--rule);padding:4px 8px 6px}
+table.register td{border-bottom:1px dotted var(--rule);padding:6px 8px;vertical-align:top}
+table.register td.when{font-family:var(--display);font-size:14px;color:var(--ink-soft);width:28%}
+/* the file panel */
+.filewrap{position:fixed;inset:0;background:rgba(30,20,10,.55);z-index:50;display:flex;align-items:flex-start;justify-content:center;padding:40px 16px;overflow:auto}
+.filewrap .doc{max-width:620px;width:100%;transform:none;margin:0}
+.filewrap .close{position:absolute;right:12px;top:10px;font:inherit;font-family:var(--display);font-size:14px;background:none;border:1px solid var(--rule);color:var(--ink-soft);padding:2px 9px;cursor:pointer}
+/* time of day. night: darker paper, a candle glow from the upper left. cell: colder and dimmer, one high window. */
+body.night{--paper:#CDBB90;--paper-2:#BBA878}
+body.night::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 60% 55% at 30% 22%, rgba(255,200,120,.42) 0%, rgba(255,180,90,.12) 45%, rgba(40,25,10,.30) 100%);animation:flick 5s ease-in-out infinite alternate}
+@keyframes flick{from{opacity:.92}to{opacity:1}}
+body.cell{--paper:#C4BDA8;--paper-2:#B3AB94}
+body.cell::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 40% 30% at 78% 8%, rgba(220,225,230,.45) 0%, rgba(200,205,210,0) 60%),linear-gradient(180deg, rgba(30,30,35,.10), rgba(30,30,35,.26))}
+body.dusk{--paper:#D3BF92}
+body.dusk::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 60% 50% at 50% 100%, rgba(255,150,70,.22) 0%, rgba(255,150,70,0) 60%),linear-gradient(180deg, rgba(40,30,20,.12), rgba(40,30,20,.02))}
+body.night .page,body.cell .page,body.dusk .page{position:relative;z-index:1}
+body.night::before,body.cell::before,body.dusk::before{transition:opacity .6s}
+@media (prefers-reduced-motion: reduce){body.night::before{animation:none}.gauge .segs span.up{animation:none}}
 .cal{display:flex;flex-wrap:wrap;gap:0 10px;font-family:var(--display);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin:-2px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--rule)}
 .cal span{opacity:.55}
 .cal span.past{text-decoration:line-through;opacity:.4}
@@ -125,6 +165,7 @@ a{color:var(--rubric)}
   <div class="fleurons"></div>
   <button type="button" id="btnRestart" hidden>Start over</button>
   <button type="button" id="btnSound" class="snd" hidden>Sound: on</button>
+  <button type="button" id="btnFile" class="file" hidden>The commission’s file</button>
 </header>
 <main class="reading" id="reading"></main>
 </div></div>
@@ -158,9 +199,10 @@ const SOUND={
   bell:'bells.mp3',       // a single church bell: the burning in June, the sentence, the endings
   door:'heavydoor.mp3',       // a heavy door: the arrest and the first day in the Drudenhaus
   quill:'writing2.mp3',      // writing: the confession, its confirmation, the letter
+  ending:'ending.mp3',       // played once, quietly, on the ending screens instead of the ambience (a slow piece of music)
   volume:0.35
 };
-const SILENT_SCENES=['torture1','torture2','torture3','naming_torture','recant','partial','instruments','executioner'];
+const SILENT_SCENES=[];   // scenes with no ambience at all. Empty: the ambience keeps playing everywhere.
 /* Ambience by place. Each loops quietly while the player is in that kind of scene and fades out when the
    place changes. Leave one '' for silence there. If all are '', SOUND.ambience above is used everywhere. */
 const AMBIENCE={
@@ -176,7 +218,37 @@ const SCENE_PLACE={flight_where:'road',flight_zeil:'road',flight:'road',flight_c
 const NAMES_GIVEN={
   clever:['Else Schreiber, baker’s widow (burned in June)','Old Kunz the tanner (in the Drudenhaus since May)','The Weigand woman (died in the Drudenhaus)'],
   lednames:['Barbara Hofmann, the cooper’s wife','Georg Vetter, journeyman brewer','The Lenz woman, from the Sand','Michael Kraus, vintner','Ursula, servant at the Golden Bear','Dr. Georg Haan’s wife'],
-  enemy:{margaretha:'The Lenz woman, who stood at your gate',hans:'Kaspar Lenz, your neighbor',lorenz:'Two councillors, Dietmayr and Fröhlich',anna:'Frau Ott, your mistress'},
+  enemy:{margaretha:'The Lenz woman, who stood at your gate',hans:'Kaspar Lenz, your neighbor',hans_accused:'Lenz’s wife, your neighbor',lorenz:'Two councillors, Dietmayr and Fröhlich',anna:'Frau Ott, your mistress'},
+};
+/* ===== EDITABLE: THE REGISTER. What became of each person the player named, shown at the end. ===== */
+const FATES={
+  'Else Schreiber, baker’s widow (burned in June)':['Already dead when you named her.','burned 12 June 1628'],
+  'Old Kunz the tanner (in the Drudenhaus since May)':['Died in his cell before his confession was confirmed.','died in the Drudenhaus, August 1628'],
+  'The Weigand woman (died in the Drudenhaus)':['Already dead when you named her. Her name was read out anyway.','died in the Drudenhaus, April 1628'],
+  'Barbara Hofmann, the cooper’s wife':['Arrested. Confessed under the leg screws and named eleven others.','arrested 3 December 1628 · executed 17 February 1629'],
+  'Georg Vetter, journeyman brewer':['Arrested. Confessed at the showing of the instruments and named six others.','arrested 20 November 1628 · executed 17 February 1629'],
+  'The Lenz woman, from the Sand':['Arrested. Withstood two degrees of torture and died in her cell.','arrested 9 December 1628 · died in the Drudenhaus, March 1629'],
+  'Michael Kraus, vintner':['Arrested. Withstood all three degrees, was held as obstinate, and walked out when the Swedes opened the doors.','arrested 15 December 1628 · released February 1632'],
+  'Ursula, servant at the Golden Bear':['Left the city the week your confession was read out. Not heard of again.','fled, December 1628'],
+  'Dr. Georg Haan’s wife':['Already dead when you named her; the commission used the name as a second witness against her daughter.','executed 1628'],
+  'The Lenz woman, who stood at your gate':['Arrested within the month on your name and one other. Confessed. Named four, including her own sister.','arrested 1628 · executed spring 1629'],
+  'Kaspar Lenz, your neighbor':['Arrested within the month. Confessed under the thumbscrews. Named you back, and nine others.','arrested 1628 · executed spring 1629'],
+  'Lenz’s wife, your neighbor':['Arrested within the month, two weeks after her husband died in the Drudenhaus. Confessed. The children were put out to the parish.','arrested 1628 · executed spring 1629'],
+  'Two councillors, Dietmayr and Fröhlich':['Dietmayr was arrested within the month and executed in the spring. Fröhlich reached Nuremberg before the warrant was signed and petitioned the Emperor from there.','Dietmayr executed spring 1629 · Fröhlich in exile'],
+  'Frau Ott, your mistress':['Arrested within the month. Her husband paid for her cell and her torture. She confessed on the third day and named the wet-nurse who came after you.','arrested 1628 · executed spring 1629'],
+};
+/* ===== EDITABLE: THE CITY REMEMBERS. On a later run, the April scene mentions what became of the characters played before.
+   Keyed by the ending's title. {name} is replaced by the description below. ===== */
+const REMEMBER={
+  who:{margaretha:'the midwife in the Sand, Margaretha Pfister', hans:'the vine-grower Hans Vogel, below St. Michael’s', lorenz:'Councillor Weinmann, the wine merchant', anna:'the Otts’ maid, Anna Hefner'},
+  'The sword, then the fire':'{name} was beheaded and burned on the market square after confessing.',
+  'The fire':'{name} was burned alive on the market square. People say the clerk had written obstinate.',
+  'Died under torture':'{name} died in the Drudenhaus. The clerk wrote that the devil broke the neck.',
+  'Exile':'{name} left the city in the night and is said to be in Nuremberg.',
+  'The doors open':'{name} is in the Drudenhaus still, and has been for months.',
+  'Never named':'{name} is still here, and keeps quiet, like everyone.',
+  'A letter under the imperial seal':'{name} was let out of the Drudenhaus on a letter from the Emperor, which no one had seen happen before.',
+  'Inside the commission':'{name} works for the commission now and signs the inventories.',
 };
 /* ===== EDITABLE: THE REAL LETTER, shown at every ending. ===== */
 const JUNIUS={from:'Johannes Junius, burgomaster of Bamberg, to his daughter Veronica · written in the Drudenhaus, 24 July 1628 · translation by G. L. Burr, abridged',
@@ -214,6 +286,38 @@ function fx(o){
   if(o.money){ S.money=clamp(S.money+o.money,0,3); parts.push(o.money<0?'money spent':'money earned'); }
   if(o.flag){ S.flags[o.flag]=true; }
   if(o.why){ S.factors.push({t:o.why, e:parts.join(', '), s:!!o.struct}); }
+  if(o.why && (o.struct || (o.sus&&o.sus>0))){ S.file=S.file||[]; const fl=FILE_LINE(o.why); if(fl) S.file.push({d:MONTHS[(S.month||4)-1]+' '+(S.year||1628), t:fl}); }
+}
+/* the commission's file: what the clerks would have written about each thing that reached them */
+function FILE_LINE(why){
+  const m={
+    'Told someone the trials were wrong':'Reported to have spoken against the proceedings in private company.',
+    'Said in council that the trials were unlawful':'Spoke in open council against the proceedings. Minuted.',
+    'Sent your daughter and your silver to Nuremberg':'Removed a daughter and a quantity of silver to the Lutheran city of Nuremberg.',
+    'Asked to leave the Ott household':'Sought to leave service before the term, without cause given. Reported by the mistress.',
+    'Treated the Lenz child, who died':'Attended a child of the Lenz house, who died within three days.',
+    'Handed over a remedy at the gate':'Gave a preparation in a bottle to a neighbor at the gate, seen by several.',
+    'Refused to treat the Lenz child':'Refused help to a sick child of the neighborhood. Reported by the mother.',
+    'Sued Lenz over the boundary stone':'Litigant against Kaspar Lenz before the court. Enmity known.',
+    'Threatened Lenz in public':'Uttered threats against Kaspar Lenz in the tavern before witnesses.',
+    'Denounced Lenz to the commission':'Denounced Kaspar Lenz to this commission. Taken down.',
+    'Refused to sign the Haan inventory and said why':'Refused signature to the Haan inventory and spoke against the procedure of the court.',
+    'Wrote to Vienna; the letter was opened on the road':'A letter to the imperial court, intercepted. Enclosed.',
+    'Told Frau Ott the paper was a prayer':'A written paper found in a box under the bed. Said to be a prayer.',
+    'Burned the paper in front of your mistress':'Destroyed a written paper in the fire before it could be examined.',
+    'Your absence from the execution was noticed and talked about':'Absent from the execution of 12 June. Remarked on.',
+    'Told the neighbor you had no stomach for burnings':'Said to a neighbor that the burnings turned the stomach.',
+    'Hid grain from the assessors; it was found':'Grain concealed from the assessors of the contribution. Fined.',
+    'Led a petition against the contribution':'Author of a petition against the assessment.',
+    'Argued the law to the commissioner':'Cited the Carolina against the commission at the first questioning.',
+    'Flight was treated as evidence of guilt':'Fled on the night of the warrant. Taken on the road.',
+    'A small admission was recorded as proof of the whole charge':'Admitted maleficium. The pact follows.',
+    'After you withstood torture, you were held anyway as “obstinate”':'Obstinate under three degrees. Taciturnitas. Held pending new evidence.',
+    'Your retraction was treated as the devil’s work, not as a defense':'Retracted at the Urgicht. The devil in the prisoner. Renewed.',
+  };
+  if(m[why]) return m[why];
+  const n=why.match(/^Named under torture by (.*)$/); if(n) return 'Named as an accomplice by '+n[1].split(',')[0]+' under the second degree.';
+  return '';
 }
 function choose(label){ S.log.push({scene:S.scene, label}); }
 function once(key, fn){ S.once=S.once||{}; if(S.once[key]) return; S.once[key]=true; fn(); }
@@ -226,6 +330,48 @@ function denP(){ return clamp(3 + S.sus, 0, 10)/10; }
 
 /* ------------------------------------------------------------------ scenes */
 const SC = {};
+
+/* What the last choice led to. Shown at the top of the following scene. */
+const FOLLOW = {
+  spring(){ const f=S.flags; const out=[];
+    if(f.spoke) out.push(is('lorenz') ? 'Since you spoke in council, two members have stopped greeting you in the street, and one who agreed with you at the time now avoids you. Nothing has been said officially.' : 'The person you confided in has told no one, as far as you know. But you notice that you watch what you say now, even at home.');
+    if(f.peace) out.push('Lenz took the land without a word of thanks. People on the hill say you were wise. Some say you were afraid.');
+    if(f.nosalves) out.push('Since you closed the gate, two women from the lane have come anyway, after dark, and gone away again. The money from the salves is gone, and the bread is dearer every week.');
+    if(f.nuremberg) out.push('Veronica and the silver reached Nuremberg safely. Within a week a councillor asked you, smiling, whether your daughter had found Lutheran air agreeable.');
+    return out; },
+  burning(){ const f=S.flags; const out=[];
+    if(f.cured) out.push('The Lenz boy is well. His mother thanks you at the well, in front of everyone, which helps. One of the women listening says, not quietly, that it is strange how quickly he mended.');
+    if(f.childdied) out.push('The Lenz boy died three days after you sat up with him. His mother has not spoken to you since. The quarter has.');
+    if(f.syrup) out.push('The boy recovered on his own. You hear that Frau Lenz kept the bottle and showed it to the neighbors.');
+    if(f.refused) out.push('The doctor on the Upper Bridge bled the boy, and he recovered. Frau Lenz tells people that the midwife would not come to a sick child.');
+    if(f.sued) out.push('The bishop’s court heard your suit against Lenz and found for you. Lenz has to move the stone back. He paid the costs, and he has not forgotten it.');
+    if(f.threat) out.push('Lenz has not touched the stone since the night in the tavern. Half the hill heard what you said, and the other half heard about it by morning.');
+    if(f.moved) out.push('Lenz noticed. He has not moved the stone again. He has also stopped speaking to you, which is a kind of answer.');
+    if(f.peace && !f.spoke) out.push('The strip of land is Lenz’s now. He nods to you on the hill, which he did not do before.');
+    if(f.accused) out.push('Lenz was arrested four days after you went to the commission. His wife has been to your door twice, screaming, and the neighbors came out to watch. Nobody has asked you what you know, which means everyone has guessed.');
+    if(f.signed && !f.appeal) out.push('The Haan inventory passed to the treasury with your signature on the last page, under eleven others.');
+    if(f.spoke && is('lorenz') && S.log.some(e=>e.scene==='spring')) out.push('Your refusal to sign was noted in the council minutes. Three councillors signed in your place. The chancellor’s wine is already in the bishop’s cellar.');
+    if(f.appeal && !f.opened) out.push('Your letter left for Vienna with a wine merchant you trust. You have heard nothing, which is what you expected. Letters to the Emperor take months to answer, if they are answered.');
+    if(f.opened) out.push('Your letter did not reach Vienna. It came back to Bamberg, opened, and the commissioner has it. He has not mentioned it to you. He has mentioned it to others.');
+    if(f.prayer) out.push('Frau Ott kept the paper. She has not had it read to her, as far as you know, but she has not given it back either.');
+    if(f.burnedpaper) out.push('Frau Ott watched the paper burn and said nothing. That evening she moved the household’s salt and the baby’s cradle out of the kitchen, where you sleep.');
+    if(f.priestpaper) out.push('Father Wolfgang read the paper and told Frau Ott it was an ordinary blessing against fever, of the kind printed in Bamberg every year. She was not satisfied, but she gave it back.');
+    return out; },
+  summer(){ const f=S.flags; const out=[];
+    if(f.heard) out.push('You stayed to the end and heard every name read out. Two of them were people you know. You have not told anyone that you listened for your own.');
+    if(f.attend && !f.heard && S.log.some(e=>e.scene==='burning' && /Leave before/.test(e.label))) out.push('You left before the fires were lit. People saw you go.');
+    if(S.log.some(e=>e.scene==='burning' && /Cross the square/.test(e.label))) out.push('You stood beside the commissioners at the execution. The council noticed, and so did the crowd.');
+    if(S.log.some(e=>e.scene==='burning' && /were ill/.test(e.label))) out.push('Your neighbor accepted that you had been ill. He asked, kindly, whether you had been to a doctor, and which one.');
+    if(S.log.some(e=>e.scene==='burning' && /no stomach/.test(e.label))) out.push('Your neighbor did not reply when you said you had no stomach for burnings. He has repeated it since, at the well, as a joke.');
+    return out; },
+  names2(){ const f=S.flags; const out=[];
+    if(f.petition) out.push('The council sent your petition to the bishop. The bishop’s reply thanked the council for its loyalty and left the assessment where it was. The council remembers who drafted it.');
+    if(f.carted) out.push('You were a week on the road to Forchheim and back with the company’s wagons. You came home with money in your pocket and found that the hill had talked about you while you were gone.');
+    if(f.grainhid) out.push('The assessors did not find the grain in the cellar. You will eat this winter.');
+    if(f.grainfound) out.push('The assessors found the grain. They took it, fined you, and wrote your name in their book, which is read by the same clerks who keep the commission’s lists.');
+    return out; },
+};
+function followup(scene){ const fn=FOLLOW[scene]; if(!fn) return ''; const lines=fn(); return lines.length?`<div class="follow">${lines.map(l=>`<p>${l}</p>`).join('')}</div>`:''; }
 
 SC.intro = {
   date:'Bamberg · April 1628',
@@ -241,6 +387,7 @@ SC.intro = {
 <p class="lead">On the night of 27 May 1626, in the middle of the growing season, a sudden hard frost struck Franconia and destroyed the vines, the grain, and the fruit trees. People across the region blamed witches, and in the Prince-Bishopric of Bamberg, the government agreed with them.</p>
 <p>Bamberg is a city of about 12,000 people on the Regnitz River, ruled by its Prince-Bishop, Johann Georg II Fuchs von Dornheim, who is both the bishop and the territorial prince. Since the frost, bread now costs about three times what it did before. Imperial troops pass through on their way north, where the Emperor’s generals are fighting the King of Denmark, and every household pays a war tax, called a contribution, for their upkeep. Last year, the bishop built a special prison for witchcraft cases, the Drudenhaus, with about thirty cells, a chapel, and a torture chamber. Over its door is a line from Virgil: <i>Learn justice, you who have been warned, and do not scorn the gods.</i> Executions take place every few weeks. The deputy bishop, Friedrich Förner, preaches that witches caused the frost, the hunger, and the war, and that the city is full of them.</p>
 <p>${you}</p>
+${(()=>{ const runs=loadRuns().filter(r=>r.id!==S.id); if(!runs.length) return ''; const seen={}; const lines=runs.filter(r=>{ if(seen[r.id]) return false; seen[r.id]=true; return true; }).map(r=>{ const tpl=REMEMBER[r.ending]; if(!tpl) return ''; const nm=REMEMBER.who[r.id]; return tpl.replace('{name}', nm.charAt(0).toUpperCase()+nm.slice(1)); }).filter(Boolean); return lines.length?`<p>You know what has happened to others in this city. ${lines.join(' ')}</p>`:''; })()}
 <p>It is the spring of 1628. How do you conduct yourself?</p>`;
   },
   choices(){
@@ -251,7 +398,7 @@ SC.intro = {
     if(is('lorenz')) c.push({k:'c', t:'Say in council that the trials are unlawful.', sub:'Some councillors agree with you privately.', go(){ fx({sus:2,stand:1,flag:'spoke',why:'Said in council that the trials were unlawful'}); return 'spring'; }});
     else c.push({k:'c', t:'Tell someone you trust that you think the trials are wrong.', go(){ fx({sus:1,flag:'spoke',why:'Told someone the trials were wrong'}); return 'spring'; }});
     const d={
-      margaretha:{t:'Stop selling salves and offering your services.', go(){ fx({sus:-1,stand:-1,why:'Gave up selling salves'}); return 'spring'; }},
+      margaretha:{t:'Stop selling salves and offering your services.', go(){ fx({sus:-1,stand:-1,flag:'nosalves',why:'Gave up selling salves'}); return 'spring'; }},
       hans:{t:'Give up the strip of land and make peace with Lenz.', go(){ fx({sus:-1,stand:1,flag:'peace',why:'Made peace with Lenz'}); return 'spring'; }},
       lorenz:{t:'Send your daughter Veronica to your brother-in-law in Nuremberg with a chest of silver, officially as her dowry.', sub:'Nuremberg is a Lutheran city outside the bishop’s territory.', go(){ fx({sus:1,flag:'nuremberg',why:'Sent your daughter and your silver to Nuremberg'}); return 'spring'; }},
       anna:{t:'Ask Frau Ott for permission to go home to your mother’s village.', go(){ fx({sus:1,flag:'askedleave',why:'Asked to leave the Ott household'}); return 'spring'; }},
@@ -266,35 +413,36 @@ SC.spring = {
   date:'Bamberg · May 1628',
   title(){ return {margaretha:'The Lenz child', hans:'The boundary stone', lorenz:'The council’s signature', anna:'The box under the bed'}[S.id]; },
   text(){
-    return {
+    return followup('spring') + {
       margaretha:`<p>The four-year-old son of your neighbors, the Lenz family, has had a cough for two weeks. His mother comes to your gate in the evening with the boy on her hip and asks whether you have anything for it. Several people see her standing there.</p>`,
       hans:`<p>During the night someone has moved the boundary stone again, even further now. Lenz is gardening on the other side of it when you come up the hill, and he does not turn to look at you.</p><p>Legally, it’s your land. What do you do?</p>`,
       lorenz:`<p>The council is called to witness the inventory of Dr. Georg Haan, the bishop’s own chancellor, who has been condemned this year along with his wife and daughter. The list of property is 11 pages long: silver, books, wine, linens. The councillors’ signatures certify that it passes legally to the Prince-Bishop’s treasury.</p><p>The pen is coming down the table toward you.</p>`,
-      anna:`<p>You come in from the yard and find Frau Ott kneeling at your box under the bed with the lid open. In her hand is the paper your mother gave you when you left home: a blessing copied out by the village priest, folded small.</p><p>“What is this?” she asks. You know that Frau Ott cannot read.</p>`,
+      anna:`${S.flags.askedleave?'<p>Frau Ott refuses. A servant is hired for the year, she tells you, and yours does not end until Martinmas. Then she asks why a girl with nothing to hide would be in such a hurry to leave.</p>':''}<p>You come in from the yard and find Frau Ott kneeling at your box under the bed with the lid open. In her hand is the paper your mother gave you when you left home: a blessing copied out by the village priest, folded small.</p><p>“What is this?” she asks. You know that Frau Ott cannot read.</p>`,
     }[S.id];
   },
   choices(){
     return {
       margaretha:[
-        {k:'a', t:'Go to the child and help him.', go(){ if(chance(.6)){ fx({stand:1,why:'Treated the Lenz child, who recovered'}); } else { fx({sus:2,why:'Treated the Lenz child, who died'}); } return 'burning'; }},
-        {k:'b', t:'Hand her a bottle of herbal syrup and go back inside.', go(){ fx({sus:1,why:'Handed over a remedy at the gate'}); return 'burning'; }},
-        {k:'c', t:'Send her to the doctor on the Upper Bridge.', go(){ fx({sus:1,stand:-1,why:'Refused to treat the Lenz child'}); return 'burning'; }},
+        {k:'a', t:'Go to the child and help him.', go(){ if(chance(.6)){ fx({stand:1,flag:'cured',why:'Treated the Lenz child, who recovered'}); } else { fx({sus:2,flag:'childdied',why:'Treated the Lenz child, who died'}); } return 'burning'; }},
+        {k:'b', t:'Hand her a bottle of herbal syrup and go back inside.', go(){ fx({sus:1,flag:'syrup',why:'Handed over a remedy at the gate'}); return 'burning'; }},
+        {k:'c', t:'Send her to the doctor on the Upper Bridge.', go(){ fx({sus:1,stand:-1,flag:'refused',why:'Refused to treat the Lenz child'}); return 'burning'; }},
       ],
       hans:[
-        {k:'a', t:'Take the matter to the bishop’s court.', go(){ fx({sus:1,why:'Sued Lenz over the boundary stone'}); return 'burning'; }},
+        {k:'a', t:'Take the matter to the bishop’s court.', go(){ fx({sus:1,flag:'sued',why:'Sued Lenz over the boundary stone'}); return 'burning'; }},
         {k:'b', t:'Tell Lenz in the tavern, in front of everyone, what you will do to him if he moves the stone again.', go(){ fx({sus:2,flag:'threat',why:'Threatened Lenz in public'}); return 'burning'; }},
-        {k:'c', t:'Move the stone back yourself before dawn and say nothing.', go(){ fx({why:'Moved the stone back quietly'}); return 'burning'; }},
+        {k:'c', t:'Move the stone back yourself before dawn and say nothing.', go(){ fx({flag:'moved',why:'Moved the stone back quietly'}); return 'burning'; }},
         {k:'d', t:'Do nothing. Let him keep the strip of ground.', go(){ fx({sus:-1,stand:1,flag:'peace',why:'Let Lenz keep the land'}); return 'burning'; }},
+        {k:'e', t:'Go to the Drudenhaus and tell the commission that Lenz has been seen at the witches’ dances.', sub:'Everyone knows a denunciation is taken seriously now.', go(){ fx({sus:1,stand:-1,flag:'accused',why:'Denounced Lenz to the commission'}); return 'burning'; }},
       ],
       lorenz:[
         {k:'a', t:'Sign, as you have before.', go(){ fx({stand:1,flag:'signed',why:'Signed the Haan inventory'}); return 'burning'; }},
         {k:'b', t:'Refuse to sign, and say why: the chancellor was tried without a lawyer, on the basis of confessions extracted by torture.', go(){ fx({sus:2,stand:-1,flag:'spoke',why:'Refused to sign the Haan inventory and said why'}); return 'burning'; }},
-        {k:'c', t:'Sign, but later tonight write to the Emperor’s court in Vienna describing what you have seen.', go(){ S.flags.appeal=true; if(chance(.3)){ fx({sus:2,why:'Wrote to Vienna; the letter was opened on the road'}); } else { fx({why:'Wrote privately to the imperial court'}); } S.flags.signed=true; return 'burning'; }},
+        {k:'c', t:'Sign, but later tonight write to the Emperor’s court in Vienna describing what you have seen.', go(){ S.flags.appeal=true; if(chance(.3)){ fx({sus:2,flag:'opened',why:'Wrote to Vienna; the letter was opened on the road'}); } else { fx({why:'Wrote privately to the imperial court'}); } S.flags.signed=true; return 'burning'; }},
       ],
       anna:[
-        {k:'a', t:'Tell her it is a prayer, and offer to have it read to her.', go(){ fx({sus:1,why:'Told Frau Ott the paper was a prayer'}); return 'burning'; }},
-        {k:'b', t:'Take it from her and put it in the kitchen fire.', go(){ fx({sus:2,why:'Burned the paper in front of your mistress'}); return 'burning'; }},
-        {k:'c', t:'Ask her to take it to Father Wolfgang at St. Martin’s and let him judge it.', go(){ fx({stand:1,why:'Asked that the priest judge the paper'}); return 'burning'; }},
+        {k:'a', t:'Tell her it is a prayer, and offer to have it read to her.', go(){ fx({sus:1,flag:'prayer',why:'Told Frau Ott the paper was a prayer'}); return 'burning'; }},
+        {k:'b', t:'Take it from her and put it in the kitchen fire.', go(){ fx({sus:2,flag:'burnedpaper',why:'Burned the paper in front of your mistress'}); return 'burning'; }},
+        {k:'c', t:'Ask her to take it to Father Wolfgang at St. Martin’s and let him judge it.', go(){ fx({stand:1,flag:'priestpaper',why:'Asked that the priest judge the paper'}); return 'burning'; }},
       ],
     }[S.id];
   },
@@ -302,7 +450,7 @@ SC.spring = {
     margaretha:'Healers and midwives were not the majority of the accused, but they were more exposed. When their treatment failed, they could be blamed for deaths that occurred afterward. Most accusations began with a quarrel, a refusal, or a death in the neighborhood.',
     hans:'Most accusations started between neighbors, over debts, boundaries, and old insults. Under the Carolina (the imperial criminal code of 1532) a denunciation from a known enemy was supposed to carry less weight. In practice, the accused were not told who had named them.',
     lorenz:'Dr. Georg Haan, chancellor of the bishopric, had opposed the trials. He, his wife, and his daughter were all condemned in 1628. Confiscation of the property of the condemned was one of the driving forces of the Bamberg hunt. Councillors did co-sign the inventories.',
-    anna:'Written charms and blessings were common and usually tolerated. The household was often where a case began: a mistress’s suspicion of a maid, a master’s of a servant, etc.',
+    anna:'Written charms and blessings were common and usually tolerated. The household was often where a case began: a mistress’s suspicion of a maid, a master’s of a servant, etc. Servants were usually hired for a year at a time and could not leave before the term ended without their employer’s permission.',
   }[S.id]; }
 };
 
@@ -310,9 +458,9 @@ SC.burning = {
   date:'Bamberg · 12 June 1628',
   title(){ return S.flags.attend ? 'The execution' : 'The day of the execution'; },
   text(){
-    if(S.flags.attend) return `<p>Eight women and two men are brought out of the Drudenhaus, each with a Franciscan friar beside them. Among them are a councillor’s wife and a priest from St. Martin’s. On the scaffold, a clerk reads the sentences. Each of the ten has confessed to making a pact with the devil, attending the witches’ dances outside the city, causing the frost of 1626, and harming cattle and children. Those who confessed without resisting are beheaded before their bodies are burned. The others are burned alive.</p>
+    if(S.flags.attend) return followup('burning') + `<p>Eight women and two men are brought out of the Drudenhaus, each with a Franciscan friar beside them. Among them are a councillor’s wife and a priest from St. Martin’s. On the scaffold, a clerk reads the sentences. Each of the ten has confessed to making a pact with the devil, attending the witches’ dances outside the city, causing the frost of 1626, and harming cattle and children. Those who confessed without resisting are beheaded before their bodies are burned. The others are burned alive.</p>
 <p>You stand near the front, where the commission’s clerks can see you. When the sentences have been read, the clerk begins on the confessions themselves, which include the names of everyone else each prisoner claimed to have seen at the dances.</p>`;
-    return `<p>You stay home. The bells of the cathedral and St. Michael’s ring together in the morning, and by noon the smoke reaches the Sand. By evening everyone knows what happened: eight women and two men, among them a councillor’s wife and a priest from St. Martin’s, confessed to a devil’s pact, the dances, the frost of 1626, and causing harm to cattle and children. Those who confessed without resisting were beheaded first. The others were burned alive. After the sentences, the clerk read out the confessions, with the names of everyone else each prisoner claimed to have seen at the dances.</p>
+    return followup('burning') + `<p>You stay home. The bells of the cathedral and St. Michael’s ring together in the morning, and by noon the smoke reaches the Sand. By evening everyone knows what happened: eight women and two men, among them a councillor’s wife and a priest from St. Martin’s, confessed to a devil’s pact, the dances, the frost of 1626, and causing harm to cattle and children. Those who confessed without resisting were beheaded first. The others were burned alive. After the sentences, the clerk read out the confessions, with the names of everyone else each prisoner claimed to have seen at the dances.</p>
 <p>In the evening your neighbor stops at your door and asks, in a friendly way, why you were not there. Most of the city was.</p>`;
   },
   choices(){
@@ -341,41 +489,45 @@ function denounceScene(id, when, who, pro, count, next, lead){
     date:when,
     title:'The naming of accomplices',
     text(){
-      let t = (lead||'') + `<div class="offstage"><p class="offlabel">Elsewhere · you do not see this</p><p>In the Drudenhaus, the interrogation of ${who} reaches the second degree of torture. As the procedure requires, the commissioner asks who else ${pro.toLowerCase()} saw attending the witches’ dances. ${pro} names ${count} people. The clerk writes down each name.</p>`;
+      const lenz = id==='names' && S.flags.accused;
+      if(lenz){ who='Kaspar Lenz, your neighbor, arrested on your denunciation,'; pro='He'; count='eleven'; }
+      let t = (typeof lead==='function'?lead():(lead||'')) + `<div class="offstage"><p class="offlabel">Elsewhere · you do not see this</p><p>In the Drudenhaus, the interrogation of ${who} reaches the second degree of torture. As the procedure requires, the commissioner asks who else ${pro.toLowerCase()} saw attending the witches’ dances. ${pro} names ${count} people. The clerk writes down each name.</p>`;
       S.rolls=S.rolls||{};
       let hit;
       if(S.rolls[id]!==undefined){ hit=S.rolls[id]; }
-      else { hit=chance(denP()); S.rolls[id]=hit; if(hit){ S.den++; fx({sus:2,struct:true,why:`Named under torture by ${who.replace(/,$/,'')}`}); } }
-      if(hit){
+      else { hit=chance(lenz?.85:denP()); S.rolls[id]=hit; if(hit){ S.den++; fx({sus:2,struct:true,why:`Named under torture by ${who.replace(/,$/,'')}`}); } }
+      if(hit && lenz){
+        t += `<p>The first name is yours. The commissioner asks whether the accused means the Hans Vogel who denounced him, and Lenz says that he does, and that it was Vogel who brought him to the dances.</p>`;
+      } else if(hit){
         t += `<p>The ${['ninth','fourteenth','seventh','nineteenth'][S.den%4]} name is yours.</p>`;
         if(S.den===1) t += `<p>You do not know this. One name is not yet enough for an arrest. The commission opens a file and waits.</p>`;
         else t += `<p>You do not know this yet.</p>`;
       } else {
-        t += `<p>Your name is not on the list.</p>`;
+        t += lenz ? `<p>Your name is not among them. He named the brewer, two neighbors, and the men who dug the boundary ditch, and he died in the Drudenhaus in September before he could be asked again.</p>` : `<p>Your name is not on the list.</p>`;
       }
       return t + `</div>`;
     },
     choices(){ return [{k:'→', t:'Continue', go(){ return next(); }}]; },
-    note:`This is how the hunts grew. Every confession ended with the demand for accomplices, and every name given became a witness against someone else. The commission kept lists, and a name that appeared twice was enough. Johannes Junius, the mayor of Bamberg, was arrested in June 1628 on denunciations of this kind.`
+    note(){ return (id==='names' && S.flags.accused ? 'Denunciations by neighbors were common, and the accused were asked under torture to name their accomplices. People who had informed on a neighbor were often named back, because the prisoner knew who had put them there. ' : '') + `This is how the hunts grew. Every confession ended with the demand for accomplices, and every name given became a witness against someone else. The commission kept lists, and a name that appeared twice was enough. Johannes Junius, the mayor of Bamberg, was arrested in June 1628 on denunciations of this kind.`; }
   };
 }
 denounceScene('names','Bamberg · July 1628','Else Schreiber, a baker’s widow,','She','twenty-two', ()=> 'summer');
-denounceScene('names2','Bamberg · August 1628','the schoolmaster of St. Gangolf','He','thirty', ()=> (S.den>=2 || (S.den>=1 && S.sus>=7)) ? 'warning' : 'names3');
+denounceScene('names2','Bamberg · August 1628','the schoolmaster of St. Gangolf','He','thirty', ()=> (S.den>=2 || (S.den>=1 && S.sus>=7)) ? 'warning' : 'names3', ()=>followup('names2'));
 denounceScene('names3','Bamberg · October 1628','a vine-grower’s wife from Kaulberg, on her third day of questioning,','She','sixteen', ()=> (S.den>=2 || (S.den>=1 && S.sus>=7)) ? 'warning' : 'end_unnamed',
   `<p>The harvest is poor. In the Sand quarter a child dies with dark marks on his skin, and his mother says that someone did it to him.</p>`);
 
 SC.summer = {
   date:'Bamberg · July 1628',
   title:'The contribution',
-  text(){ return `<p>A company of imperial cavalry is quartered in the city for a week on their way north. Each household is assessed to provide for the soldiers’ bread and beer. The bishop’s officers collect the contribution. News from the north says that Wallenstein has driven the King of Denmark out of Germany and now holds the Baltic ports. The Emperor is at the height of his power, and the bishop, who is the Emperor’s ally, has no one above him to restrain him.</p>
+  text(){ return followup('summer') + `<p>A company of imperial cavalry is quartered in the city for a week on their way north. Each household is assessed to provide for the soldiers’ bread and beer. The bishop’s officers collect the contribution. News from the north says that Wallenstein has driven the King of Denmark out of Germany and now holds the Baltic ports. The Emperor is at the height of his power, and the bishop, who is the Emperor’s ally, has no one above him to restrain him.</p>
 <p>The mayor of Bamberg, Johannes Junius, has been in the Drudenhaus prison since the end of June. People in the market say that if the mayor can be a witch, anyone can.</p>`; },
   choices(){
     const c=[
       {k:'a', t:'Pay the contribution in full.', go(){ fx({money:S.money>0?-1:0,why:'Paid the war contribution'}); return 'names2'; }},
-      {k:'b', t:'Quarter the soldiers, but hide part of your grain in the cellar.', go(){ if(chance(.4)) fx({sus:1,why:'Hid grain from the assessors; it was found'}); else fx({why:'Hid grain from the assessors'}); return 'names2'; }},
+      {k:'b', t:'Quarter the soldiers, but hide part of your grain in the cellar.', go(){ if(chance(.4)) fx({sus:1,flag:'grainfound',why:'Hid grain from the assessors; it was found'}); else fx({flag:'grainhid',why:'Hid grain from the assessors'}); return 'names2'; }},
     ];
-    if(is('lorenz')) c.push({k:'c', t:'Propose in council that the city petition the bishop against the assessment.', go(){ fx({stand:1,sus:1,why:'Led a petition against the contribution'}); return 'names2'; }});
-    if(is('hans')) c.push({k:'c', t:'Hire yourself out to carry the company’s things to Forchheim.', sub:'Some money, and a week out of the city.', go(){ fx({money:1,why:'Carted fodder for the soldiers'}); return 'names2'; }});
+    if(is('lorenz')) c.push({k:'c', t:'Propose in council that the city petition the bishop against the assessment.', go(){ fx({stand:1,sus:1,flag:'petition',why:'Led a petition against the contribution'}); return 'names2'; }});
+    if(is('hans')) c.push({k:'c', t:'Hire yourself out to carry the company’s things to Forchheim.', sub:'Some money, and a week out of the city.', go(){ fx({money:1,flag:'carted',why:'Carted fodder for the soldiers'}); return 'names2'; }});
     return c;
   },
   note:`1628 was the high point of imperial power in the Danish phase of the war: Christian IV defeated, Wallenstein in control of the Baltic coast, and the Edict of Restitution less than a year away. Catholic prince-bishops like Dornheim were the Emperor’s allies and faced no pressure from above. The war taxes fell on the same households that were paying for the trials.`
@@ -467,13 +619,14 @@ SC.arrest = {
       hans:'the bed, the wine press, the barrels, the new vines on the hillside, and the debt to Ott, which is noted',
       lorenz:'the silver, the books, every cask in both cellars, the deeds, the beds, the clothes in the presses, and the copy of the Carolina on your desk, which a clerk turns over and puts back',
       anna:'your box, your second shift, a comb, and eleven kreuzer'}[S.id];
-    if(S.flags.voluntary) return `<p>You present yourself at the gate of the Drudenhaus at eight in the morning and ask to speak to the commissioner. You are admitted, and the door is locked behind you. A clerk reads you the warrant that was drawn up the night before: on the testimony of two witnesses, for the crime of witchcraft, by order of the Prince-Bishop’s commission.</p>
+    const warrant=`<div class="doc"><p class="dochead">Warrant of arrest</p><p>In the name of the Most Reverend Prince and Lord, Johann Georg, Bishop of Bamberg, the Commission for the matter of witchcraft orders that <span class="hand">${CHARS[S.id].name}, ${CHARS[S.id].role},</span> be taken and brought to the Malefizhaus, on the sworn testimony of two witnesses, <span class="black">Margaretha Schreiberin, widow</span> and <span class="black">the schoolmaster Knorr</span>, who have named the said person as present at the dances of the witches; and that the goods of the said person be inventoried and held for the costs of the proceeding.</p><p class="sig">Bamberg, ${MONTHS[(S.month||8)-1]} ${S.year||1628}. — Dr. Ernst Vasolt, Commissioner</p></div>`;
+    if(S.flags.voluntary) return `<p>You present yourself at the gate of the Drudenhaus at eight in the morning and ask to speak to the commissioner. You are admitted, and the door is locked behind you. A clerk reads you the warrant that was drawn up the night before: on the testimony of two witnesses, for the crime of witchcraft, by order of the Prince-Bishop’s commission.</p>${warrant}<p>On the clerk’s table under the warrant is a file with your name on it. It is thicker than you expected.</p>${fileHTML()}
 <p>While you wait, two bailiffs and a clerk are sent to your house to make an inventory of your property. They write down ${inv}. Everything you own now stands as security for the costs of your trial.</p>`;
-    return `<p>Two bailiffs and a clerk come to your door at five in the morning. The warrant is read in the doorway, loud enough for the neighbors to hear. Your arrest is based on the testimony of two witnesses, for the crime of witchcraft, by order of the Prince-Bishop’s commission.</p>
+    return `<p>Two bailiffs and a clerk come to your door at five in the morning. The warrant is read in the doorway, loud enough for the neighbors to hear. Your arrest is based on the testimony of two witnesses, for the crime of witchcraft, by order of the Prince-Bishop’s commission.</p>${warrant}<p>The clerk has a second paper, a file with your name on it, which he does not read aloud. You see it upside down while he writes.</p>${fileHTML()}
 <p>Before you are taken away, the clerk makes an inventory of your property. He writes down ${inv}. Everything you own now stands as security for the costs of your trial.</p>`;
   },
   choices(){ return [{k:'→', t:'Continue', go(){ return 'drudenhaus'; }}]; },
-  note:`The inventory at the moment of arrest is documented in case after case. The accused paid for their cells, their food, the executioner’s fees, the wood for their own execution, and the balance went to the treasury. People who went to the commission voluntarily to clear their names are also on record, and they were treated exactly the same.`
+  note:`The two witnesses were never named to the accused; their names are blacked out here as they were kept from the prisoner. Ernst Vasolt was a real commissioner of the Bamberg trials. The inventory at the moment of arrest is documented in case after case. The accused paid for their cells, their food, the executioner’s fees, the wood for their own execution, and the balance went to the treasury. People who went to the commission voluntarily to clear their names are also on record, and they were treated exactly the same.`
 };
 
 SC.drudenhaus = {
@@ -502,7 +655,7 @@ SC.questioning = {
     ];
     const d={
       margaretha:{t:'Explain what is in the salves: wax, honey, comfrey, nothing else.', go(){ fx({why:'Explained the salves'}); S.flags.explained=true; return 'instruments'; }},
-      hans:{t:'Tell them that Lenz is your enemy and that anything he says about you is a lie.', go(){ fx({why:'Said your accuser was your enemy'}); S.flags.explained=true; return 'instruments'; }},
+      hans:{t:S.flags.accused?'Tell them that Lenz named you out of revenge, because you denounced him.':S.flags.peace?'Tell them that you and Lenz settled your quarrel in the spring and that he has no reason to lie about you.':'Tell them that Lenz is your enemy and that anything he says about you is a lie.', go(){ fx({why:'Said your accuser was your enemy'}); S.flags.explained=true; return 'instruments'; }},
       lorenz:{t:'Cite the Carolina: no torture without lawful evidence, and a denunciation extracted by torture is not lawful evidence.', go(){ fx({sus:1,why:'Argued the law to the commissioner'}); S.flags.explained=true; return 'instruments'; }},
       anna:{t:'Tell them the child was sick for three days before he died, and that it wasn’t your fault.', go(){ fx({why:'Explained how the child died'}); S.flags.explained=true; return 'instruments'; }},
     }[S.id]; d.k='d'; c.push(d);
@@ -658,7 +811,7 @@ SC.naming = {
   title:'Who else was there',
   text(){ return `<p>The last section of the confession is the one that is most important to the court—who else was at the dances? The commissioner has a list of names he reads from slowly, pausing after each name and watching you. Every name you confirm becomes a witness against that person. Two witnesses are enough for an arrest.</p>`; },
   choices(){
-    const en={margaretha:'the Lenz woman, who stood at your gate',hans:'Kaspar Lenz',lorenz:'two councillors who have long been your rivals',anna:'Frau Ott'}[S.id];
+    const en={margaretha:'the Lenz woman, who stood at your gate',hans:S.flags.accused?'Lenz’s wife, who has stood screaming at your door':'Kaspar Lenz',lorenz:'two councillors who have long been your rivals',anna:'Frau Ott'}[S.id];
     return [
       {k:'a', t:'Refuse to give any names.', go(){ fx({why:'Refused to name anyone'}); return 'naming_torture'; }},
       {k:'b', t:'Name only people who are already dead or already in the Drudenhaus.', go(){ fx({flag:'clever',why:'Named only the dead and the already arrested'}); giveNames('clever'); return 'urgicht'; }},
@@ -777,22 +930,23 @@ const reading=$('reading'), btnRestart=$('btnRestart');
 /* ---- sound ---- */
 const AUDIO={music:null,on:true}; try{ AUDIO.on=localStorage.getItem('bambergSound')!=='off'; }catch(e){}
 const btnSound=$('btnSound');
-function soundConfigured(){ return typeof SOUND!=='undefined' && !!(SOUND.ambience||SOUND.page||SOUND.click||SOUND.bell||SOUND.door||SOUND.quill||AMBIENCE.city||AMBIENCE.road||AMBIENCE.cell||AMBIENCE.square); }
+function soundConfigured(){ return typeof SOUND!=='undefined' && !!(SOUND.ambience||SOUND.page||SOUND.click||SOUND.bell||SOUND.door||SOUND.quill||SOUND.ending||AMBIENCE.city||AMBIENCE.road||AMBIENCE.cell||AMBIENCE.square); }
 function vol(){ return Math.min(1,Math.max(0,SOUND.volume||0.35)); }
 function sfx(kind){ if(!soundConfigured()||!AUDIO.on||!SOUND[kind]) return; try{ const a=new Audio(SOUND[kind]); a.volume=vol(); a.play().catch(()=>{}); }catch(e){} }
 const LOOPS={}; let CUR=null;
-function anyAmbience(){ return !!(SOUND.ambience||AMBIENCE.city||AMBIENCE.road||AMBIENCE.cell||AMBIENCE.square); }
+function anyAmbience(){ return !!(SOUND.ambience||SOUND.ending||AMBIENCE.city||AMBIENCE.road||AMBIENCE.cell||AMBIENCE.square); }
 function placeOf(scene){ return SCENE_PLACE[scene]||'city'; }
 function loopFor(place){ const src=AMBIENCE[place]!==undefined && (AMBIENCE.city||AMBIENCE.road||AMBIENCE.cell||AMBIENCE.square) ? AMBIENCE[place] : SOUND.ambience; return src||''; }
 function fadeTo(a,target,ms){ if(!a) return; const start=a.volume, steps=12; let i=0; const t=setInterval(()=>{ i++; a.volume=Math.max(0,Math.min(1,start+(target-start)*i/steps)); if(i>=steps){ clearInterval(t); if(target===0) a.pause(); } },ms/steps); }
 function startMusic(){ if(!soundConfigured()||!anyAmbience()) return; musicFor(S?S.scene:'intro',true); }
 function musicFor(scene,force){ if(!soundConfigured()||!anyAmbience()) return;
-  const silent=SILENT_SCENES.includes(scene); const src=silent?'':loopFor(placeOf(scene));
+  const isEnd=!!(SC[scene]&&SC[scene].ending); const silent=SILENT_SCENES.includes(scene); const src=silent?'':(isEnd&&SOUND.ending?SOUND.ending:loopFor(placeOf(scene)));
   if(!AUDIO.on){ if(CUR) fadeTo(CUR,0,300); CUR=null; return; }
   if(CUR && CUR.dataset.src===src && !CUR.paused) return;
   if(CUR){ fadeTo(CUR,0,900); CUR=null; }
   if(!src) return;
-  let a=LOOPS[src]; if(!a){ try{ a=new Audio(src); a.loop=true; a.dataset.src=src; LOOPS[src]=a; }catch(e){ return; } }
+  let a=LOOPS[src]; if(!a){ try{ a=new Audio(src); a.loop=(src!==SOUND.ending); a.dataset.src=src; LOOPS[src]=a; }catch(e){ return; } }
+  if(src===SOUND.ending){ try{ a.currentTime=0; }catch(e){} }
   a.volume=0; a.play().catch(()=>{}); fadeTo(a,vol()*0.6,1200); CUR=a; AUDIO.music=a; }
 function paintSound(){ if(!btnSound) return; btnSound.hidden=!soundConfigured(); btnSound.textContent='Sound: '+(AUDIO.on?'on':'off'); }
 if(btnSound) btnSound.addEventListener('click',()=>{ AUDIO.on=!AUDIO.on; try{localStorage.setItem('bambergSound',AUDIO.on?'on':'off')}catch(e){} musicFor(S?S.scene:'intro'); paintSound(); });
@@ -806,16 +960,29 @@ const MONTHS=['January','February','March','April','May','June','July','August',
 function trackDate(str){ if(!S) return; const m=MONTHS.findIndex(mn=>str.includes(mn)); if(m>=0) S.month=m+1; const y=str.match(/16(2[6-9]|3[0-9])/); if(y) S.year=+y[0]; }
 function calStrip(){ if(!S) return ''; const past=S.year>1628; return `<div class="cal">${MONTHS.map((mn,i)=>`<span class="${past||i+1<S.month?'past':(i+1===S.month?'now':'')}">${mn.slice(0,3)}</span>`).join('')}<span class="yr">${S.year}</span></div>`; }
 /* ---- names ---- */
-function giveNames(kind){ S.names=S.names||[]; const add = kind==='enemy' ? [NAMES_GIVEN.enemy[S.id]] : (NAMES_GIVEN[kind]||[]); add.forEach(n=>{ if(!S.names.includes(n)) S.names.push(n); }); }
+function giveNames(kind){ S.names=S.names||[]; const add = kind==='enemy' ? [NAMES_GIVEN.enemy[(S.id==='hans'&&S.flags.accused)?'hans_accused':S.id]] : (NAMES_GIVEN[kind]||[]); add.forEach(n=>{ if(!S.names.includes(n)) S.names.push(n); }); }
 function namesBox(){ if(!S||!S.names||!S.names.length) return ''; return `<div class="names"><h4>Names you have given</h4><ul>${S.names.map(n=>`<li>${n}</li>`).join('')}</ul></div>`; }
 /* ---- runs kept between plays ---- */
 function loadRuns(){ try{ return JSON.parse(localStorage.getItem('bamberg1628_runs')||'[]'); }catch(e){ return []; } }
 function saveRun(sc,rec){ try{ const runs=loadRuns(); const code=rec.split('Record code: ')[1]; if(runs.some(r=>r.code===code)) return runs; runs.push({code, id:S.id, name:CHARS[S.id].name, ending:val(sc.title), alive:!!sc.alive, maxSus:S.maxSus, baseSus:S.baseSus, den:S.den, chosen:S.factors.filter(f=>!f.s).map(f=>f.t), struct:S.factors.filter(f=>f.s).map(f=>f.t), names:S.names||[]}); localStorage.setItem('bamberg1628_runs', JSON.stringify(runs.slice(-6))); return runs; }catch(e){ return []; } }
 function val(v){ return typeof v==='function'?v():v; }
+/* ---- the suspicion gauge ---- */
+let lastSus=null;
+function susWord(n){ return n<=1?'No one talks about you.':n<=3?'A little talk.':n<=5?'People talk about you.':n<=7?'People talk about you a great deal.':'Your name is in every mouth.'; }
+function gauge(){ if(!S) return ''; const n=S.sus; let h=''; for(let i=0;i<10;i++) h+=`<span class="${i<n?'on':''}${(lastSus!==null && i>=lastSus && i<n)?' up':''}"></span>`; lastSus=n; return `<div class="gauge" title="How much the city talks about you"><span>Suspicion</span><div class="segs">${h}</div><span class="word">${susWord(n)}</span></div>`; }
+/* ---- time of day ---- */
+const NIGHT=['warning','flight_where','flight','flight_caught','executioner','letter'];
+const CELL=['drudenhaus','questioning','instruments','torture1','partial','torture2','torture3','withstood','second_round','confession_broken','confession','naming','naming_torture','urgicht','recant','end_doors','end_died'];
+const DUSK=['burning','sentence','end_sword','end_stake'];
+function mood(id){ const b=document.body; b.classList.toggle('night', NIGHT.includes(id)); b.classList.toggle('cell', CELL.includes(id)); b.classList.toggle('dusk', DUSK.includes(id)); }
+/* ---- the commission's file ---- */
+const FILE_OPEN_FROM=['arrest','drudenhaus','questioning','instruments','torture1','partial','torture2','executioner','torture3','withstood','second_round','mandate','confession_broken','confession','naming','naming_torture','urgicht','recant','letter','sentence','end_sword','end_stake','end_died','end_doors','end_haan','flight_caught'];
+function fileHTML(){ const f=S.file||[]; return `<div class="doc"><p class="dochead">Acta · the commission for witchcraft · ${CHARS[S.id].name}</p>${f.length?f.map(e=>`<div class="entry"><span class="d">${e.d}</span><span class="hand">${e.t}</span></div>`).join(''):'<p class="hand">Nothing yet. A file is opened when a name is first given.</p>'}<p class="sig">Read and found in order. — the Commissioner</p></div>`; }
+function openFile(){ const w=document.createElement('div'); w.className='filewrap'; w.innerHTML=`<div style="position:relative;max-width:620px;width:100%">${fileHTML()}<button type="button" class="close">Close</button></div>`; w.addEventListener('click',e=>{ if(e.target===w||e.target.classList.contains('close')) w.remove(); }); document.body.appendChild(w); }
 function segs(n){ let h=''; for(let i=0;i<10;i++) h+=`<span class="${i<n?'on':''}"></span>`; return `<div class="segs">${h}</div>`; }
 
 function renderStart(){
-  S=null; btnRestart.hidden=true;
+  S=null; btnRestart.hidden=true; $('btnFile').hidden=true; lastSus=null; mood('start');
   let resume='';
   try{ const raw=localStorage.getItem('bamberg1628'); if(raw){ const st=JSON.parse(raw); if(st && !st.ended && st.id) resume=`<div class="row"><button class="btn quiet" type="button" id="btnResume">Resume as ${CHARS[st.id].name}</button></div>`; } }catch(e){}
   reading.innerHTML=`<div class="scene fade">
@@ -889,14 +1056,17 @@ function go(id, resuming){
   if(resuming) paintScene(id,sc); else transition(()=>{ paintScene(id,sc); if(SCENE_SFX[id]) sfx(SCENE_SFX[id]); else sfx('page'); musicFor(id); if(!resuming) window.scrollTo({top:0,behavior:'auto'}); });
 }
 function paintScene(id,sc){
+  trackDate(val(sc.date));
   const text = val(sc.text);
   const choices = val(sc.choices);
   const note = val(sc.note);
   const c=CHARS[S.id];
   const dateStr=val(sc.date); trackDate(dateStr);
+  mood(id);
   reading.innerHTML=`<article class="scene fade">
 <p class="date">${dateStr}</p>
 ${calStrip()}
+${gauge()}
 <h2>${val(sc.title)}</h2>
 <div class="who${PORTRAITS[S.id]&&PORTRAITS[S.id].src?' withport':''}">${oval(S.id,48)}<span>${c.name}, ${c.role}</span></div>
 ${namesBox()}
@@ -907,6 +1077,7 @@ ${note?`<div class="note"><h4>The real history</h4><p>${note}</p></div>`:''}
   reading.querySelectorAll('.choice').forEach(b=>b.addEventListener('click',()=>{
     const ch=choices[+b.dataset.i]; choose(ch.t); const next=ch.go(); save(); go(next);
   }));
+  $('btnFile').hidden=!FILE_OPEN_FROM.includes(id);
   save();
 }
 
@@ -938,6 +1109,7 @@ function renderEnding(sc){
 <tr><td>What was decided for them</td><td><ul>${prevRun.struct.map(li2).join('')||'<li>Nothing</li>'}</ul></td><td><ul>${struct.map(f=>li2(f.t)).join('')||'<li>Nothing</li>'}</ul></td></tr>
 <tr><td>Names given</td><td>${prevRun.names.length?prevRun.names.join('; '):'None'}</td><td>${(S.names||[]).length?S.names.join('; '):'None'}</td></tr>
 </tbody></table>` : '';
+  mood(sc.alive?'end_alive':'end_dead');
   reading.innerHTML=`<article class="scene ending fade">
 <p class="date">${dateStr}</p>
 ${calStrip()}
@@ -947,6 +1119,9 @@ ${namesBox()}
 <div class="body">${val(sc.text)}</div>
 ${sc.note?`<div class="note"><h4>The real history</h4><p>${val(sc.note)}</p></div>`:''}
 
+${(S.names&&S.names.length)?`<h3>The register</h3>
+<p>What became of the people you named, as the commission’s register records it.</p>
+<table class="register"><thead><tr><th>Name</th><th>What happened</th><th>When</th></tr></thead><tbody>${S.names.map(n=>{ const f=FATES[n]||['No record.','']; return `<tr><td>${n}</td><td>${f[0]}</td><td class="when">${f[1]}</td></tr>`; }).join('')}</tbody></table>`:`<h3>The register</h3><p>You gave no names. The register has no entries under yours.</p>`}
 <h3>How this run was decided</h3>
 <p>While you played, the simulation kept two hidden scores. <b>Suspicion</b> measured how much talk there was about you. <b>Standing</b> measured how many influential people would have spoken up for you. Before you made a single choice, you started at suspicion ${S.baseSus} and standing ${S.baseStand}, because of who ${c.first} was: ${c.she?'her':'his'} sex, age, money, and position in the city.</p>
 <div class="scores">
@@ -974,6 +1149,7 @@ ${cmp}
 }
 
 btnRestart.addEventListener('click',()=>{ try{ localStorage.removeItem('bamberg1628'); }catch(e){} renderStart(); });
+$('btnFile').addEventListener('click',openFile);
 
 function start(data){
   if(data && data.S && data.S.id){ S=data.S; if(S.ended) renderEnding(SC[S.scene]); else go(S.scene,true); }
