@@ -199,7 +199,8 @@ const SOUND={
   bell:'bells.mp3',       // a single church bell: the burning in June, the sentence, the endings
   door:'heavydoor.mp3',       // a heavy door: the arrest and the first day in the Drudenhaus
   quill:'writing2.mp3',      // writing: the confession, its confirmation, the letter
-  ending:'ending.mp3',       // played once, quietly, on the ending screens instead of the ambience (a slow piece of music)
+  ending:'ending2.mp3',       // played once, quietly, on the ending screens instead of the ambience (a slow piece of music)
+  endingDelay:5,   // seconds of silence before the ending music starts
   volume:0.35
 };
 const SILENT_SCENES=[];   // scenes with no ambience at all. Empty: the ambience keeps playing everywhere.
@@ -947,7 +948,9 @@ function musicFor(scene,force){ if(!soundConfigured()||!anyAmbience()) return;
   if(!src) return;
   let a=LOOPS[src]; if(!a){ try{ a=new Audio(src); a.loop=(src!==SOUND.ending); a.dataset.src=src; LOOPS[src]=a; }catch(e){ return; } }
   if(src===SOUND.ending){ try{ a.currentTime=0; }catch(e){} }
-  a.volume=0; a.play().catch(()=>{}); fadeTo(a,vol()*0.6,1200); CUR=a; AUDIO.music=a; }
+  CUR=a; AUDIO.music=a;
+  if(src===SOUND.ending){ a.volume=0; setTimeout(()=>{ if(CUR!==a) return; a.play().catch(()=>{}); fadeTo(a,vol()*0.6,1200); }, (SOUND.endingDelay||0)*1000); return; }
+  a.volume=0; a.play().catch(()=>{}); fadeTo(a,vol()*0.6,1200); }
 function paintSound(){ if(!btnSound) return; btnSound.hidden=!soundConfigured(); btnSound.textContent='Sound: '+(AUDIO.on?'on':'off'); }
 if(btnSound) btnSound.addEventListener('click',()=>{ AUDIO.on=!AUDIO.on; try{localStorage.setItem('bambergSound',AUDIO.on?'on':'off')}catch(e){} musicFor(S?S.scene:'intro'); paintSound(); });
 document.addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; startMusic(); if(!b.classList.contains('choice') && b.id!=='btnSound') sfx('click'); },true);
