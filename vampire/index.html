@@ -270,14 +270,14 @@ body.snow::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:2
    questions, the claims, the cross-checks, the notebook pages, the report options, the
    briefing dialogue, the road, the letters, the Empress's reply, and the epilogue.
    Each document: id, short name, who (for the portrait caption), src (the source line),
-   text (the document), qs (two sourcing questions, each with options; ok:true marks the
-   right one; why is the explanation shown after confirmation), claims (each with the
+   text (the document), qs (the sourcing questions, each with options; ok:true marks the
+   right one; why is a note for the teacher and is never shown to students), claims (each with the
    right answer: obs = observed, inf = inference, hear = hearsay).
    ================================================================================ */
-const PART={1:{title:'What has already been said', date:'On the road to Olomouc · three days in a cold coach', ids:['A','B','C','D'],
-  intro:'Four papers from van Swieten’s bag. Two are Habsburg reports from Serbia, thirty years old and reprinted so often that most educated Europeans have read them. The third is the book a French monk wrote about those reports. The fourth is a page from van Swieten’s own medical textbook, on fevers. The priest of Langendorf has read the first three. Read them as he did, as a description of what to expect when a coffin is opened.'},
+const PART={1:{title:'What has already been said', date:'On the road to Olomouc · three days in a cold carriage', ids:['A','B','C','D'],
+  intro:'There are four documents from van Swieten’s bag. Two are Habsburg reports from Serbia, thirty years old and reprinted so often that most educated Europeans have read them. The third is the book a French monk wrote about those reports. The fourth is a page from van Swieten’s own medical textbook, on fevers.'},
  2:{title:'The village', date:'Langendorf, Moravia · February 1755', ids:['E','F','G','H','I'],
-  intro:'Eleven houses along a frozen stream, a church, a mill, and a black mark on the churchyard wall where the fire was. You take statements in the priest’s front room, one person at a time, with Dr. Gasser writing. Two papers were waiting for you: the priest’s letter to his bishop and the district captain’s report to Brno. The five documents describe the same two months and the same grave, and they do not agree.'}};
+  intro:'Eleven houses along a frozen stream, a church, a mill, and a black mark on the churchyard wall where the fire was. You take statements in the priest’s front room, one person at a time, with Dr. Gasser writing their responses. Two documents were already waiting for you: the priest’s letter to his bishop and the district captain’s report to Brno.'}};
 
 const SRC=[
  {id:'A', short:'Frombald’s report, 1725', who:'Frombald, Imperial Provisor', real:true,
@@ -286,37 +286,42 @@ const SRC=[
 <p>The people came to me and demanded that the body be dug up and examined, saying that otherwise the whole village would die as had happened in Turkish times. I told them that such a thing must first be reported to Belgrade, but they answered that they would all leave the village before the reply came. Since I could not stop them, I went with the priest to the grave.</p>
 <p>I saw with my own eyes that the body did not smell; that the old skin had peeled off and fresh skin had grown beneath; that the hair, beard, and nails had grown; and that there was fresh blood in the mouth, which by common belief he had sucked from those he killed. The people sharpened a stake and drove it through the heart, and fresh blood flowed from the ears and mouth. Then they burned the body to ashes. I ask that if any fault was committed, it be laid not on me but on the people, who were beside themselves with fear.</p>`,
   qs:[
-   {q:'What is Frombald trying to accomplish with this report?', opts:[
-     {t:'To report the deaths to Belgrade and ask for instructions so that no further exhumations take place in his district.'},
+   {q:'What is the purpose of this report? Why did Frombald write it?', opts:[
      {t:'To put on record that he tried to stop the villagers and could not, so that the blame falls on them rather than on him.', ok:true},
+     {t:'To report the deaths to Belgrade and ask for instructions so that no further exhumations take place in his district.'},
      {t:'To warn the military command that a vampire is at large in the district and that more deaths will follow if nothing is done.'}],
     why:'An official could write any of the three. The second fits what is actually on the page: he says he told them to wait, he says he saw the signs himself, and his last sentence asks that no fault be laid on him. The report exists to protect its author.'},
    {q:'Given his position, which part of his report should a historian trust least?', opts:[
      {t:'The count of nine deaths in eight days, since he gives no names and no dates.'},
-     {t:'His statement that he tried to stop the villagers and was unable to.', ok:true},
-     {t:'The account of the stake and the burning, since he may not have stayed to watch.'}],
+     {t:'The account of the stake and the burning, since he may not have stayed to watch.'},
+     {t:'His statement that he tried to stop the villagers and was unable to.', ok:true}],
     why:'The deaths and the burning happened whether he wanted them to or not, and the priest and villagers could confirm both. His own resistance is the one thing only he vouches for, and it is the thing he most needs to be true.'}],
   claims:[
    {id:'A1', t:'Plogojowitz came to his widow at night and demanded his shoes.', ans:'hear', why:'Frombald did not see this. The widow told it, and she had left the village by the time he wrote.'},
    {id:'A2', t:'Nine people died in Kisiljevo within about eight days.', ans:'obs', why:'Frombald was the administrator of the district and would know about the burials. It is the one hard number in the report.'},
    {id:'A3', t:'There was fresh blood in Plogojowitz’s mouth when the grave was opened.', ans:'obs', why:'He says he saw it himself, and he had reason to be exact. What the blood means is a different question.'},
-   {id:'A4', t:'The blood in his mouth was blood he had sucked from the people he killed.', ans:'inf', why:'Frombald marks this himself as “by common belief.” It is the villagers’ conclusion from what they saw.'}]},
+   {id:'A4', t:'The blood in his mouth was from the people he killed.', ans:'inf', why:'Frombald marks this himself as “by common belief.” It is the villagers’ conclusion from what they saw.'}]},
  {id:'B', short:'Flückinger’s military report, 1732', who:'Johannes Flückinger, regimental surgeon', real:true,
-  src:'<b>Document B.</b> <i>Visum et Repertum</i> (“Seen and Found”), report of Johannes Flückinger, regimental surgeon, with two other army surgeons and two officers, to the military command at Belgrade, 26 January 1732. Reprinted across Europe within months.',
+  src:'<b>Document B.</b> <i>Visum et Repertum</i> (“Seen and Found”), report of Johannes Flückinger, regimental surgeon, with two other army surgeons and two officers, to the military command at Belgrade, 26 January 1732. Reprinted across Europe.',
   text:`<p>The hajduks (frontier soldiers) of the village of Medveđa reported that about five years ago a hajduk named Arnold Paole broke his neck falling from a hay wagon. In his lifetime he had often said that near Gossowa in Turkish Serbia he had been troubled by a vampire, and that he had eaten earth from the vampire’s grave and smeared himself with its blood to be free of it. Twenty or thirty days after his death, four people complained of being troubled by him, and they died. The villagers dug him up after forty days and found him, they said, whole and undecayed, with fresh blood flowing from his eyes, nose, mouth, and ears, and the old skin and nails fallen away and new ones grown. They drove a stake through his heart, at which he gave an audible groan and bled copiously, and burned the body.</p>
 <p>In the last three months seventeen persons of the village have died, young and old, after illnesses of two or three days. The hajduks say that those who died had eaten the flesh of sheep that Paole had attacked as a vampire, and that a woman named Stana, aged twenty, who died in childbirth, had in life smeared herself with the blood of a vampire to protect herself.</p>
 <p>We therefore went to the graveyard and had the bodies dug up, and we found the following. Stana, dead three months: undecayed, with fresh blood in the chest, the organs fresh, and under the old skin a new one. A woman named Miliza, dead ninety days: in the same condition, though the hajduks said she had been thin in life and was now fuller. A child of eight weeks: in the same condition. Several others, dead the same length of time: entirely decomposed. Of the thirteen examined, we found the greater number in the vampire condition, and the hajduks cut off their heads, burned them, and threw the ashes in the river Morava. All this we attest with our signatures.</p>`,
   qs:[
    {q:'What were the surgeons doing, and for whom?', opts:[
-     {t:'Setting out, on their own initiative, to prove to the command at Belgrade that vampires exist on the frontier.'},
-     {t:'Writing at the request of the hajduks, who needed an official paper before they were allowed to burn the bodies.'},
-     {t:'Carrying out an army order to find out why frontier soldiers were dying, and reporting what they were told and what they saw.', ok:true}],
+     {t:'Setting out on their own initiative to prove to the command at Belgrade that vampires exist on the frontier.'},
+     {t:'Carrying out an army order to find out why frontier soldiers were dying, and recording what they heard and saw.', ok:true},
+     {t:'Writing at the request of the hajduks, who needed an official document before they were allowed to burn the bodies.'}],
     why:'The hajduks guarded the Ottoman border, and the army wanted to know why they were dying. The report is an official medical examination. Its first two paragraphs record what the hajduks said; only the third records what the surgeons did.'},
-   {q:'The report carried five signatures and was believed across Europe. What did the signatures actually vouch for?', opts:[
-     {t:'That the surgeons had examined Arnold Paole’s body themselves and found it undecayed after forty days.'},
+   {q:'The report was written and signed by five men. What did the men’s signatures actually vouch for?', opts:[
      {t:'That what the signers saw in the graveyard in January 1732 was as described, and nothing before that.', ok:true},
+     {t:'That the surgeons had examined Arnold Paole’s body themselves and found it undecayed after forty days.'},
      {t:'That the report had been read and approved by the military command and the Imperial censor before printing.'}],
-    why:'A signature attests to what the signer witnessed. The surgeons witnessed thirteen exhumations. They did not witness Paole’s, which happened five years before they arrived, and they say so: “they said.”'}],
+    why:'A signature attests to what the signer witnessed. The surgeons witnessed thirteen exhumations. They did not witness Paole’s, which happened five years before they arrived, and they say so: “they said.”'},
+   {q:'The surgeons dig up thirteen bodies, describe each one, and sign for what they found. Their method most directly reflects which of the following?', opts:[
+     {t:'The revival of ancient Greek medical writers by the humanists of the Renaissance'},
+     {t:'The Church’s insistence that only a bishop could rule on whether a body was holy'},
+     {t:'The new emphasis on direct observation and written record in the sciences', ok:true}],
+    why:'Teacher note: the report’s title is “Seen and Found,” the method of the Scientific Revolution. The method is careful and the conclusion is still wrong.'}],
   claims:[
    {id:'B1', t:'Arnold Paole was troubled by a vampire in Turkish Serbia and ate earth from its grave.', ans:'hear', why:'Paole told villagers this years before; the villagers told the surgeons; the surgeons wrote it down. Nobody who signed the report saw any of it.'},
    {id:'B2', t:'When Paole was dug up after forty days, fresh blood flowed from his eyes, nose, mouth, and ears.', ans:'hear', why:'The surgeons arrived in 1732. Paole was dug up in about 1727. Everything in the report about his body is what the hajduks told them.'},
@@ -327,14 +332,14 @@ const SRC=[
   src:'<b>Document C.</b> Dom Augustin Calmet, Benedictine monk and biblical scholar, <i>Dissertation on the Revenants and Vampires of Hungary, Moravia, and Silesia</i>, published in Paris, 1746, and widely read.',
   text:`<p>In this age a new scene presents itself to our eyes. We are told that in Hungary, Moravia, and Silesia, men who have been dead for some months come back, speak, walk, infest villages, suck the blood of their relatives, make them sick, and finally cause their death. The accounts are attested by officers, surgeons, and magistrates, and signed. I confess I do not know how to reconcile them with reason. That a body can leave its grave and return without disturbing the earth is beyond me to explain. Yet so many witnesses of good standing cannot all be mistaken or lying. I set out the facts and leave the judgment to the reader.</p>`,
   qs:[
-   {q:'What is Calmet trying to do?', opts:[
+   {q:'What is the purpose of this document? What is Calmet trying to do?', opts:[
      {t:'To entertain educated Parisians by collecting the strangest stories from the eastern provinces of the Empire.'},
-     {t:'To decide, as a scholar and a churchman, whether reports attested by officials can be believed.', ok:true},
-     {t:'To warn the French clergy that the vampire belief is spreading westward and must be preached against.'}],
+     {t:'To warn the French clergy that the vampire belief is spreading westward and must be preached against.'},
+     {t:'To decide, as a scholar and a churchman, whether reports attested by officials can be believed.', ok:true}],
     why:'He respects two things that point in opposite directions: reason, and signed official documents. He cannot dismiss the reports because of who signed them, and he cannot accept them because of what they say. So he sets them out and admits he is stuck.'},
-   {q:'What does his hesitation tell you about his readers?', opts:[
-     {t:'That French readers in 1746 were inclined to laugh, so he needed the rank of the witnesses to justify the subject.', ok:true},
+   {q:'What does his hesitation tell you, based on what the document says?', opts:[
      {t:'That his readers were country people who already believed in vampires and expected him to confirm the stories.'},
+     {t:'That French readers in 1746 were inclined to laugh, so he cites the witnesses’ rank to justify the subject.', ok:true},
      {t:'That the Church had forbidden him to express an opinion, so he could only summarize what others had written.'}],
     why:'A writer defends what his audience will attack. Calmet leans on “officers, surgeons, and magistrates” because his readers, educated Parisians in the age of Voltaire, would otherwise dismiss the whole subject. That is also why van Swieten, nine years later, goes after the signatures first.'}],
   claims:[
@@ -345,15 +350,15 @@ const SRC=[
   text:`<p>Of the malignant fevers of winter. These fevers arise most often among the poor, in close and smoky rooms where many sleep together, when the cold shuts the doors and windows for months. We have observed in Leiden and in the country round it that when one person in a house falls sick the rest of the house commonly follows, one after another, over some weeks, and that the fever then passes to the neighbouring houses. It is the old and the very young who die of it; those of middle age for the most part recover. The sick complain of a cough, a pain in the chest, and great weakness, and they are often troubled in their sleep by frightful dreams, in which they believe themselves pressed upon or throttled.</p>
 <p>The common people, who see a whole family sicken after one death, do not look for the cause in the air of the room or the season. They attribute it to the malice of the one who died first, and in some countries they say that the dead return. The physician who is called to such a place should not dispute with them, but should count the sick and the dead, house by house, and note the dates, for the course of the fever is the same whether or not anyone has been accused.</p>`,
   qs:[
-   {q:'What is this text for, and who was meant to read it?', opts:[
-     {t:'A report to the Habsburg government, written to prepare officials for the kind of case that arose in Moravia.'},
+   {q:'What is the text’s purpose and intended audience?', opts:[
      {t:'A teaching text for physicians, explaining how fevers behave, with no particular village or case in mind.', ok:true},
+     {t:'A report to the Habsburg government, written to prepare officials for the kind of case that arose in Moravia.'},
      {t:'A pamphlet for the general public, written to persuade country people to stop blaming the dead for sickness.'}],
     why:'It is a university textbook, written in Latin for medical students and physicians, thirteen years before the Moravian case. Its author had no stake in Langendorf when he wrote it, which is what makes it useful to you now.'},
    {q:'What is the weakness of this text as evidence about what happened at Langendorf?', opts:[
      {t:'Its author is a Protestant from Holland and knows nothing of Catholic villages in the Habsburg lands.'},
-     {t:'It describes fevers in general, in other places and years; it cannot tell you what happened in this village.', ok:true},
-     {t:'It was written in Latin, so neither the priest nor the judge of Langendorf could have read it.'}],
+     {t:'It was written in Latin, so neither the priest nor the judge of Langendorf could have read it.'},
+     {t:'It describes fevers in general, in other places and years, not what happened in this village.', ok:true}],
     why:'A general description tells you what to look for and what would count as evidence: a count of the sick and dead, house by house, with dates. It does not tell you whether Langendorf fits the pattern. For that you need the village documents.'}],
   claims:[
    {id:'D1', t:'When one person in a house falls sick with such a fever, the rest of the house commonly follows over some weeks.', ans:'obs', why:'He writes “we have observed,” and this is the kind of thing a physician in practice sees repeatedly. It is a pattern reported from experience.'},
@@ -364,16 +369,21 @@ const SRC=[
   text:`<p>Most Reverend Lords. I write to explain what was done in my parish. In November the widow Rosina Polak died after a long sickness and was buried in consecrated ground. Within a few weeks sickness fell upon the house of the village judge, Georg Beck, and then upon others, and seven of my parishioners have died since Martinmas. The people were in terror and came to me daily, saying that the widow walked at night and that the dead would not stay in their graves.</p>
 <p>I resisted them as long as I could. But when the judge and the elders swore before me that the dead woman had been seen, and the whole village threatened to leave the parish, I agreed to an examination so that the people might be calmed, as has been done before in this diocese with the Consistory’s knowledge. The body was opened on 9 January, and all present saw that it showed no sign of corruption, that the face was ruddy, and that there was blood at the mouth. I therefore permitted what the people demanded. Since that day no one in the village has died, and the people are at peace. I did what a shepherd must do for a frightened flock, and I submit myself to your judgment.</p>`,
   qs:[
-   {q:'What is Father Wenzel trying to accomplish?', opts:[
+   {q:'What is Father Wenzel trying to accomplish? What is the purpose of this document?', opts:[
+     {t:'To defend himself to his superiors, saying that he resisted, the people forced him, and the deaths stopped after.', ok:true},
      {t:'To ask the Consistory to confirm in writing that such examinations are permitted in the diocese when the people demand them.'},
-     {t:'To report the sickness in his parish so that the Consistory will send help, and to explain why he has not reported it sooner.'},
-     {t:'To defend himself to his superiors: he resisted, there was precedent, the people forced him, and the deaths stopped.', ok:true}],
+     {t:'To report the sickness in his parish so that the Consistory will send help, and to explain why he has not reported it sooner.'}],
     why:'He is answering a demand for an explanation, which means he is in trouble. Every sentence does defensive work, including the reminder that the Consistory knew about earlier cases, which moves some of the blame upward.'},
    {q:'Which claim in his letter is most convenient for him, and therefore most in need of checking?', opts:[
      {t:'That the widow died in November after a long sickness and was buried in consecrated ground.'},
      {t:'That since the burning on 9 January no one in the village has died.', ok:true},
      {t:'That the judge and the elders swore before him that the dead woman had been seen at night.'}],
-    why:'If the deaths stopped, the burning worked and he is vindicated. It is also the one claim in the letter that a burial register can test. The date of the death and the oath of the elders are not in dispute and do not help him either way.'}],
+    why:'If the deaths stopped, the burning worked and he is vindicated. It is also the one claim in the letter that a burial register can test. The date of the death and the oath of the elders are not in dispute and do not help him either way.'},
+   {q:'The Consistory demanded that Father Wenzel explain himself. His letter is best understood in the context of which of the following?', opts:[
+     {t:'The conversion of the village from Orthodoxy to Catholicism under Habsburg rule'},
+     {t:'Bishops’ efforts since the Council of Trent to supervise parish priests closely', ok:true},
+     {t:'The decline of the parish clergy’s authority after the Peace of Westphalia in 1648'}],
+    why:'Teacher note: after Trent, bishops visited parishes, required priests to reside, and disciplined priests who allowed unapproved practices. Moravia was already Catholic.'}],
   claims:[
    {id:'E1', t:'The body showed no sign of corruption, the face was ruddy, and there was blood at the mouth.', ans:'obs', why:'He was at the grave and this is what he reports seeing. Seeing it is not the same as understanding it; the surgeon stood beside him and describes the same body differently.'},
    {id:'E2', t:'The widow walked at night and the dead would not stay in their graves.', ans:'hear', why:'“The people… saying that.” He is reporting what frightened parishioners told him, and he says so.'},
@@ -384,15 +394,25 @@ const SRC=[
 <p>After my mother died, the judge’s two children fell sick, and then the judge began to say that my mother came to him at night. I never saw anything. In January they dug her up. The ground was frozen and it took the men a whole day. I was not allowed to go near, but my brother says she looked as if she were asleep. They burned her by the wall of the churchyard. We are not allowed to speak of it in the village, and the judge says that if we complain, we will be driven out. I ask the commission to clear my mother’s name, because she was a Christian woman and did no harm to anyone, living or dead.</p>`,
   qs:[
    {q:'What does Dorothea want from the commission?', opts:[
-     {t:'To have the strip of field by the mill stream returned to her family, now that the judge has been discredited.'},
      {t:'To clear her mother’s name, and to show that the man who accused her mother had a reason to do it.', ok:true},
+     {t:'To have the strip of field by the mill stream returned to her family, now that the judge has been discredited.'},
      {t:'To have the judge, the priest, and the men who dug the grave punished by the Empress for what they did.'}],
     why:'She says it in her last sentence, and the rest of the statement leads up to it: the long illness (a natural death), the field (a motive for the accuser), the threat (why nobody else will say this). She has the strongest personal stake of any witness. That does not make her wrong.'},
    {q:'Her account and the judge’s disagree about almost everything. What do they agree on, and why does it matter?', opts:[
      {t:'That the widow walked at night, which matters because two witnesses who dislike each other both say so.'},
      {t:'That the priest resisted the exhumation for weeks, which matters because it shifts the responsibility to the judge.'},
      {t:'That the two families quarreled over a field, which matters because two hostile witnesses agree on it.', ok:true}],
-    why:'The judge brings up the field himself in order to dismiss it. When the person with the most reason to hide a fact confirms it, a historian can treat the fact as established.'}],
+    why:'The judge brings up the field himself in order to dismiss it. When the person with the most reason to hide a fact confirms it, a historian can treat the fact as established.'},
+   {q:'Dorothea says her mother quarreled with only one person, the man who later accused her. This most closely resembles which pattern historians have found in the witch trials of the 1500s and 1600s?', opts:[
+     {t:'Accusations were usually brought by Church inquisitors against women who missed Mass.'},
+     {t:'Accusations often grew out of quarrels between neighbors over land or favors.', ok:true},
+     {t:'Accusations mostly targeted wealthy widows whose lands the state wished to seize.'}],
+    why:'Teacher note: rewards students who played Bamberg.'},
+   {q:'Her statement was “written down by the commission’s clerk.” What should a historian keep in mind about the words on the page?', opts:[
+     {t:'They are the clerk’s record of what she said, shaped by the questions she was asked.', ok:true},
+     {t:'The clerk worked for the judge and would have struck out anything that harmed him.'},
+     {t:'A peasant woman’s statement had no legal weight, so the clerk recorded only a summary.'}],
+    why:'Teacher note: most testimony from ordinary people reaches historians filtered through an official.'}],
   claims:[
    {id:'F1', t:'Rosina Polak and the judge quarreled over a strip of field before she died.', ans:'obs', why:'Dorothea lived through the dispute, and the judge confirms it. It is confirmed by an enemy.'},
    {id:'F2', t:'When they dug her up, she looked as if she were asleep.', ans:'hear', why:'“My brother says.” Dorothea was kept away from the grave and says so herself.'},
@@ -402,16 +422,21 @@ const SRC=[
   text:`<p>Everyone knows that the widow Polak was a strange woman who kept to herself and muttered. The matter of the field has nothing to do with it; the steward decided that justly. After she died, my daughter and my son fell sick within the week, with fever and pains in the chest, and I myself woke three nights running with a weight on my chest and could not breathe, and I saw her sitting on me as plainly as I see you. My wife saw her too, at the window. The cowherd’s boy saw her walk past the mill at night. Then the miller’s wife died, and old Hans, and the weaver’s two children, and more.</p>
 <p>In my grandfather’s time the same thing happened and it was ended in the same way, and the Consistory did not forbid it. So I went to the priest with the elders and demanded that she be examined. When they opened the coffin, there was blood at her mouth and her cheeks were red. Anyone could see what she was. We did what had to be done, and the dying stopped. If the Vienna gentlemen had been here in January with their children sick, they would have done the same.</p>`,
   qs:[
-   {q:'What is Beck trying to accomplish?', opts:[
+   {q:'What is Beck trying to accomplish? What is the purpose of his statement?', opts:[
      {t:'To describe what he and his household saw as plainly as he can, so that the commission can judge the matter for itself.'},
-     {t:'To justify what he led the village to do, and to explain the deaths in a way that keeps the field out of it.', ok:true},
-     {t:'To put the responsibility on the priest, who gave the permission, and on the Consistory, which had allowed it before.'}],
+     {t:'To put the responsibility on the priest, who gave the permission, and on the Consistory, which had allowed it before.'},
+     {t:'To justify what he led the village to do, and to explain the deaths in a way that keeps the field out of it.', ok:true}],
     why:'He organized the exhumation and he knows it. Look at the order of his sentences: first the widow’s character, then the field dismissed before anyone has raised it, then his sick children. He is answering an accusation that has not yet been made.'},
-   {q:'What is his evidence that the dead woman walked?', opts:[
+   {q:'What is his actual evidence that the dead woman walked?', opts:[
      {t:'The sworn testimony of the village elders, given before the priest and recorded in the parish.'},
      {t:'His own dream, his wife at a window at night, and a boy who works for his family.', ok:true},
      {t:'The condition of the body when the coffin was opened, which the barber-surgeon also saw.'}],
-    why:'Every witness to the walking is in his household or under his authority. The elders swore that she “had been seen,” which means they swore to what Beck had told them.'}],
+    why:'Every witness to the walking is in his household or under his authority. The elders swore that she “had been seen,” which means they swore to what Beck had told them.'},
+   {q:'Beck appeals to “my grandfather’s time” and says “the Vienna gentlemen” would have done the same. His statement best reflects which tension?', opts:[
+     {t:'Lutheran villagers resisting the religious policies of a Catholic empress'},
+     {t:'Peasants demanding that their lords abolish serfdom and the labor dues'},
+     {t:'Village custom set against the authority of a distant central government', ok:true}],
+    why:'Teacher note: absolutism from the village side; pairs with Document I.'}],
   claims:[
    {id:'G1', t:'Beck’s children fell sick because the dead woman visited them.', ans:'inf', why:'The sickness is a fact; the cause is the judge’s conclusion. The district captain’s table offers another cause: the same fever in three villages.'},
    {id:'G2', t:'Rosina Polak was a strange woman who kept to herself and muttered.', ans:'hear', why:'“Everyone knows.” This is how a village describes a person after it has decided what she was.'},
@@ -422,14 +447,14 @@ const SRC=[
   text:`<p>I attended the widow in her illness. She had a wasting cough from the autumn and died of it; I have seen many go the same way. I was present when the coffin was opened on 9 January, because the judge wished me to be. The body had been two months in ground that was frozen hard from Advent onward. It was stiff with cold. The skin of the face and hands was peeling, as it does, and the flesh beneath looked pink where it showed. There was a dark fluid at the mouth and nose. The nails stood out because the skin had shrunk back from them. I have seen all of this before in bodies dug up for other reasons, and so has anyone who has worked in a churchyard in winter. There was a smell, though less than in summer.</p>
 <p>I said none of this at the time. There were sixty people around the grave with torches and the judge had already said what they would find. I say it now because the commission asks me under oath.</p>`,
   qs:[
-   {q:'Why does Krause say now what he did not say in January?', opts:[
+   {q:'Why does Krause mention things in his statement that he did not earlier, in January?', opts:[
+     {t:'He was afraid of the crowd and the judge in January, but now must answer the commission under oath.', ok:true},
      {t:'He has since talked with the Vienna physicians and learned what he was supposed to have seen at the grave.'},
-     {t:'He was afraid of the crowd and the judge in January, and now he is answering the commission under oath.', ok:true},
      {t:'He has a grievance against the judge, who forced him to attend, and this is his chance to repay it.'}],
     why:'He gives the reason himself, and it is believable: sixty people with torches, and the most powerful man in the village announcing the result in advance. The first option is worth considering, but nothing in his statement requires medical learning. A gravedigger could have said it.'},
-   {q:'What makes him more useful than the priest or the judge, and what is his weakness?', opts:[
+   {q:'What makes his statement more useful than the priest or the judge? What is the weakness of the statement?', opts:[
      {t:'He is a trained physician whose word outranks theirs, but he is young and new to the village.'},
-     {t:'He has handled dead bodies before and has no stake in the quarrel, but he kept silent when it mattered.', ok:true},
+     {t:'He has handled dead bodies and has no stake in the quarrel, but he kept silent when it mattered.', ok:true},
      {t:'He treated the widow and knows how she died, but he is the daughter’s witness and takes her side.'}],
     why:'A barber-surgeon is a tradesman, not a physician; his value is experience, not rank. He has nothing to gain from either family. His silence in January is what a hostile reader would use against him.'}],
   claims:[
@@ -444,14 +469,19 @@ const SRC=[
   qs:[
    {q:'What is the district captain trying to accomplish?', opts:[
      {t:'To ask the government at Brno to send a physician and medicines to the three villages where the fever is still active.'},
-     {t:'To defend the priest against the commission by showing from the registers that the deaths had a natural cause.'},
-     {t:'To show that he was bypassed, that the clergy and the steward are at fault, and that such cases belong to his office.', ok:true}],
+     {t:'To show that he was bypassed, that the clergy and the steward are at fault, and that such cases belong to his office.', ok:true},
+     {t:'To defend the priest against the commission by showing from the registers that the deaths had a natural cause.'}],
     why:'His first sentence is about who failed to inform him, and his last is a request for authority. The evidence sits between them. He is a civil official in a contest with the Church over who decides such matters, which is the contest the Empress is about to settle.'},
-   {q:'Why is his table worth more than any eyewitness at the grave?', opts:[
-     {t:'Because he outranks the priest and the judge, and an official report takes precedence over a village statement.'},
+   {q:'Why is his information worth more than any eyewitness at the grave?', opts:[
      {t:'Because it counts deaths in villages where nothing was done, so the effect of the burning can be tested.', ok:true},
+     {t:'Because he outranks the priest and the judge, and an official report takes precedence over a village statement.'},
      {t:'Because it comes from the parish registers, which the priest kept himself and cannot now dispute.'}],
-    why:'Langendorf alone proves nothing: deaths fell after the burning, as the priest says. Neudorf and Steinbach, where deaths also fell and nobody was burned, show why. The table is the only document in the file that contains a comparison.'}],
+    why:'Langendorf alone proves nothing: deaths fell after the burning, as the priest says. Neudorf and Steinbach, where deaths also fell and nobody was burned, show why. The table is the only document in the file that contains a comparison.'},
+   {q:'The district captain asks that “no grave may be opened without the knowledge of this office.” His request is best understood in the context of which development?', opts:[
+     {t:'The Catholic Church’s efforts to win back powers it had lost to Protestant princes'},
+     {t:'Village communities winning the right to settle disputes without their lord’s steward'},
+     {t:'Rulers extending the authority of royal officials over the Church and local lords', ok:true}],
+    why:'Teacher note: compare Louis XIV’s intendants; the state taking jurisdiction from the Church and the nobility.'}],
   claims:[
    {id:'I1', t:'The deaths at Langendorf were part of a fever that also struck neighboring villages.', ans:'obs', why:'He copied the burial registers of three parishes. A count taken from the registers is an observation.'},
    {id:'I2', t:'The fever was a catarrhal fever with pain in the chest.', ans:'inf', why:'The district physician’s diagnosis: a trained conclusion from symptoms, but still a conclusion.'},
@@ -497,9 +527,9 @@ const BRIEF=[
  ['You','Yes, Herr Baron. A widow was taken from her grave and burned. Seven of the village are dead since the winter. The priest and the village judge ordered it between them.'],
  ['Van Swieten','And neither the Consistory nor the district captain heard of it until the fire was out. Her Majesty has asked me how such a thing is still possible in her lands. She did not ask kindly.'],
  ['Van Swieten','We go north in the morning. Take the reports from Serbia and read them on the road; every priest between here and Olomouc knows them by heart, and you had better know them too. Take my commentary on fevers as well. You will see why.'],
- ['Van Swieten','Take down the statements. For each thing a witness says, note whether he saw it himself or heard it said. For each paper, note who wrote it and to whom. Then give me the file, with your own opinion at the end.'],
+ ['Van Swieten','Take down the statements. For each thing a witness says, note whether he saw it himself or heard it said. For each document, note who wrote it and to whom. Then give me the file, with your own opinion at the end.'],
  ['You','And if my opinion is that the village was right?'],
- ['Van Swieten','Then write that, and sign it, and we will both learn what Her Majesty does with such a paper. But understand me: if you come back and tell me the dead woman walked, I will want to know who saw her walk. Not who heard it. Not who swears to it. Who <i>saw</i>.'],
+ ['Van Swieten','Then write that, and sign it, and we will both learn what Her Majesty does with such a report. But understand me: if you come back and tell me the dead woman walked, I will want to know who saw her walk. Not who heard it. Not who swears to it. Who <i>saw</i>.'],
  ['Van Swieten','They dug her up with sixty people watching and a priest holding the cross. Sixty people, and not one of them wrote down her name. Find out her name. Start there.'],
 ];
 
@@ -515,26 +545,26 @@ const ROAD={title:'Vienna to Olomouc', date:'January 1755 · the post road north
 const LETTERS=[
  {id:'L1', when:'p2', from:'The Consistory of Olomouc, to Dr. van Swieten · delivered by a rider on the road',
   text:'<p>Most learned Sir. We are informed that you travel to Langendorf on Her Majesty’s commission. The matter is a spiritual one. It was concluded by the parish with the knowledge of this court, and the people are now quiet. We trust the commission will not disturb them further. The Lord Bishop will receive you at Olomouc.</p>',
-  aside:'Van Swieten reads it twice and puts it in his coat. “They are telling us the case is closed. Note that they said so.”'},
+  aside:'Van Swieten reads it twice and puts it in his coat. “The local authorities are telling us the case is closed and not to meddle further. Note that they said so.”'},
  {id:'L2', when:'x', from:'The Court Chancellery, Vienna, to Dr. van Swieten',
-  text:'<p>Sir. Her Majesty has asked twice when she may expect your report from Moravia. She does not wish to be told whether the dead woman was a vampire. She wishes to know by what authority a grave in her lands was opened without her officials being informed. She will read one page.</p>',
-  aside:'He hands it to you without comment and goes back to the papers.'},
+  text:'<p>Sir. Her Majesty has asked twice when she may expect your report from Moravia. She reminds you that the post from Olomouc takes three days, that the commission was sent to answer one question, and that she has not yet had a line from you. She expects your report within the week.</p>',
+  aside:'He hands it to you without comment and goes back to the documents.'},
 ];
 
 /* ---- THE EMPRESS'S REPLY, by score (out of 7). The first whose min is met is used.
    {NAME} is replaced by a sentence about the dead woman's name, depending on whether the player found it. */
 const REPLIES=[
  {min:6, from:'The Court Chancellery, Vienna, to Dr. van Swieten · March 1755',
-  text:'<p>Sir. Her Majesty has read your page. She finds the conclusion sound and the papers behind it well chosen, and she has directed that a rescript be drafted for all her lands in the terms you proposed. {NAME}</p>'},
+  text:'<p>Sir. Her Majesty has read your report. She finds the conclusion sound and the documents behind it well chosen, and she has directed that a rescript be drafted for all her lands in the terms you proposed. {NAME}</p>'},
  {min:3, from:'The Court Chancellery, Vienna, to Dr. van Swieten · March 1755',
-  text:'<p>Sir. Her Majesty has read your page. She accepts the conclusion. She observes that some of the papers you placed behind it do not bear the weight you put on them, and that one or two you left out would have borne it better. A rescript will be drafted nonetheless. {NAME}</p>'},
+  text:'<p>Sir. Her Majesty has read your report. She accepts the conclusion. She observes that some of the documents you placed behind it do not bear the weight you put on them, and that one or two you left out would have borne it better. A rescript will be drafted nonetheless. {NAME}</p>'},
  {min:0, from:'The Court Chancellery, Vienna, to Dr. van Swieten · March 1755',
-  text:'<p>Sir. Her Majesty has read your page and returned it. She asked by what authority a grave in her lands was opened, and she does not find the question answered. She will act in any case; the file will be kept. {NAME}</p>'},
+  text:'<p>Sir. Her Majesty has read your report and returned it. She asked by what authority a grave in her lands was opened, and she does not find the question answered. She will act in any case; the file will be kept. {NAME}</p>'},
 ];
 const NAME_LINES={
- found:'She notes that the name of the dead woman appears in your report, which it did not in any paper sent to her before.',
- missing:'She asks why the name of the dead woman appears nowhere in your report, when it appears twice in the papers you sent with it.'};
-const DEAD_WOMAN=['rosina polak','polak','rosina polakin','polakin'];   /* accepted answers, lower case */
+ found:'She notes that the name of the dead woman appears in your report, which it did not in any document sent to her before.',
+ missing:'She asks why the name of the dead woman appears nowhere in your report, when it appears twice in the documents you sent with it.'};
+const DEAD_WOMAN=['rosina polak','polak','rosina polakin','polakin','rosina'];   /* accepted answers, lower case */
 
 /* ---- THE INTERVIEWS. A stage direction shown before each spoken statement (F, G, H), and
    extra opening sentences a witness says if another witness has already been questioned. */
@@ -570,7 +600,7 @@ const PLACES=[
    {text:`<p>The sexton is there with a spade, filling the grave by lantern light. He says the district captain sent word that it was to be closed. He does not look up from the work. “Took three of us a day to open it,” he says. “Ground like iron.”</p>`, heard:'The sexton: it took three men a day to open the grave in the frozen ground.'},
    {text:`<p>Nothing has changed. The village is dark. A dog barks on the far side of the stream and stops. You go back inside.</p>`},
   ]},
- {id:'kitchen', link:'The housekeeper is still up. You could go through to the kitchen.', again:'Go through to the kitchen again.', title:'The priest’s kitchen', date:'Langendorf · late', back:'Go back to the papers',
+ {id:'kitchen', link:'The housekeeper is still up. You could go through to the kitchen.', again:'Go through to the kitchen again.', title:'The priest’s kitchen', date:'Langendorf · late', back:'Go back to the documents',
   visits:[
    {text:`<p>The housekeeper is banking the fire. Without being asked she tells you that the judge’s wife has not been out of her house since January, that the Polak boy has been drinking at the mill, and that the miller’s wife, who died, was the judge’s cousin.</p>
 <p>You cannot check any of it tonight. You do not write it down at first, but then you do, with her name beside it.</p>`, heard:'The housekeeper: the judge’s wife has not left her house since January; the miller’s wife who died was the judge’s cousin.'},
@@ -639,7 +669,7 @@ const EPILOGUE=[
    and shown in black and white. 'landing' and 'village' are wide banners (about 3:1, cropped to fit)
    shown at the top of the first page and above the village statements. Leave '' to show nothing. */
 const IMAGES={
-  A:'frombald.jpeg', B:'fluck.jpeg', C:'calmet.jpeg', D:'swieten.jpeg', E:'hartmann.jpeg', F:'polak.jpeg', G:'beck.jpeg', H:'krause.jpeg', I:'kreis.jpeg',   // the nine writers (D and V are both van Swieten)
+  A:'frombald.jpeg', B:'fluck2.jpeg', C:'calmet.jpeg', D:'swieten.jpeg', E:'hartmann.jpeg', F:'polak.jpeg', G:'beck.jpeg', H:'krause.jpeg', I:'kreis.jpeg',   // the nine writers (D and V are both van Swieten)
   V:'swieten.jpeg',                                                   // van Swieten in the study
   landing:'',                                       // banner on the first page
   village:'',                                       // banner above the village statements
@@ -653,7 +683,9 @@ const SOUND={
   click:'page.mp3',      // on buttons (not played on the buttons that have their own sound)
   bell:'bell.mp3',       // once, when the village statements first open
   quill:'writing1.mp3',  // when notes are handed to van Swieten
-  steps:'snow.mp3',              // footsteps in snow: going out to a village place, and coming back in
+  steps:'',              // footsteps in snow: going out to a village place (and coming back, unless stepsBack is set)
+  stepsBack:'',          // optional: a different sound for coming back in
+  /* Any slot may hold a list instead of one file, e.g. steps:['snow1.mp3','snow2.mp3']; one is picked at random each time. */
   volume:0.35    // 0 to 1
 };
 /* ================================================================== END OF EDITABLE CONTENT */
@@ -704,12 +736,14 @@ const reading=$('reading'), btnRestart=$('btnRestart');
 /* ---- sound ---- */
 const AUDIO={music:null,on:true}; try{ AUDIO.on=localStorage.getItem('vampireSound')!=='off'; }catch(e){}
 const btnSound=$('btnSound');
-function soundConfigured(){ return typeof SOUND!=='undefined' && !!(SOUND.ambience||SOUND.page||SOUND.click||SOUND.bell||SOUND.quill||SOUND.steps); }
+function has(v){ return Array.isArray(v) ? v.length>0 : !!v; }
+function pick(v){ return Array.isArray(v) ? v[Math.floor(Math.random()*v.length)] : v; }
+function soundConfigured(){ return typeof SOUND!=='undefined' && ['ambience','page','click','bell','quill','steps','stepsBack'].some(k=>has(SOUND[k])); }
 let nextSfx='';
 function vol(){ return Math.min(1,Math.max(0,(typeof SOUND!=='undefined'&&SOUND.volume)||0.35)); }
-function sfx(kind){ if(!soundConfigured()||!AUDIO.on||!SOUND[kind]) return; try{ const a=new Audio(SOUND[kind]); a.volume=vol(); a.play().catch(()=>{}); }catch(e){} }
+function sfx(kind){ if(!soundConfigured()||!AUDIO.on||!has(SOUND[kind])) return; try{ const a=new Audio(pick(SOUND[kind])); a.volume=vol(); a.play().catch(()=>{}); }catch(e){} }
 const AMBIENT_SCENES=['road','work','grave','place','report','roadback'];
-function startMusic(){ if(!soundConfigured()||!SOUND.ambience) return; if(!S||!AMBIENT_SCENES.includes(S.scene)) return; if(!AUDIO.music){ try{ AUDIO.music=new Audio(SOUND.ambience); AUDIO.music.loop=true; AUDIO.music.volume=vol()*0.3; }catch(e){ return; } } if(AUDIO.on && AUDIO.music.paused) AUDIO.music.play().catch(()=>{}); }
+function startMusic(){ if(!soundConfigured()||!has(SOUND.ambience)) return; if(!S||!AMBIENT_SCENES.includes(S.scene)) return; if(!AUDIO.music){ try{ AUDIO.music=new Audio(pick(SOUND.ambience)); AUDIO.music.loop=true; AUDIO.music.volume=vol()*0.6; }catch(e){ return; } } if(AUDIO.on && AUDIO.music.paused) AUDIO.music.play().catch(()=>{}); }
 function musicFor(scene){ if(!AUDIO.music) { if(AMBIENT_SCENES.includes(scene)) startMusic(); return; } if(AMBIENT_SCENES.includes(scene)){ if(AUDIO.on && AUDIO.music.paused) AUDIO.music.play().catch(()=>{}); } else { AUDIO.music.pause(); } }
 function paintSound(){ if(!btnSound) return; btnSound.hidden=!soundConfigured(); btnSound.textContent='Sound: '+(AUDIO.on?'on':'off'); }
 if(btnSound) btnSound.addEventListener('click',()=>{ AUDIO.on=!AUDIO.on; try{localStorage.setItem('vampireSound',AUDIO.on?'on':'off')}catch(e){} if(AUDIO.music){ if(AUDIO.on && S && AMBIENT_SCENES.includes(S.scene)) AUDIO.music.play().catch(()=>{}); else AUDIO.music.pause(); } else if(AUDIO.on) startMusic(); paintSound(); });
@@ -766,7 +800,7 @@ ${banner('landing')}
 <ul class="how">
 <li><b>Read what has already been said about vampires.</b> Two Habsburg reports from Serbia from about thirty years ago about a similar case, a book a French monk wrote about vampires, and a page on fevers from van Swieten’s own medical textbook.</li>
 <li><b>Take statements in the village.</b> The priest, the widow’s daughter, the village judge, the barber-surgeon, and the district official.</li>
-<li><b>Sort what they say.</b> Under every document, answer two questions about the author and the document’s claims. For each claim, decide: did the writer see this, infer it, or hear it from someone? When you have answered everything for a document, hand your notes to your boss, van Swieten. He will tell you which he agrees with and circle what he wants you to take another look at.</li>
+<li><b>Sort what they say.</b> Under every document, answer the questions about the author and the document’s claims. For each claim, decide: did the writer see this, infer it, or hear it from someone? When you have answered everything for a document, hand your notes to your boss, van Swieten. He will tell you which he agrees with and circle what he wants you to take another look at.</li>
 <li><b>Compare some documents side by side.</b></li>
 <li><b>Finally, write to the Empress with your report and recommendation.</b></li>
 </ul>
@@ -805,6 +839,7 @@ function renderPlace(pid){
   const n=S.visits[pid]||0; let v;
   if(n<P.visits.length) v=P.visits[n]; else { const r=P.random||[]; v=r.length?r[Math.floor(Math.random()*r.length)]:P.visits[P.visits.length-1]; }
   S.visits[pid]=n+1; if(pid==='grave') S.grave=true;
+  let body=v.text; if(pid==='grave'){ const ph=Math.min(clockPhase(),4); const ps=body.match(/<p[\s\S]*?<\/p>/g)||[]; if(S.graveWx!==ph && ps.length>1){ body=ps.slice(0,-1).join('\n')+'\n'+WEATHER[ph].grave+'\n'+ps[ps.length-1]; } S.graveWx=ph; }
   if(v.seen && !S.seen.includes(v.seen)) S.seen.push(v.seen);
   if(v.heard && !S.heard.includes(v.heard)) S.heard.push(v.heard);
   save(); mood('grave');
@@ -812,10 +847,10 @@ function renderPlace(pid){
 <p class="date">${P.date}</p>
 <h2>${P.title}</h2>
 <div class="who">You are assistant to Gerard van Swieten, physician to the Empress</div>
-<div class="body">${v.text}${pid==='grave'?WEATHER[Math.min(clockPhase(),4)].grave:''}</div>
+<div class="body">${body}</div>
 <div class="row"><button class="btn quiet" type="button" id="btnBackIn">${P.back}</button></div>
 </article>`;
-  $('btnBackIn').addEventListener('click',()=>{ S.tab='p2'; if(SOUND.steps) nextSfx='steps'; go('work'); });
+  $('btnBackIn').addEventListener('click',()=>{ S.tab='p2'; nextSfx = has(SOUND.stepsBack) ? 'stepsBack' : (has(SOUND.steps) ? 'steps' : ''); go('work'); });
 }
 function renderRoadBack(){
   mood('road');
@@ -866,7 +901,7 @@ function renderWork(resuming){
   const tabs=[['p1',`The old reports<span class="n">${PART[1].ids.length}</span>`,true],['p2',`The statements<span class="n">${PART[2].ids.length}</span>`,p2open],['x',`Side by side<span class="n">${nLockedX()}/${XCHECK.length}</span>`,xopen],['nb',`Notebook<span class="n">${Object.keys(S.nb).length}/${NB.length}</span>`,true]];
   if(S.tab==='p2'&&!p2open) S.tab='p1'; if(S.tab==='x'&&!xopen) S.tab=p2open?'p2':'p1';
   const ready = xopen && Object.keys(S.x).length>=3;
-  const head = S.tab==='p1'?PART[1]:S.tab==='p2'?{title:PART[2].title,date:CLOCK[Math.min(clockPhase(),4)]}:S.tab==='x'?{title:'The papers side by side',date:CLOCK[4]+' · the priest’s front room'}:{title:'Van Swieten’s notebook',date:'Langendorf · at night'};
+  const head = S.tab==='p1'?PART[1]:S.tab==='p2'?{title:PART[2].title,date:CLOCK[Math.min(clockPhase(),4)]}:S.tab==='x'?{title:'The documents side by side',date:CLOCK[4]+' · the priest’s front room'}:{title:'Van Swieten’s notebook',date:'Langendorf · at night'};
   mood('work', S.tab);
   if(S.tab==='p2' && !S.bell){ S.bell=true; save(); sfx('bell'); }
   const newLetter = LETTERS.find(L=>L.when===S.tab && !S.letters[L.id]); if(newLetter){ S.letters[newLetter.id]=true; save(); }
@@ -878,7 +913,7 @@ ${newLetter?letterHTML(newLetter,true):''}
 ${flash?`<div class="flash">${flash}</div>`:''}
 <div class="tabs">${tabs.map(t=>`<button class="tab${S.tab===t[0]?' on':''}" type="button" data-tab="${t[0]}" ${t[2]?'':'disabled'}>${t[1]}</button>`).join('')}</div>
 <div id="pane"></div>
-<div class="row" style="margin-top:28px;border-top:1px solid var(--ink);padding-top:16px"><button class="btn" type="button" id="btnReport" ${ready?'':'disabled'}>Write to the Empress</button><span class="toast">${ready?'You can write to the Empress now, or keep working. Only notes van Swieten agreed with will count.':xopen?'Lay at least three pairs of papers side by side first.':p2open?'Finish the statements before you compare them.':'Finish the old reports before you take the statements.'}</span></div>
+<div class="row" style="margin-top:28px;border-top:1px solid var(--ink);padding-top:16px"><button class="btn" type="button" id="btnReport" ${ready?'':'disabled'}>Write to the Empress</button><span class="toast">${ready?'You can write to the Empress now, or keep working. Only notes van Swieten agreed with will count.':xopen?'Lay at least three pairs of documents side by side first.':p2open?'Finish the statements before you compare them.':'Finish the old reports before you take the statements.'}</span></div>
 </article>`;
   reading.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{ S.tab=b.dataset.tab; save(); renderWork(true); }));
   $('btnReport').addEventListener('click',()=>go('report'));
@@ -893,7 +928,7 @@ function refreshNav(){
   const t2=reading.querySelector('.tab[data-tab="p2"]'), tx=reading.querySelector('.tab[data-tab="x"]');
   if(t2) t2.disabled=!p2open; if(tx) tx.disabled=!xopen;
   const np=$('btnNextPart'); if(np) np.disabled = S.tab==='p1' ? !p2open : !xopen;
-  const br=$('btnReport'); if(br){ const ready=xopen && Object.keys(S.x).length>=3; br.disabled=!ready; const t=br.nextElementSibling; if(t) t.textContent = ready?'You can write to the Empress now, or keep working. Only notes van Swieten agreed with will count.':xopen?'Lay at least three pairs of papers side by side first.':p2open?'Finish the statements before you compare them.':'Finish the old reports before you take the statements.'; }
+  const br=$('btnReport'); if(br){ const ready=xopen && Object.keys(S.x).length>=3; br.disabled=!ready; const t=br.nextElementSibling; if(t) t.textContent = ready?'You can write to the Empress now, or keep working. Only notes van Swieten agreed with will count.':xopen?'Lay at least three pairs of documents side by side first.':p2open?'Finish the statements before you compare them.':'Finish the old reports before you take the statements.'; }
   const bc=$('btnCheck'); if(bc){ const id=S.open[S.tab]; if(id){ bc.disabled=!(docAnswered(id)&&!docAllLocked(id)); } }
   const bx=$('btnCheckX'); if(bx) bx.disabled=!Object.keys(S.x).length;
   const who=reading.querySelector('.who'); if(who) who.textContent='You are assistant to Gerard van Swieten, physician to the Empress · '+(nLocked()+nLockedSrc()+nLockedX())+' notes he agrees with';
@@ -904,7 +939,7 @@ function docStatus(id){ const s=SRCMAP[id]; const qa=s.qs.filter((q,i)=>S.srcAns
 
 function renderPart(pane,p){
   const P=PART[p]; const key='p'+p; const id=S.open[key]; const s=SRCMAP[id];
-  const next=P.ids[P.ids.indexOf(id)+1];
+  const next=P.ids[P.ids.indexOf(id)+1], prev=P.ids[P.ids.indexOf(id)-1];
   if(p===2){ S.order=S.order||[]; S.vars=S.vars||{}; S.rev=S.rev||{};
     if(!S.order.includes(id)){ S.vars[id]=VARIANTS.map((v,i)=>({v,i})).filter(({v})=>v.doc===id && S.order.includes(v.ifBefore)).map(({i})=>i); S.order.push(id); save(); } }
   const isInterview = p===2 && INTERVIEWS.includes(id);
@@ -925,38 +960,41 @@ ${graveLink}<div class="docbox">
 ${bodyHTML}
 <div${lateStyle}>
 <h4 class="sect">The person who wrote this</h4>
-${s.qs.map((q,i)=>{ const k=sq(id,i), a=S.srcAns[k], lk=!!S.lockedSrc[k]; const wr=!lk && S.checks[id] && a!==undefined; return `<div class="q${wr?' wrong':''}"><div class="qt">${q.q}${wr?' <span class="notyet">struck out — look again</span>':''}</div>${q.opts.map((o,j)=>`<label class="opt${a===j?(lk?' lock':' sel'):''}"><input type="radio" name="${k}" value="${j}" ${a===j?'checked':''} ${lk?'disabled':''}>${o.t}</label>`).join('')}${lk?`<p class="why">${q.why}</p>`:''}</div>`; }).join('')}
+${s.qs.map((q,i)=>{ const k=sq(id,i), a=S.srcAns[k], lk=!!S.lockedSrc[k]; const wr=!lk && S.checks[id] && a!==undefined; return `<div class="q${wr?' wrong':''}"><div class="qt">${q.q}${wr?' <span class="notyet">struck out — look again</span>':''}</div>${q.opts.map((o,j)=>`<label class="opt${a===j?(lk?' lock':' sel'):''}"><input type="radio" name="${k}" value="${j}" ${a===j?'checked':''} ${lk?'disabled':''}>${o.t}</label>`).join('')}</div>`; }).join('')}
 <h4 class="sect">What it claims</h4>
 <div class="key"><b>Observed</b>: the writer, or someone named in the document, saw it or counted it. <b>Inference</b>: a conclusion drawn from what was seen. <b>Hearsay</b>: the writer is passing on what someone else said.</div>
-${s.claims.map(c=>{ const a=S.claims[c.id], lk=!!S.locked[c.id]; const wr=!lk && S.checks[id] && a!==undefined; return `<div class="claim${lk?' lock':''}${wr?' wrong':''}" data-c="${c.id}">${lk?'<span class="lockmark">he agrees</span>':(wr?'<span class="lockmark notyet">struck out</span>':'')}<p class="ct">${c.t}</p><div class="ans">${Object.keys(ANS).map(k=>`<label class="${a===k?(lk?'lk':'sel'):''}"><input type="radio" name="${c.id}" value="${k}" ${a===k?'checked':''} ${lk?'disabled':''}>${ANS[k]}</label>`).join('')}</div>${lk?`<p class="why">${c.why}</p>`:''}</div>`; }).join('')}
-<div class="row" style="margin:18px 0 0"><button class="btn" type="button" id="btnCheck" ${docAnswered(id)&&!docAllLocked(id)?'':'disabled'}>${docAllLocked(id)?'Van Swieten agrees with all of it':'Hand your notes on '+id+' to van Swieten'}</button>${next?`<button class="btn quiet" type="button" id="btnNextDoc">Next: Document ${next}</button>`:(p===1?`<button class="btn quiet" type="button" id="btnNextPart" ${partDone(1)?'':'disabled'}>On to the village</button>`:`<button class="btn quiet" type="button" id="btnNextPart" ${partDone(2)?'':'disabled'}>Lay the papers side by side</button>`)}</div>
+${s.claims.map(c=>{ const a=S.claims[c.id], lk=!!S.locked[c.id]; const wr=!lk && S.checks[id] && a!==undefined; return `<div class="claim${lk?' lock':''}${wr?' wrong':''}" data-c="${c.id}">${lk?'<span class="lockmark">he agrees</span>':(wr?'<span class="lockmark notyet">struck out</span>':'')}<p class="ct">${c.t}</p><div class="ans">${Object.keys(ANS).map(k=>`<label class="${a===k?(lk?'lk':'sel'):''}"><input type="radio" name="${c.id}" value="${k}" ${a===k?'checked':''} ${lk?'disabled':''}>${ANS[k]}</label>`).join('')}</div></div>`; }).join('')}
+<div class="row" style="margin:18px 0 0">${prev?`<button class="btn quiet" type="button" id="btnPrevDoc">Back: Document ${prev}</button>`:(p===2?`<button class="btn quiet" type="button" id="btnPrevPart">Back to the old reports</button>`:'')}<button class="btn" type="button" id="btnCheck" ${docAnswered(id)&&!docAllLocked(id)?'':'disabled'}>${docAllLocked(id)?'Van Swieten agrees with all of it':'Hand your notes on '+id+' to van Swieten'}</button>${next?`<button class="btn quiet" type="button" id="btnNextDoc">Next: Document ${next}</button>`:(p===1?`<button class="btn quiet" type="button" id="btnNextPart" ${partDone(1)?'':'disabled'}>On to the village</button>`:`<button class="btn quiet" type="button" id="btnNextPart" ${partDone(2)?'':'disabled'}>Lay the documents side by side</button>`)}</div>
 </div>
 </div>`;
-  pane.querySelectorAll('.placebtn').forEach(b=>b.addEventListener('click',()=>{ S.place=b.dataset.place; save(); if(SOUND.steps) nextSfx='steps'; go('place'); }));
+  pane.querySelectorAll('.placebtn').forEach(b=>b.addEventListener('click',()=>{ S.place=b.dataset.place; save(); if(has(SOUND.steps)) nextSfx='steps'; go('place'); }));
   pane.querySelectorAll('.srcbtn').forEach(b=>b.addEventListener('click',()=>{ S.open[key]=b.dataset.src; save(); renderWork(true); }));
   pane.querySelectorAll('.q input[type=radio]').forEach(r=>r.addEventListener('change',()=>{ S.srcAns[r.name]=+r.value; S.srcTries[r.name]=(S.srcTries[r.name]||0)+1; save(); r.closest('.q').querySelectorAll('.opt').forEach(o=>o.classList.toggle('sel',o.querySelector('input').checked)); refreshNav(); }));
   pane.querySelectorAll('.claim input[type=radio]').forEach(r=>r.addEventListener('change',()=>{ S.claims[r.name]=r.value; S.claimTries[r.name]=(S.claimTries[r.name]||0)+1; save(); r.closest('.claim').querySelectorAll('.ans label').forEach(l=>l.classList.toggle('sel',l.querySelector('input').checked)); refreshNav(); }));
   $('btnCheck').addEventListener('click',()=>{ sfx('quill'); checkDoc(id); save(); renderWork(true); });
   const nd=$('btnNextDoc'); if(nd) nd.addEventListener('click',()=>{ S.open[key]=next; save(); renderWork(); });
+  const pd=$('btnPrevDoc'); if(pd) pd.addEventListener('click',()=>{ S.open[key]=prev; save(); renderWork(); });
+  const pp=$('btnPrevPart'); if(pp) pp.addEventListener('click',()=>{ S.tab='p1'; save(); renderWork(); });
   const np=$('btnNextPart'); if(np) np.addEventListener('click',()=>{ S.tab=p===1?'p2':'x'; save(); renderWork(); });
 }
 
 function renderX(pane){
-  pane.innerHTML=`<div class="dlg"><span class="sp">Dr. Gasser</span>They cannot all be telling the truth. Lay the papers side by side and see which ones support each other.</div><p class="prog">Six questions that need two documents at once. Go back to the old reports or the statements if you need to reread one.</p>
-<div class="row" style="margin:0 0 14px"><button class="btn" type="button" id="btnCheckX" ${Object.keys(S.x).length?'':'disabled'}>Hand your comparisons to van Swieten</button></div>
-${XCHECK.map(x=>{ const a=S.x[x.id], lk=!!S.lockedX[x.id]; const wr=!lk && S.checks.X && a!==undefined; return `<div class="claim${lk?' lock':''}${wr?' wrong':''}">${lk?'<span class="lockmark">he agrees</span>':(wr?'<span class="lockmark notyet">struck out</span>':'')}<p class="ct">${x.q}</p><div class="ans">${x.opts.map(o=>`<label class="${a===o?(lk?'lk':'sel'):''}"><input type="radio" name="${x.id}" value="${esc(o)}" ${a===o?'checked':''} ${lk?'disabled':''}>${SRCMAP[o]?'Document '+o+' · '+SRCMAP[o].short:o}</label>`).join('')}</div>${lk?`<p class="why">${x.why}</p>`:''}</div>`; }).join('')}`;
+  pane.innerHTML=`<div class="dlg"><span class="sp">Dr. Gasser</span>They cannot all be telling the truth. Lay the documents side by side and see which ones support each other.</div><p class="prog">Six questions that need two documents at once. Go back to the old reports or the statements if you need to reread one.</p>
+<div class="row" style="margin:0 0 14px"><button class="btn quiet" type="button" id="btnBackX">Back to the statements</button><button class="btn" type="button" id="btnCheckX" ${Object.keys(S.x).length?'':'disabled'}>Hand your comparisons to van Swieten</button></div>
+${XCHECK.map(x=>{ const a=S.x[x.id], lk=!!S.lockedX[x.id]; const wr=!lk && S.checks.X && a!==undefined; return `<div class="claim${lk?' lock':''}${wr?' wrong':''}">${lk?'<span class="lockmark">he agrees</span>':(wr?'<span class="lockmark notyet">struck out</span>':'')}<p class="ct">${x.q}</p><div class="ans">${x.opts.map(o=>`<label class="${a===o?(lk?'lk':'sel'):''}"><input type="radio" name="${x.id}" value="${esc(o)}" ${a===o?'checked':''} ${lk?'disabled':''}>${SRCMAP[o]?'Document '+o+' · '+SRCMAP[o].short:o}</label>`).join('')}</div></div>`; }).join('')}`;
   pane.querySelectorAll('input[type=radio]').forEach(r=>r.addEventListener('change',()=>{ S.x[r.name]=r.value; S.xTries[r.name]=(S.xTries[r.name]||0)+1; save(); r.closest('.claim').querySelectorAll('.ans label').forEach(l=>l.classList.toggle('sel',l.querySelector('input').checked)); refreshNav(); }));
   $('btnCheckX').addEventListener('click',()=>{ sfx('quill'); checkX(); save(); renderWork(true); });
+  $('btnBackX').addEventListener('click',()=>{ S.tab='p2'; save(); renderWork(); });
 }
 
-function youRow(){ const seen=S.seen||[], heard=S.heard||[]; if(!seen.length&&!heard.length) return ''; const L=a=>a.length?`<ul>${a.map(t=>`<li>${t}</li>`).join('')}</ul>`:'<span class="empty">—</span>'; return `<tr><td>You, in the village</td><td>${L(seen)}</td><td><span class="empty">—</span></td><td>${L(heard)}</td><td>A page for the Empress</td></tr>`; }
+function youRow(){ const seen=S.seen||[], heard=S.heard||[]; if(!seen.length&&!heard.length) return ''; const L=a=>a.length?`<ul>${a.map(t=>`<li>${t}</li>`).join('')}</ul>`:'<span class="empty">—</span>'; return `<tr><td>You, in the village</td><td>${L(seen)}</td><td><span class="empty">—</span></td><td>${L(heard)}</td><td>The report for the Empress</td></tr>`; }
 function ledgerHTML(){
   const rows=SRC.filter(d=>d.claims.some(c=>S.locked[c.id]) || S.lockedSrc[sq(d.id,0)]);
   if(!rows.length && !(S.seen&&S.seen.length) && !(S.heard&&S.heard.length)) return `<p class="ledgercap">The ledger is empty. It fills as van Swieten agrees with your notes: what each writer saw, what he worked out, what he only heard said, and what he wanted from his reader.</p>`;
   const cell=(d,k)=>{ const L=d.claims.filter(c=>S.locked[c.id]&&c.ans===k); return L.length?`<ul>${L.map(c=>`<li>${c.t}</li>`).join('')}</ul>`:'<span class="empty">—</span>'; };
   const purpose=d=>{ const k=sq(d.id,0); return S.lockedSrc[k]?d.qs[0].opts[S.srcAns[k]].t:'<span class="empty">—</span>'; };
   return `<p class="ledgercap">Kept by the commission’s clerk. Only what van Swieten has agreed with is entered.</p>
-<table class="ledger"><thead><tr><th>Paper</th><th>Seen</th><th>Worked out</th><th>Heard said</th><th>What the writer wanted</th></tr></thead>
+<table class="ledger"><thead><tr><th>Document</th><th>Seen</th><th>Worked out</th><th>Heard said</th><th>What the writer wanted</th></tr></thead>
 <tbody>${rows.map(d=>`<tr><td>${d.id} · ${d.who}</td><td>${cell(d,'obs')}</td><td>${cell(d,'inf')}</td><td>${cell(d,'hear')}</td><td>${purpose(d)}</td></tr>`).join('')}${youRow()}</tbody></table>`;
 }
 function renderNotebook(pane){
@@ -973,29 +1011,35 @@ ${letters.length?`<h4 class="sect">Letters received</h4>${letters.map(L=>letterH
 /* ================================================================== report */
 function renderReport(){
   mood('report');
-  let th=null, rec=null; const att=new Set();
+  const dr=S.draft||{}; let th=dr.th||null, rec=dr.rec||null; const att=new Set(dr.docs||[]);
   reading.innerHTML=`<article class="scene fade">
 <p class="date">Olomouc · 10 February 1755</p>
 <h2>Report to the Empress</h2>
 <div class="who">You are assistant to Gerard van Swieten, physician to the Empress</div>
-<div class="dlg"><span class="sp">Van Swieten</span>Her Majesty reads one page. Give me one sentence I can defend, the papers that support it, and what she should order. I will sign it.</div>
+<div class="dlg"><span class="sp">Van Swieten</span>Her Majesty reads one page. Give me one sentence I can defend, the documents that support it, and what she should order. I will sign it.</div>
 <h3>1. The dead woman</h3>
 <p style="font-size:16px;color:var(--ink-soft)">Her name, as it should appear in the record. It is in the file.</p>
 <input type="text" id="deadName" class="nameinput" autocomplete="off" spellcheck="false" placeholder="Name">
 <h3>2. Your conclusion</h3>
 ${THESES.map(x=>`<label class="opt"><input type="radio" name="th" value="${x.id}">${x.t}</label>`).join('')}
-<h3>3. The papers behind it</h3>
+<h3>3. The documents behind it</h3>
 <p style="font-size:16px;color:var(--ink-soft)">Choose up to four. Van Swieten will check whether each one supports your sentence, and whether you worked out who wrote it and why.</p>
 <div id="atts">${SRC.map(s=>`<label class="att"><input type="checkbox" value="${s.id}">${portrait(s.id,34)}<span><b style="font-weight:400">Document ${s.id}.</b> ${s.short} <i style="color:var(--ink-soft)">(${s.who})</i></span></label>`).join('')}</div>
 <h3>4. What she should order</h3>
 ${RECS.map(x=>`<label class="opt"><input type="radio" name="rec" value="${x.id}">${x.t}</label>`).join('')}
-<div class="row" style="margin-top:22px"><button class="btn" type="button" id="btnSend" disabled>Send the report</button><span class="toast" id="warn">Choose a conclusion and what she should order.</span></div>
+<div class="row" style="margin-top:22px"><button class="btn quiet" type="button" id="btnBackFile">Back to the file</button><button class="btn" type="button" id="btnSend" disabled>Send the report</button><span class="toast" id="warn">Choose a conclusion and what she should order.</span></div>
 </article>`;
-  const upd=()=>{ $('btnSend').disabled=!(th&&rec); $('warn').textContent=(th&&rec)?(att.size?'':'You are sending a sentence with no papers behind it.'):'Choose a conclusion and what she should order.'; reading.querySelectorAll('.opt').forEach(o=>o.classList.toggle('sel',o.querySelector('input').checked)); };
+  const upd=()=>{ $('btnSend').disabled=!(th&&rec); $('warn').textContent=(th&&rec)?(att.size?'':'You are sending a sentence with no documents behind it.'):'Choose a conclusion and what she should order.'; reading.querySelectorAll('.opt').forEach(o=>o.classList.toggle('sel',o.querySelector('input').checked)); };
   reading.querySelectorAll('input[name=th]').forEach(r=>r.addEventListener('change',()=>{ th=r.value; upd(); }));
   reading.querySelectorAll('input[name=rec]').forEach(r=>r.addEventListener('change',()=>{ rec=r.value; upd(); }));
   reading.querySelectorAll('#atts input').forEach(c=>c.addEventListener('change',()=>{ if(c.checked){ if(att.size>=4){ c.checked=false; return; } att.add(c.value);} else att.delete(c.value); upd(); }));
-  $('btnSend').addEventListener('click',()=>{ const nm=($('deadName').value||'').trim(); S.report={th,rec,docs:[...att],name:nm,nameOk:DEAD_WOMAN.includes(nm.toLowerCase().replace(/\s+/g,' '))}; S.ended=true; save(); seal(()=>go('roadback')); });
+  if(dr.name) $('deadName').value=dr.name;
+  reading.querySelectorAll('input[name=th]').forEach(r=>{ if(r.value===th) r.checked=true; });
+  reading.querySelectorAll('input[name=rec]').forEach(r=>{ if(r.value===rec) r.checked=true; });
+  reading.querySelectorAll('#atts input').forEach(c=>{ if(att.has(c.value)) c.checked=true; });
+  upd();
+  $('btnBackFile').addEventListener('click',()=>{ S.draft={th,rec,docs:[...att],name:($('deadName').value||'').trim()}; save(); go('work'); });
+  $('btnSend').addEventListener('click',()=>{ S.draft=null; const nm=($('deadName').value||'').trim(); S.report={th,rec,docs:[...att],name:nm,nameOk:DEAD_WOMAN.includes(nm.toLowerCase().replace(/\s+/g,' '))}; S.ended=true; save(); seal(()=>go('roadback')); });
 }
 function seal(then){ const reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches; if(reduce){ then(); return; }
   const art=reading.querySelector('article'); if(!art){ then(); return; }
@@ -1024,7 +1068,7 @@ function evaluate(){
   if(r.rec==='civil'){ out.push('Your recommendation is the one Maria Theresa issued on 1 March 1755: no exhumation without civil permission, bodies to be examined by physicians, the clergy kept out of it, and the belief named as superstition.'); score+=1; }
   else if(r.rec==='church'){ out.push('Your recommendation leaves the next case with the people who handled this one. The Empress was not asking how to deal with vampires. She was asking how to make sure that her government, and not the parish, decides.'); }
   else { out.push('Your recommendation punishes and changes nothing. The priest had precedent and the judge had sixty people behind him. The next village will do the same unless the rule changes.'); }
-  if(r.nameOk){ out.push('You entered her name in the report: Rosina Polak. It appears in two of the village papers and in none of the papers that reached Vienna before you.'); }
+  if(r.nameOk){ out.push('You entered her name in the report: Rosina Polak. It appears in two of the village documents and in none of the documents that reached Vienna before you.'); }
   else { out.push('Her name was Rosina Polak. It is in the priest’s letter and the daughter’s statement. It did not appear in your report.'); }
   return {out, score, max:7};
 }
@@ -1063,7 +1107,7 @@ ${EPILOGUE.map(q=>`<div class="letter"><div class="from">${q.src}</div><p>${q.te
 <li><b>1755</b> Moravia. The Empress sends her physician, who explains the signs, and she forbids the practice by decree. The state takes the matter away from villages and priests and gives it to officials and doctors.</li>
 </ul>
 <p style="font-size:17px">The bodies looked the same in 1725, 1732, and 1755. What changed was who the state sent to look at them and what that person had been trained to see. For an essay on enlightened absolutism this is a usable argument: the Habsburg state grew stronger not only by collecting taxes and raising armies but by deciding what counted as evidence.</p>
-${missedC.length?`<h3>Notes he did not agree with</h3><ul class="factors">${missedC.map(c=>`<li><b style="font-weight:400">${c.s}:</b> ${c.t} <i style="color:var(--ink-soft)">(${ANS[c.ans].toLowerCase()}: ${c.why})</i></li>`).join('')}</ul>`:'<h3>He agreed with every note</h3><p style="font-size:17px">Every claim in the file was sorted correctly before you wrote to the Empress.</p>'}
+${missedC.length?`<h3>Notes he did not agree with</h3><ul class="factors">${missedC.map(c=>`<li><b style="font-weight:400">${c.s}:</b> ${c.t} <i style="color:var(--ink-soft)">(${ANS[c.ans].toLowerCase()})</i></li>`).join('')}</ul>`:'<h3>He agreed with every note</h3><p style="font-size:17px">Every claim in the file was sorted correctly before you wrote to the Empress.</p>'}
 <h3>Your run record</h3>
 <p style="font-size:17px;color:var(--ink-soft)">Copy this into your assignment if your teacher asks for it.</p>
 <div class="recordbox" id="recBox">${esc(rec)}</div>
@@ -1072,8 +1116,6 @@ ${missedC.length?`<h3>Notes he did not agree with</h3><ul class="factors">${miss
 <div class="after">
 <h3>What is real, and what is invented</h3>
 <p>Documents A, B, and C are close paraphrases of the real texts: Frombald’s 1725 report, printed in the <i>Wienerisches Diarium</i>; Flückinger’s <i>Visum et Repertum</i> of January 1732; and Calmet’s 1746 <i>Dissertation</i>. The dates, numbers, and details in them (the shoes, the sheep, the thirteen bodies, Stana’s age) are from the originals. Document D is adapted from van Swieten’s <i>Commentaries</i> on Boerhaave, a real textbook of the 1740s; the passage is a composite of what it says about winter fevers and about popular belief, shortened and put into plain English. The Moravian case of 1755 is real: in the village of Hermersdorf near Olomouc, a woman named Rosina Polakin was exhumed and burned in January 1755, the Consistory had approved similar acts before, van Swieten and Gasser investigated, and the decree of 1 March 1755 followed. The village of Langendorf, the field dispute, and documents E through I are invented so that the five statements would have clear and different interests behind them. The surgeon’s description of the body is what van Swieten’s own report says such bodies look like. The district captain’s table of three villages is invented; it is the kind of evidence van Swieten used, put into a form that can be counted. The portraits are in the style of the cut-paper silhouettes that became fashionable in these years; none is a likeness.</p>
-<h3>Why this is in a history class</h3>
-<p>Maria Theresa was not a philosophe. She was a devout Catholic who disliked Voltaire. But she ran a state that needed its officials to decide things, and van Swieten, trained in Leiden under Boerhaave, was reorganizing her universities around observation and anatomy. The vampire decree is a small example of what historians call enlightened absolutism: a ruler using royal power to impose administrative rules on local custom and on the Church. It can be compared with the French edict of 1682 on poisoners and “pretended magic,” and with the end of the witch trials in the Empire. In each case the prosecutions stopped when the state changed what a court was allowed to accept as evidence.</p>
 <p class="sources">Sources: Gerard van Swieten, <i>Remarques sur le vampyrisme de Silésie de l’an 1755</i>; Augustin Calmet, <i>Dissertation sur les revenants en corps… et les vampires</i> (1746); the 1725 and 1732 reports as printed in Paul Barber, <i>Vampires, Burial, and Death</i> (1988); Gábor Klaniczay, “The Decline of Witches and the Rise of Vampires in 18th-Century Habsburg Monarchy,” <i>Ethnologia Europaea</i> (1987); Koen Vermeir, “Vampires as Creatures of the Imagination” (2012).</p>
 </div>
 </article>`;
