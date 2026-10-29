@@ -683,8 +683,8 @@ const SOUND={
   click:'page.mp3',      // on buttons (not played on the buttons that have their own sound)
   bell:'bell.mp3',       // once, when the village statements first open
   quill:'writing1.mp3',  // when notes are handed to van Swieten
-  steps:'',              // footsteps in snow: going out to a village place (and coming back, unless stepsBack is set)
-  stepsBack:'',          // optional: a different sound for coming back in
+  steps:'snow.mp3',              // footsteps in snow: going out to a village place (and coming back, unless stepsBack is set)
+  stepsBack:'snow.mp3',          // optional: a different sound for coming back in
   /* Any slot may hold a list instead of one file, e.g. steps:['snow1.mp3','snow2.mp3']; one is picked at random each time. */
   volume:0.35    // 0 to 1
 };
@@ -743,7 +743,7 @@ let nextSfx='';
 function vol(){ return Math.min(1,Math.max(0,(typeof SOUND!=='undefined'&&SOUND.volume)||0.35)); }
 function sfx(kind){ if(!soundConfigured()||!AUDIO.on||!has(SOUND[kind])) return; try{ const a=new Audio(pick(SOUND[kind])); a.volume=vol(); a.play().catch(()=>{}); }catch(e){} }
 const AMBIENT_SCENES=['road','work','grave','place','report','roadback'];
-function startMusic(){ if(!soundConfigured()||!has(SOUND.ambience)) return; if(!S||!AMBIENT_SCENES.includes(S.scene)) return; if(!AUDIO.music){ try{ AUDIO.music=new Audio(pick(SOUND.ambience)); AUDIO.music.loop=true; AUDIO.music.volume=vol()*0.6; }catch(e){ return; } } if(AUDIO.on && AUDIO.music.paused) AUDIO.music.play().catch(()=>{}); }
+function startMusic(){ if(!soundConfigured()||!has(SOUND.ambience)) return; if(!S||!AMBIENT_SCENES.includes(S.scene)) return; if(!AUDIO.music){ try{ AUDIO.music=new Audio(pick(SOUND.ambience)); AUDIO.music.loop=true; AUDIO.music.volume=vol()*0.25; }catch(e){ return; } } if(AUDIO.on && AUDIO.music.paused) AUDIO.music.play().catch(()=>{}); }
 function musicFor(scene){ if(!AUDIO.music) { if(AMBIENT_SCENES.includes(scene)) startMusic(); return; } if(AMBIENT_SCENES.includes(scene)){ if(AUDIO.on && AUDIO.music.paused) AUDIO.music.play().catch(()=>{}); } else { AUDIO.music.pause(); } }
 function paintSound(){ if(!btnSound) return; btnSound.hidden=!soundConfigured(); btnSound.textContent='Sound: '+(AUDIO.on?'on':'off'); }
 if(btnSound) btnSound.addEventListener('click',()=>{ AUDIO.on=!AUDIO.on; try{localStorage.setItem('vampireSound',AUDIO.on?'on':'off')}catch(e){} if(AUDIO.music){ if(AUDIO.on && S && AMBIENT_SCENES.includes(S.scene)) AUDIO.music.play().catch(()=>{}); else AUDIO.music.pause(); } else if(AUDIO.on) startMusic(); paintSound(); });
