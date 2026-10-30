@@ -684,7 +684,7 @@ const SOUND={
   bell:'bell.mp3',       // once, when the village statements first open
   quill:'writing1.mp3',  // when notes are handed to van Swieten
   steps:'snow.mp3',              // footsteps in snow: going out to a village place (and coming back, unless stepsBack is set)
-  stepsBack:'snow.mp3',          // optional: a different sound for coming back in
+  stepsBack:'door.mp3',          // optional: a different sound for coming back in
   /* Any slot may hold a list instead of one file, e.g. steps:['snow1.mp3','snow2.mp3']; one is picked at random each time. */
   volume:0.35    // 0 to 1
 };
@@ -743,7 +743,7 @@ let nextSfx='';
 function vol(){ return Math.min(1,Math.max(0,(typeof SOUND!=='undefined'&&SOUND.volume)||0.35)); }
 function sfx(kind){ if(!soundConfigured()||!AUDIO.on||!has(SOUND[kind])) return; try{ const a=new Audio(pick(SOUND[kind])); a.volume=vol(); a.play().catch(()=>{}); }catch(e){} }
 const AMBIENT_SCENES=['road','work','grave','place','report','roadback'];
-function startMusic(){ if(!soundConfigured()||!has(SOUND.ambience)) return; if(!S||!AMBIENT_SCENES.includes(S.scene)) return; if(!AUDIO.music){ try{ AUDIO.music=new Audio(pick(SOUND.ambience)); AUDIO.music.loop=true; AUDIO.music.volume=vol()*0.25; }catch(e){ return; } } if(AUDIO.on && AUDIO.music.paused) AUDIO.music.play().catch(()=>{}); }
+function startMusic(){ if(!soundConfigured()||!has(SOUND.ambience)) return; if(!S||!AMBIENT_SCENES.includes(S.scene)) return; if(!AUDIO.music){ try{ AUDIO.music=new Audio(pick(SOUND.ambience)); AUDIO.music.loop=true; AUDIO.music.volume=vol()*0.2; }catch(e){ return; } } if(AUDIO.on && AUDIO.music.paused) AUDIO.music.play().catch(()=>{}); }
 function musicFor(scene){ if(!AUDIO.music) { if(AMBIENT_SCENES.includes(scene)) startMusic(); return; } if(AMBIENT_SCENES.includes(scene)){ if(AUDIO.on && AUDIO.music.paused) AUDIO.music.play().catch(()=>{}); } else { AUDIO.music.pause(); } }
 function paintSound(){ if(!btnSound) return; btnSound.hidden=!soundConfigured(); btnSound.textContent='Sound: '+(AUDIO.on?'on':'off'); }
 if(btnSound) btnSound.addEventListener('click',()=>{ AUDIO.on=!AUDIO.on; try{localStorage.setItem('vampireSound',AUDIO.on?'on':'off')}catch(e){} if(AUDIO.music){ if(AUDIO.on && S && AMBIENT_SCENES.includes(S.scene)) AUDIO.music.play().catch(()=>{}); else AUDIO.music.pause(); } else if(AUDIO.on) startMusic(); paintSound(); });
@@ -782,7 +782,7 @@ function checkX(){
 }
 const nLocked=()=>Object.keys(S.locked).length, nLockedSrc=()=>Object.keys(S.lockedSrc).length, nLockedX=()=>Object.keys(S.lockedX).length;
 const nSrcQ=SRC.reduce((a,s)=>a+s.qs.length,0);
-function partDone(p){ return PART[p].ids.every(id=>SRCMAP[id].qs.every((q,i)=>S.srcAns[sq(id,i)]!==undefined) && SRCMAP[id].claims.every(c=>S.claims[c.id]!==undefined)); }
+function partDone(p){ return PART[p].ids.every(id=>docAllLocked(id)); }   /* a part is done only when van Swieten has agreed with every answer */
 
 /* ================================================================== screens */
 function renderStart(){
@@ -900,7 +900,7 @@ function renderWork(resuming){
   const p2open=partDone(1), xopen=partDone(2);
   const tabs=[['p1',`The old reports<span class="n">${PART[1].ids.length}</span>`,true],['p2',`The statements<span class="n">${PART[2].ids.length}</span>`,p2open],['x',`Side by side<span class="n">${nLockedX()}/${XCHECK.length}</span>`,xopen],['nb',`Notebook<span class="n">${Object.keys(S.nb).length}/${NB.length}</span>`,true]];
   if(S.tab==='p2'&&!p2open) S.tab='p1'; if(S.tab==='x'&&!xopen) S.tab=p2open?'p2':'p1';
-  const ready = xopen && Object.keys(S.x).length>=3;
+  const ready = xopen && nLockedX()===XCHECK.length;
   const head = S.tab==='p1'?PART[1]:S.tab==='p2'?{title:PART[2].title,date:CLOCK[Math.min(clockPhase(),4)]}:S.tab==='x'?{title:'The documents side by side',date:CLOCK[4]+' · the priest’s front room'}:{title:'Van Swieten’s notebook',date:'Langendorf · at night'};
   mood('work', S.tab);
   if(S.tab==='p2' && !S.bell){ S.bell=true; save(); sfx('bell'); }
@@ -913,7 +913,7 @@ ${newLetter?letterHTML(newLetter,true):''}
 ${flash?`<div class="flash">${flash}</div>`:''}
 <div class="tabs">${tabs.map(t=>`<button class="tab${S.tab===t[0]?' on':''}" type="button" data-tab="${t[0]}" ${t[2]?'':'disabled'}>${t[1]}</button>`).join('')}</div>
 <div id="pane"></div>
-<div class="row" style="margin-top:28px;border-top:1px solid var(--ink);padding-top:16px"><button class="btn" type="button" id="btnReport" ${ready?'':'disabled'}>Write to the Empress</button><span class="toast">${ready?'You can write to the Empress now, or keep working. Only notes van Swieten agreed with will count.':xopen?'Lay at least three pairs of documents side by side first.':p2open?'Finish the statements before you compare them.':'Finish the old reports before you take the statements.'}</span></div>
+<div class="row" style="margin-top:28px;border-top:1px solid var(--ink);padding-top:16px"><button class="btn" type="button" id="btnReport" ${ready?'':'disabled'}>Write to the Empress</button><span class="toast">${ready?'Van Swieten has agreed with everything in the file. You can write to the Empress.':xopen?'Van Swieten has to agree with all six comparisons first.':p2open?'Van Swieten has to agree with every answer on the statements before you compare them.':'Van Swieten has to agree with every answer on the old reports before you go to the village.'}</span></div>
 </article>`;
   reading.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{ S.tab=b.dataset.tab; save(); renderWork(true); }));
   $('btnReport').addEventListener('click',()=>go('report'));
@@ -928,7 +928,7 @@ function refreshNav(){
   const t2=reading.querySelector('.tab[data-tab="p2"]'), tx=reading.querySelector('.tab[data-tab="x"]');
   if(t2) t2.disabled=!p2open; if(tx) tx.disabled=!xopen;
   const np=$('btnNextPart'); if(np) np.disabled = S.tab==='p1' ? !p2open : !xopen;
-  const br=$('btnReport'); if(br){ const ready=xopen && Object.keys(S.x).length>=3; br.disabled=!ready; const t=br.nextElementSibling; if(t) t.textContent = ready?'You can write to the Empress now, or keep working. Only notes van Swieten agreed with will count.':xopen?'Lay at least three pairs of documents side by side first.':p2open?'Finish the statements before you compare them.':'Finish the old reports before you take the statements.'; }
+  const br=$('btnReport'); if(br){ const ready=xopen && nLockedX()===XCHECK.length; br.disabled=!ready; const t=br.nextElementSibling; if(t) t.textContent = ready?'Van Swieten has agreed with everything in the file. You can write to the Empress.':xopen?'Van Swieten has to agree with all six comparisons first.':p2open?'Van Swieten has to agree with every answer on the statements before you compare them.':'Van Swieten has to agree with every answer on the old reports before you go to the village.'; }
   const bc=$('btnCheck'); if(bc){ const id=S.open[S.tab]; if(id){ bc.disabled=!(docAnswered(id)&&!docAllLocked(id)); } }
   const bx=$('btnCheckX'); if(bx) bx.disabled=!Object.keys(S.x).length;
   const who=reading.querySelector('.who'); if(who) who.textContent='You are assistant to Gerard van Swieten, physician to the Empress · '+(nLocked()+nLockedSrc()+nLockedX())+' notes he agrees with';
@@ -1076,7 +1076,7 @@ function recordText(){
   const r=S.report;
   const firstC=CLAIMS.filter(c=>S.locked[c.id] && S.claimTries[c.id]===1).length;
   const firstS=Object.keys(S.lockedSrc).filter(k=>S.srcTries[k]===1).length;
-  const s=`THE VAMPIRE REPORT — RUN RECORD\nClaims confirmed: ${nLocked()}/${CLAIMS.length} (${firstC} on first try) · Sourcing questions confirmed: ${nLockedSrc()}/${nSrcQ} (${firstS} on first try) · Cross-checks: ${nLockedX()}/${XCHECK.length} · Notebook pages: ${Object.keys(S.nb).length}/${NB.length}\nChecks per document: ${SRC.map(d=>d.id+':'+(S.checks[d.id]||0)).join(' ')} X:${S.checks.X||0}\nThesis: ${r.th} · Cited: ${r.docs.join(', ')||'none'} · Recommendation: ${r.rec}`;
+  const s=`THE VAMPIRE REPORT — RUN RECORD\nClaims confirmed: ${nLocked()}/${CLAIMS.length} (${firstC} on first try) · Sourcing questions confirmed: ${nLockedSrc()}/${nSrcQ} (${firstS} on first try) · Cross-checks: ${nLockedX()}/${XCHECK.length} · Notebook pages: ${Object.keys(S.nb).length}/${NB.length}\nChecks per document: ${SRC.map(d=>d.id+':'+(S.checks[d.id]||0)).join(' ')} X:${S.checks.X||0}\nReport score: ${String(evaluate().score).replace('.5','½')} of 7 · Conclusion: ${({fever:'fever (van Swieten’s)',open:'open question',punish:'punish the village'})[r.th]||r.th} · Cited: ${r.docs.join(', ')||'none'} · Recommendation: ${({civil:'civil authority (historical)',church:'leave it to the Church',harsh:'punish'})[r.rec]||r.rec} · Dead woman named: ${r.nameOk?'yes':'no'}`;
   return s+`\nRecord code: ${hash(s+JSON.stringify(S.claimTries)+JSON.stringify(S.srcTries))}`;
 }
 function hash(s){ let h=5381; for(let i=0;i<s.length;i++){ h=((h<<5)+h+s.charCodeAt(i))|0; } return 'V-'+(Math.abs(h)%46656).toString(36).toUpperCase().padStart(3,'0'); }
@@ -1106,7 +1106,7 @@ ${EPILOGUE.map(q=>`<div class="letter"><div class="from">${q.src}</div><p>${q.te
 <li><b>1732</b> Medveđa, Serbia. The army sends surgeons, who dig up thirteen bodies, examine them, sign a report, and let the soldiers cut off the heads. The state does the work itself and calls it medicine.</li>
 <li><b>1755</b> Moravia. The Empress sends her physician, who explains the signs, and she forbids the practice by decree. The state takes the matter away from villages and priests and gives it to officials and doctors.</li>
 </ul>
-<p style="font-size:17px">The bodies looked the same in 1725, 1732, and 1755. What changed was who the state sent to look at them and what that person had been trained to see. This is enlightened absolutism at work!</p>
+<p style="font-size:17px">The bodies looked the same in 1725, 1732, and 1755. What changed was who the state sent to look at them and what that person had been trained to see. For an essay on enlightened absolutism this is a usable argument: the Habsburg state grew stronger not only by collecting taxes and raising armies but by deciding what counted as evidence.</p>
 ${missedC.length?`<h3>Notes he did not agree with</h3><ul class="factors">${missedC.map(c=>`<li><b style="font-weight:400">${c.s}:</b> ${c.t} <i style="color:var(--ink-soft)">(${ANS[c.ans].toLowerCase()})</i></li>`).join('')}</ul>`:'<h3>He agreed with every note</h3><p style="font-size:17px">Every claim in the file was sorted correctly before you wrote to the Empress.</p>'}
 <h3>Your run record</h3>
 <p style="font-size:17px;color:var(--ink-soft)">Copy this into your assignment if your teacher asks for it.</p>
