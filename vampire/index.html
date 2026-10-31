@@ -913,7 +913,7 @@ ${newLetter?letterHTML(newLetter,true):''}
 ${flash?`<div class="flash">${flash}</div>`:''}
 <div class="tabs">${tabs.map(t=>`<button class="tab${S.tab===t[0]?' on':''}" type="button" data-tab="${t[0]}" ${t[2]?'':'disabled'}>${t[1]}</button>`).join('')}</div>
 <div id="pane"></div>
-<div class="row" style="margin-top:28px;border-top:1px solid var(--ink);padding-top:16px"><button class="btn" type="button" id="btnReport" ${ready?'':'disabled'}>Write to the Empress</button><span class="toast">${ready?'Van Swieten has agreed with everything in the file. You can write to the Empress.':xopen?'Van Swieten has to agree with all six comparisons first.':p2open?'Van Swieten has to agree with every answer on the statements before you compare them.':'Van Swieten has to agree with every answer on the old reports before you go to the village.'}</span></div>
+<div class="row" style="margin-top:28px;border-top:1px solid var(--ink);padding-top:16px"><button class="btn" type="button" id="btnReport" ${ready?'':'disabled'}>Write to the Empress</button><span class="toast">${ready?'Van Swieten has agreed with everything in the file. You can write to the Empress.':xopen?`Van Swieten has agreed with ${nLockedX()} of the ${XCHECK.length} comparisons. Change the ones he struck out and hand them in again.`:p2open?waitMsg(2,'before you compare them.'):waitMsg(1,'before you go to the village.')}</span></div>
 </article>`;
   reading.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{ S.tab=b.dataset.tab; save(); renderWork(true); }));
   $('btnReport').addEventListener('click',()=>go('report'));
@@ -928,14 +928,15 @@ function refreshNav(){
   const t2=reading.querySelector('.tab[data-tab="p2"]'), tx=reading.querySelector('.tab[data-tab="x"]');
   if(t2) t2.disabled=!p2open; if(tx) tx.disabled=!xopen;
   const np=$('btnNextPart'); if(np) np.disabled = S.tab==='p1' ? !p2open : !xopen;
-  const br=$('btnReport'); if(br){ const ready=xopen && nLockedX()===XCHECK.length; br.disabled=!ready; const t=br.nextElementSibling; if(t) t.textContent = ready?'Van Swieten has agreed with everything in the file. You can write to the Empress.':xopen?'Van Swieten has to agree with all six comparisons first.':p2open?'Van Swieten has to agree with every answer on the statements before you compare them.':'Van Swieten has to agree with every answer on the old reports before you go to the village.'; }
+  const br=$('btnReport'); if(br){ const ready=xopen && nLockedX()===XCHECK.length; br.disabled=!ready; const t=br.nextElementSibling; if(t) t.textContent = ready?'Van Swieten has agreed with everything in the file. You can write to the Empress.':xopen?`Van Swieten has agreed with ${nLockedX()} of the ${XCHECK.length} comparisons. Change the ones he struck out and hand them in again.`:p2open?waitMsg(2,'before you compare them.'):waitMsg(1,'before you go to the village.'); }
   const bc=$('btnCheck'); if(bc){ const id=S.open[S.tab]; if(id){ bc.disabled=!(docAnswered(id)&&!docAllLocked(id)); } }
   const bx=$('btnCheckX'); if(bx) bx.disabled=!Object.keys(S.x).length;
   const who=reading.querySelector('.who'); if(who) who.textContent='You are assistant to Gerard van Swieten, physician to the Empress · '+(nLocked()+nLockedSrc()+nLockedX())+' notes he agrees with';
   const grid=reading.querySelectorAll('.srcbtn'); grid.forEach(b=>{ const ok=b.querySelector('.ok'); if(ok) ok.textContent=docStatus(b.dataset.src); });
 }
 function docAllLocked(id){ const d=SRCMAP[id]; return d.qs.every((q,i)=>S.lockedSrc[sq(id,i)]) && d.claims.every(c=>S.locked[c.id]); }
-function docStatus(id){ const s=SRCMAP[id]; const qa=s.qs.filter((q,i)=>S.srcAns[sq(id,i)]!==undefined).length, ql=s.qs.filter((q,i)=>S.lockedSrc[sq(id,i)]).length; const ca=s.claims.filter(c=>S.claims[c.id]!==undefined).length, cl=s.claims.filter(c=>S.locked[c.id]).length; const tot=s.qs.length+s.claims.length; if(ql+cl===tot) return 'all confirmed'; if(qa+ca===tot) return 'answered'; if(qa+ca>0) return `${qa+ca} of ${tot}`; return ''; }
+function waitMsg(p,end){ const left=PART[p].ids.filter(id=>!docAllLocked(id)); return `Van Swieten has not yet agreed with everything on Document${left.length>1?'s':''} ${left.join(', ')}. Find the answers marked “struck out,” change them, and hand the notes in again ${end}`; }
+function docStatus(id){ const s=SRCMAP[id]; const qa=s.qs.filter((q,i)=>S.srcAns[sq(id,i)]!==undefined).length, ql=s.qs.filter((q,i)=>S.lockedSrc[sq(id,i)]).length; const ca=s.claims.filter(c=>S.claims[c.id]!==undefined).length, cl=s.claims.filter(c=>S.locked[c.id]).length; const tot=s.qs.length+s.claims.length; if(ql+cl===tot) return 'all confirmed'; if(qa+ca===tot) return S.checks[id] ? 'struck out — look again' : 'not handed in yet'; if(qa+ca>0) return `${qa+ca} of ${tot}`; return ''; }
 
 function renderPart(pane,p){
   const P=PART[p]; const key='p'+p; const id=S.open[key]; const s=SRCMAP[id];
