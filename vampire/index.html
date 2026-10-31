@@ -253,6 +253,31 @@ body.snow::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:2
 .q.wrong .opt.sel{text-decoration:line-through;text-decoration-thickness:2px;border-color:var(--ink-soft)}
 .q.wrong::before{left:-30px;top:4px}
 .notyet{font-style:italic;text-transform:none;letter-spacing:0;font-size:14px}
+
+/* ---- "What is left" checklist */
+#todo{display:none}
+.todoinline{border:1px solid var(--ink);background:var(--bg-2);padding:8px 12px;margin:12px 0 16px;font-size:15px;line-height:1.35}
+.todoinline summary{cursor:pointer}
+.todoinline .todomore{display:block;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-top:3px}
+.todoinline[open] .todomore{display:none}
+.todohead{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px}
+.nextstep{border:2px solid var(--ink);background:var(--bg);padding:8px 10px;margin:0 0 6px;font-size:14.5px;line-height:1.35}
+.nextstep a{color:var(--ink)}
+.todosect{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin:12px 0 2px}
+.todosect i{text-transform:none;letter-spacing:0;font-size:12px}
+.todorow{display:block;width:100%;text-align:left;font:inherit;background:transparent;border:0;border-top:1px solid var(--rule);padding:6px 6px;cursor:pointer;color:var(--ink)}
+.todorow .trl{display:block;font-size:14.5px;line-height:1.25}
+.todorow .trs{display:block;font-size:12.5px;color:var(--ink-soft);margin-top:1px}
+.todorow:disabled{opacity:.45;cursor:default}
+.todorow.cur{outline:2px solid var(--ink);outline-offset:-2px}
+.todorow.needs{background:#f3e3df}
+.todorow.needs .trs{color:#8b1e1e;font-weight:600}
+.todorow.ready .trs{color:var(--ink);font-weight:600}
+@media (min-width:1240px){
+  body.hastodo .wrap{margin-left:calc(max(0px, (100vw - 1202px)/2));margin-right:auto}
+  body.hastodo #todo{display:block;position:fixed;top:28px;left:calc(16px + max(0px, (100vw - 1202px)/2) + 916px);width:250px;max-height:calc(100vh - 56px);overflow:auto;background:var(--bg-2);border:1px solid var(--ink);padding:12px 12px 10px;box-shadow:0 8px 24px rgba(0,0,0,.18);z-index:5}
+  body.hastodo #todoInline{display:none}
+}
 </style>
 </head>
 <body>
@@ -827,7 +852,7 @@ ${MAPSVG}
 }
 
 function go(scene,resuming){
-  S.scene=scene; btnRestart.hidden=false; save();
+  S.scene=scene; btnRestart.hidden=false; save(); document.body.classList.toggle('hastodo', scene==='work');
   const paint=()=>{
     if(scene==='brief') renderBrief();
     else if(scene==='road') renderRoad();
@@ -919,6 +944,7 @@ function renderWork(resuming){
 <p class="date">${head.date}</p>${(S.tab==='p2'||S.tab==='x')?`<p class="weather">${WEATHER[Math.min(clockPhase(),4)].line}</p>`:''}
 <h2>${head.title}</h2>
 <div class="who">You are assistant to Gerard van Swieten, physician to the Empress · ${nLocked()+nLockedSrc()+nLockedX()} notes he agrees with</div>
+<div id="todoInline"></div>
 ${newLetter?letterHTML(newLetter,true):''}
 ${flash?`<div class="flash">${flash}</div>`:''}
 <div class="tabs">${tabs.map(t=>`<button class="tab${S.tab===t[0]?' on':''}" type="button" data-tab="${t[0]}" ${t[2]?'':'disabled'}>${t[1]}</button>`).join('')}</div>
@@ -930,6 +956,46 @@ ${flash?`<div class="flash">${flash}</div>`:''}
   const pane=$('pane');
   if(S.tab==='p1') renderPart(pane,1); else if(S.tab==='p2') renderPart(pane,2); else if(S.tab==='x') renderX(pane); else renderNotebook(pane);
   mood('work', S.tab); const dt=reading.querySelector('.date'); if(dt && S.tab==='p2') dt.textContent=CLOCK[Math.min(clockPhase(),4)]; const wt=reading.querySelector('.weather'); if(wt && S.tab==='p2') wt.textContent=WEATHER[Math.min(clockPhase(),4)].line;
+  updateTodo();
+}
+
+
+/* ---- the "What is left" checklist: beside the document on wide screens, a fold-out strip on narrow ones */
+function xState(){ const lk=nLockedX(), struck=XCHECK.filter(x=>!S.lockedX[x.id] && isStruckX(x.id,S.x[x.id])).length, ans=XCHECK.filter(x=>S.x[x.id]!==undefined).length; return {lk,struck,ans,tot:XCHECK.length}; }
+function nextStep(){
+  const docStep=p=>{ for(const id of PART[p].ids){ const st=docState(id); if(st.cls==='done') continue;
+      if(st.cls==='needs') return {txt:`Fix the ${st.n>1?st.n+' answers':'answer'} van Swieten struck out in Document ${id}, then hand the notes in again.`, go:'p'+p+':'+id};
+      if(st.cls==='ready') return {txt:`Hand in your notes on Document ${id}.`, go:'p'+p+':'+id};
+      return {txt:`Answer every question and sort every claim in Document ${id}.`, go:'p'+p+':'+id}; } return null; };
+  const s=docStep(1)||docStep(2); if(s) return s;
+  const x=xState();
+  if(x.lk<x.tot){ if(x.struck) return {txt:`Change the ${x.struck>1?x.struck+' comparisons':'comparison'} van Swieten struck out in Side by side, then hand them in again.`, go:'x'};
+    if(x.ans<x.tot) return {txt:'Answer all six comparisons in Side by side and hand them in.', go:'x'};
+    return {txt:'Hand your comparisons to van Swieten in Side by side.', go:'x'}; }
+  return {txt:'Everything is confirmed. Write your report to the Empress.', go:'report'};
+}
+function todoHTML(withNext){
+  const p2open=partDone(1), xopen=partDone(2), ready=xopen && nLockedX()===XCHECK.length, ns=nextStep(), x=xState();
+  const row=(id,p,open)=>{ const st=docState(id); const cur=(S.scene==='work'&&S.tab==='p'+p&&S.open['p'+p]===id); return `<button type="button" class="todorow ${open?st.cls:''}${cur?' cur':''}" data-go="p${p}:${id}" ${open?'':'disabled'}><span class="trl">${id} · ${SRCMAP[id].short}</span><span class="trs">${open?(st.text||'not started'):''}</span></button>`; };
+  return `${withNext?`<div class="todohead">What is left</div><div class="nextstep"><b>Next step:</b> <a href="#" data-go="${ns.go}">${ns.txt}</a></div>`:''}
+<div class="todosect">The old reports</div>${PART[1].ids.map(id=>row(id,1,true)).join('')}
+<div class="todosect">The statements${p2open?'':' <i>· opens when A–D are confirmed</i>'}</div>${PART[2].ids.map(id=>row(id,2,p2open)).join('')}
+<div class="todosect">Side by side${xopen?'':' <i>· opens when E–I are confirmed</i>'}</div>
+<button type="button" class="todorow ${!xopen?'':(x.lk===x.tot?'done':(x.struck?'needs':''))}${S.scene==='work'&&S.tab==='x'?' cur':''}" data-go="x" ${xopen?'':'disabled'}><span class="trl">The six comparisons</span><span class="trs">${xopen?(x.lk===x.tot?'✓ All confirmed':`${x.lk} of 6 agreed`+(x.struck?` · ✗ ${x.struck} struck out`:'')):''}</span></button>
+<div class="todosect">The report</div>
+<button type="button" class="todorow ${ready?'ready':''}" data-go="report" ${ready?'':'disabled'}><span class="trl">Write to the Empress</span><span class="trs">${ready?'Open':'Locked until everything above is confirmed'}</span></button>`;
+}
+function updateTodo(){
+  let side=document.getElementById('todo');
+  if(!side){ side=document.createElement('aside'); side.id='todo'; side.setAttribute('aria-label','What is left'); document.body.appendChild(side); }
+  side.innerHTML=todoHTML(true);
+  const inl=document.getElementById('todoInline');
+  if(inl){ const was=inl.querySelector('details'); const open=was?was.open:false; const ns=nextStep();
+    inl.innerHTML=`<details class="todoinline"${open?' open':''}><summary><b>Next step:</b> ${ns.txt} <span class="todomore">Show what is left</span></summary>${todoHTML(false)}</details>`; }
+  document.querySelectorAll('#todo [data-go], #todoInline [data-go]').forEach(el=>el.addEventListener('click',e=>{ e.preventDefault(); if(el.disabled) return; const g=el.dataset.go;
+    if(g==='report'){ if(partDone(2) && nLockedX()===XCHECK.length) go('report'); return; }
+    if(g==='x'){ if(!partDone(2)) return; S.tab='x'; } else { const [t,id]=g.split(':'); if(t==='p2'&&!partDone(1)) return; S.tab=t; S.open[t]=id; }
+    save(); renderWork(); window.scrollTo({top:0,behavior:'auto'}); }));
 }
 
 function letterHTML(L,isNew){ return `<div class="letter${isNew?' new':''}"><div class="from">A letter · ${L.from}</div>${L.text}${L.aside?`<p class="aside">${L.aside}</p>`:''}</div>`; }
@@ -939,7 +1005,8 @@ function refreshNav(){
   if(t2) t2.disabled=!p2open; if(tx) tx.disabled=!xopen;
   const np=$('btnNextPart'); if(np) np.disabled = S.tab==='p1' ? !p2open : !xopen;
   const br=$('btnReport'); if(br){ const ready=xopen && nLockedX()===XCHECK.length; br.disabled=!ready; const t=br.nextElementSibling; if(t) t.textContent = ready?'Van Swieten has agreed with everything in the file. You can write to the Empress.':xopen?`Van Swieten has agreed with ${nLockedX()} of the ${XCHECK.length} comparisons. Change the ones he struck out and hand them in again.`:p2open?waitMsg(2,'before you compare them.'):waitMsg(1,'before you go to the village.'); }
-  const bc=$('btnCheck'); if(bc){ const id=S.open[S.tab]; if(id){ bc.disabled=!(docAnswered(id)&&!docAllLocked(id)); } }
+  const bc=$('btnCheck'); if(bc){ const id=S.open[S.tab]; if(id){ bc.disabled=!(docAnswered(id)&&!docAllLocked(id)); if(!docAllLocked(id)){ const n=docState(id).n; bc.textContent='Hand your notes on '+id+' to van Swieten'+(n?` (${n} still struck out)`:''); } } }
+  updateTodo();
   const bx=$('btnCheckX'); if(bx) bx.disabled=!Object.keys(S.x).length;
   const who=reading.querySelector('.who'); if(who) who.textContent='You are assistant to Gerard van Swieten, physician to the Empress · '+(nLocked()+nLockedSrc()+nLockedX())+' notes he agrees with';
   const grid=reading.querySelectorAll('.srcbtn'); grid.forEach(b=>{ const st=docState(b.dataset.src); const ok=b.querySelector('.ok'); if(ok) ok.textContent=st.text; b.classList.remove('done','needs','ready'); if(st.cls) b.classList.add(st.cls); });
@@ -951,7 +1018,7 @@ function docState(id){ const s=SRCMAP[id];
   const tot=items.length, ans=items.filter(x=>x.a).length, lk=items.filter(x=>x.l).length;
   const struck = items.filter(x=>!x.l && isStruck(x.k,x.v,S.checks[id])).length;
   if(lk===tot) return {cls:'done', text:'✓ All confirmed'};
-  if(struck) return {cls:'needs', text:`✗ ${struck} struck out`};
+  if(struck) return {cls:'needs', text:`✗ ${struck} struck out`, n:struck};
   if(ans===tot) return {cls:'ready', text:'Ready to hand in'};
   if(ans>0) return {cls:'', text:`${ans} of ${tot} answered`};
   return {cls:'', text:''}; }
@@ -984,14 +1051,14 @@ ${s.qs.map((q,i)=>{ const k=sq(id,i), a=S.srcAns[k], lk=!!S.lockedSrc[k]; const 
 <h4 class="sect">What it claims</h4>
 <div class="key"><b>Observed</b>: the writer, or someone named in the document, saw it or counted it. <b>Inference</b>: a conclusion drawn from what was seen. <b>Hearsay</b>: the writer is passing on what someone else said.</div>
 ${s.claims.map(c=>{ const a=S.claims[c.id], lk=!!S.locked[c.id]; const wr=!lk && isStruck(c.id,a,S.checks[id]); return `<div class="claim${lk?' lock':''}${wr?' wrong':''}" data-c="${c.id}">${lk?'<span class="lockmark">he agrees</span>':(wr?'<span class="lockmark notyet">struck out</span>':'')}<p class="ct">${c.t}</p><div class="ans">${Object.keys(ANS).map(k=>`<label class="${a===k?(lk?'lk':'sel'):''}"><input type="radio" name="${c.id}" value="${k}" ${a===k?'checked':''} ${lk?'disabled':''}>${ANS[k]}</label>`).join('')}</div></div>`; }).join('')}
-<div class="row" style="margin:18px 0 0">${prev?`<button class="btn quiet" type="button" id="btnPrevDoc">Back: Document ${prev}</button>`:(p===2?`<button class="btn quiet" type="button" id="btnPrevPart">Back to the old reports</button>`:'')}<button class="btn" type="button" id="btnCheck" ${docAnswered(id)&&!docAllLocked(id)?'':'disabled'}>${docAllLocked(id)?'Van Swieten agrees with all of it':'Hand your notes on '+id+' to van Swieten'}</button>${next?`<button class="btn quiet" type="button" id="btnNextDoc">Next: Document ${next}</button>`:(p===1?`<button class="btn quiet" type="button" id="btnNextPart" ${partDone(1)?'':'disabled'}>On to the village</button>`:`<button class="btn quiet" type="button" id="btnNextPart" ${partDone(2)?'':'disabled'}>Lay the documents side by side</button>`)}</div>
+<div class="row" style="margin:18px 0 0">${prev?`<button class="btn quiet" type="button" id="btnPrevDoc">Back: Document ${prev}</button>`:(p===2?`<button class="btn quiet" type="button" id="btnPrevPart">Back to the old reports</button>`:'')}<button class="btn" type="button" id="btnCheck" ${docAnswered(id)&&!docAllLocked(id)?'':'disabled'}>${docAllLocked(id)?'Van Swieten agrees with all of it':'Hand your notes on '+id+' to van Swieten'+(docState(id).n?` (${docState(id).n} still struck out)`:'')}</button>${next?`<button class="btn quiet" type="button" id="btnNextDoc">Next: Document ${next}</button>`:(p===1?`<button class="btn quiet" type="button" id="btnNextPart" ${partDone(1)?'':'disabled'}>On to the village</button>`:`<button class="btn quiet" type="button" id="btnNextPart" ${partDone(2)?'':'disabled'}>Lay the documents side by side</button>`)}</div>
 </div>
 </div>`;
   pane.querySelectorAll('.placebtn').forEach(b=>b.addEventListener('click',()=>{ S.place=b.dataset.place; save(); if(has(SOUND.steps)) nextSfx='steps'; go('place'); }));
   pane.querySelectorAll('.srcbtn').forEach(b=>b.addEventListener('click',()=>{ S.open[key]=b.dataset.src; save(); renderWork(true); }));
   pane.querySelectorAll('.q input[type=radio]').forEach(r=>r.addEventListener('change',()=>{ S.struck=S.struck||{}; if(!(r.name in S.struck) && S.checks[id] && S.srcAns[r.name]!==undefined) S.struck[r.name]=S.srcAns[r.name]; S.srcAns[r.name]=+r.value; { const el=r.closest('.q'), w=isStruck(r.name,+r.value,S.checks[id]); el.classList.toggle('wrong',w); el.querySelectorAll('.notyet').forEach(s=>s.style.display=w?'':'none'); } S.srcTries[r.name]=(S.srcTries[r.name]||0)+1; save(); r.closest('.q').querySelectorAll('.opt').forEach(o=>o.classList.toggle('sel',o.querySelector('input').checked)); refreshNav(); }));
   pane.querySelectorAll('.claim input[type=radio]').forEach(r=>r.addEventListener('change',()=>{ S.struck=S.struck||{}; if(!(r.name in S.struck) && S.checks[id] && S.claims[r.name]!==undefined) S.struck[r.name]=S.claims[r.name]; S.claims[r.name]=r.value; { const el=r.closest('.claim'), w=isStruck(r.name,r.value,S.checks[id]); el.classList.toggle('wrong',w); el.querySelectorAll('.notyet').forEach(s=>s.style.display=w?'':'none'); } S.claimTries[r.name]=(S.claimTries[r.name]||0)+1; save(); r.closest('.claim').querySelectorAll('.ans label').forEach(l=>l.classList.toggle('sel',l.querySelector('input').checked)); refreshNav(); }));
-  $('btnCheck').addEventListener('click',()=>{ sfx('quill'); checkDoc(id); save(); renderWork(true); });
+  $('btnCheck').addEventListener('click',()=>{ sfx('quill'); checkDoc(id); save(); renderWork(true); setTimeout(()=>{ const w=document.querySelector('#pane .q.wrong, #pane .claim.wrong'); if(w) w.scrollIntoView({block:'center',behavior:'smooth'}); },80); });
   const nd=$('btnNextDoc'); if(nd) nd.addEventListener('click',()=>{ S.open[key]=next; save(); renderWork(); });
   const pd=$('btnPrevDoc'); if(pd) pd.addEventListener('click',()=>{ S.open[key]=prev; save(); renderWork(); });
   const pp=$('btnPrevPart'); if(pp) pp.addEventListener('click',()=>{ S.tab='p1'; save(); renderWork(); });
@@ -1003,7 +1070,7 @@ function renderX(pane){
 <div class="row" style="margin:0 0 14px"><button class="btn quiet" type="button" id="btnBackX">Back to the statements</button><button class="btn" type="button" id="btnCheckX" ${Object.keys(S.x).length?'':'disabled'}>Hand your comparisons to van Swieten</button></div>
 ${XCHECK.map(x=>{ const a=S.x[x.id], lk=!!S.lockedX[x.id]; const wr=!lk && isStruckX(x.id,a); return `<div class="claim${lk?' lock':''}${wr?' wrong':''}">${lk?'<span class="lockmark">he agrees</span>':(wr?'<span class="lockmark notyet">struck out</span>':'')}<p class="ct">${x.q}</p><div class="ans">${x.opts.map(o=>`<label class="${a===o?(lk?'lk':'sel'):''}"><input type="radio" name="${x.id}" value="${esc(o)}" ${a===o?'checked':''} ${lk?'disabled':''}>${SRCMAP[o]?'Document '+o+' · '+SRCMAP[o].short:o}</label>`).join('')}</div></div>`; }).join('')}`;
   pane.querySelectorAll('input[type=radio]').forEach(r=>r.addEventListener('change',()=>{ S.struckX=S.struckX||{}; if(!(r.name in S.struckX) && S.checks.X && S.x[r.name]!==undefined) S.struckX[r.name]=S.x[r.name]; S.x[r.name]=r.value; { const el=r.closest('.claim'), w=isStruckX(r.name,r.value); el.classList.toggle('wrong',w); el.querySelectorAll('.notyet').forEach(s=>s.style.display=w?'':'none'); } S.xTries[r.name]=(S.xTries[r.name]||0)+1; save(); r.closest('.claim').querySelectorAll('.ans label').forEach(l=>l.classList.toggle('sel',l.querySelector('input').checked)); refreshNav(); }));
-  $('btnCheckX').addEventListener('click',()=>{ sfx('quill'); checkX(); save(); renderWork(true); });
+  $('btnCheckX').addEventListener('click',()=>{ sfx('quill'); checkX(); save(); renderWork(true); setTimeout(()=>{ const w=document.querySelector('#pane .claim.wrong'); if(w) w.scrollIntoView({block:'center',behavior:'smooth'}); },80); });
   $('btnBackX').addEventListener('click',()=>{ S.tab='p2'; save(); renderWork(); });
 }
 
