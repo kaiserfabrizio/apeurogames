@@ -134,6 +134,12 @@ ul.how li{margin:0 0 6px}
 .srcbtn .sb{min-width:0;flex:1}
 .srcbtn .w{display:block;font-size:14px;color:var(--ink-soft);font-style:italic}
 .srcbtn .ok{float:right;font-size:12px;letter-spacing:.1em}
+.srcbtn .ok{text-transform:none;letter-spacing:.02em;font-size:13px}
+.srcbtn.needs{border:2px solid #8b1e1e;background:#f3e3df}
+.srcbtn.needs .ok{background:#8b1e1e;color:#fff;padding:1px 7px;font-weight:600}
+.srcbtn.ready{border:2px dashed var(--ink)}
+.srcbtn.ready .ok{font-weight:600;color:var(--ink)}
+.srcbtn.done .ok{color:var(--ink-soft)}
 .dochead{display:flex;gap:16px;align-items:flex-start;margin-bottom:12px}
 .dochead .src{flex:1;min-width:0;margin:0;border-bottom:0;padding:0}
 .docbox{padding-bottom:22px}
@@ -766,17 +772,21 @@ function mood(scene,tab){ const b=document.body; const village = scene==='work' 
 /* checking happens one document (or the cross-check section) at a time: all items in it must be answered; the correct ones are confirmed, the rest stay open to be changed */
 function docAnswered(id){ const d=SRCMAP[id]; return d.qs.every((q,i)=>S.srcAns[sq(id,i)]!==undefined) && d.claims.every(c=>S.claims[c.id]!==undefined); }
 function unlockNotebook(){ const u=[]; NB.forEach(p=>{ if(!S.nb[p.id] && p.need.every(k=>S.locked[k])){ S.nb[p.id]=true; u.push(p.title); } }); return u; }
+/* An answer is shown as struck out only while it is the same answer van Swieten struck out.
+   Choosing a different answer clears the mark until the notes are handed in again. */
+function isStruck(key,cur,checked){ S.struck=S.struck||{}; if(key in S.struck) return cur!==undefined && S.struck[key]===cur; return !!checked && cur!==undefined; }
+function isStruckX(key,cur){ S.struckX=S.struckX||{}; if(key in S.struckX) return cur!==undefined && S.struckX[key]===cur; return !!(S.checks&&S.checks.X) && cur!==undefined; }
 function checkDoc(id){
   const d=SRCMAP[id]; let ok=0, bad=0;
-  d.qs.forEach((q,i)=>{ const k=sq(id,i); if(S.lockedSrc[k]) return; if(q.opts[S.srcAns[k]].ok){ S.lockedSrc[k]=true; ok++; } else bad++; });
-  d.claims.forEach(c=>{ if(S.locked[c.id]) return; if(S.claims[c.id]===c.ans){ S.locked[c.id]=true; ok++; } else bad++; });
+  S.struck=S.struck||{}; d.qs.forEach((q,i)=>{ const k=sq(id,i); if(S.lockedSrc[k]) return; if(q.opts[S.srcAns[k]].ok){ S.lockedSrc[k]=true; delete S.struck[k]; ok++; } else { S.struck[k]=S.srcAns[k]; bad++; } });
+  d.claims.forEach(c=>{ if(S.locked[c.id]) return; if(S.claims[c.id]===c.ans){ S.locked[c.id]=true; delete S.struck[c.id]; ok++; } else { S.struck[c.id]=S.claims[c.id]; bad++; } });
   S.checks[id]=(S.checks[id]||0)+1;
   const u=unlockNotebook();
   S.flash = (bad===0 ? `Van Swieten has read your notes on Document ${id}. He agrees with all of them.` : `Van Swieten has read your notes on Document ${id}. He agrees with ${ok} and has struck out ${bad}. Reread the document, change the answers he struck out, and hand the notes back.`) + (u.length?` He has added a page to his notebook: “${u.join('”, “')}”.`:'');
 }
 function checkX(){
   let ok=0, bad=0;
-  XCHECK.forEach(x=>{ if(S.lockedX[x.id] || S.x[x.id]===undefined) return; if(S.x[x.id]===x.ok){ S.lockedX[x.id]=true; ok++; } else bad++; });
+  S.struckX=S.struckX||{}; XCHECK.forEach(x=>{ if(S.lockedX[x.id] || S.x[x.id]===undefined) return; if(S.x[x.id]===x.ok){ S.lockedX[x.id]=true; delete S.struckX[x.id]; ok++; } else { S.struckX[x.id]=S.x[x.id]; bad++; } });
   S.checks.X=(S.checks.X||0)+1;
   S.flash = bad===0 ? 'Van Swieten agrees with every comparison you made.' : `Van Swieten agrees with ${ok} of your comparisons and has struck out ${bad}. Look at those again.`;
 }
@@ -932,11 +942,20 @@ function refreshNav(){
   const bc=$('btnCheck'); if(bc){ const id=S.open[S.tab]; if(id){ bc.disabled=!(docAnswered(id)&&!docAllLocked(id)); } }
   const bx=$('btnCheckX'); if(bx) bx.disabled=!Object.keys(S.x).length;
   const who=reading.querySelector('.who'); if(who) who.textContent='You are assistant to Gerard van Swieten, physician to the Empress · '+(nLocked()+nLockedSrc()+nLockedX())+' notes he agrees with';
-  const grid=reading.querySelectorAll('.srcbtn'); grid.forEach(b=>{ const ok=b.querySelector('.ok'); if(ok) ok.textContent=docStatus(b.dataset.src); });
+  const grid=reading.querySelectorAll('.srcbtn'); grid.forEach(b=>{ const st=docState(b.dataset.src); const ok=b.querySelector('.ok'); if(ok) ok.textContent=st.text; b.classList.remove('done','needs','ready'); if(st.cls) b.classList.add(st.cls); });
 }
 function docAllLocked(id){ const d=SRCMAP[id]; return d.qs.every((q,i)=>S.lockedSrc[sq(id,i)]) && d.claims.every(c=>S.locked[c.id]); }
 function waitMsg(p,end){ const left=PART[p].ids.filter(id=>!docAllLocked(id)); return `Van Swieten has not yet agreed with everything on Document${left.length>1?'s':''} ${left.join(', ')}. Find the answers marked “struck out,” change them, and hand the notes in again ${end}`; }
-function docStatus(id){ const s=SRCMAP[id]; const qa=s.qs.filter((q,i)=>S.srcAns[sq(id,i)]!==undefined).length, ql=s.qs.filter((q,i)=>S.lockedSrc[sq(id,i)]).length; const ca=s.claims.filter(c=>S.claims[c.id]!==undefined).length, cl=s.claims.filter(c=>S.locked[c.id]).length; const tot=s.qs.length+s.claims.length; if(ql+cl===tot) return 'all confirmed'; if(qa+ca===tot) return S.checks[id] ? 'struck out — look again' : 'not handed in yet'; if(qa+ca>0) return `${qa+ca} of ${tot}`; return ''; }
+function docState(id){ const s=SRCMAP[id];
+  const items=[...s.qs.map((q,i)=>({k:sq(id,i), v:S.srcAns[sq(id,i)], a:S.srcAns[sq(id,i)]!==undefined, l:!!S.lockedSrc[sq(id,i)]})), ...s.claims.map(c=>({k:c.id, v:S.claims[c.id], a:S.claims[c.id]!==undefined, l:!!S.locked[c.id]}))];
+  const tot=items.length, ans=items.filter(x=>x.a).length, lk=items.filter(x=>x.l).length;
+  const struck = items.filter(x=>!x.l && isStruck(x.k,x.v,S.checks[id])).length;
+  if(lk===tot) return {cls:'done', text:'✓ All confirmed'};
+  if(struck) return {cls:'needs', text:`✗ ${struck} struck out`};
+  if(ans===tot) return {cls:'ready', text:'Ready to hand in'};
+  if(ans>0) return {cls:'', text:`${ans} of ${tot} answered`};
+  return {cls:'', text:''}; }
+function docStatus(id){ return docState(id).text; }
 
 function renderPart(pane,p){
   const P=PART[p]; const key='p'+p; const id=S.open[key]; const s=SRCMAP[id];
@@ -955,23 +974,23 @@ function renderPart(pane,p){
   const lateStyle = (isInterview&&firstRead&&!reduce) ? ` class="writelate" style="animation-delay:${(0.8+n*step).toFixed(1)}s"` : '';
   const graveLink = p===2 ? `<div class="places">${PLACES.map(pl=>`<p class="gravewalk"><button type="button" class="placebtn" data-place="${pl.id}">${(S.visits&&S.visits[pl.id])?pl.again:pl.link}</button></p>`).join('')}</div>` : '';
   pane.innerHTML=`${p===2?banner('village'):''}<p class="prog">${P.intro}</p>
-<div class="srcgrid">${P.ids.map(x=>`<button class="srcbtn${x===id?' on':''}" type="button" data-src="${x}">${portrait(x,46)}<span class="sb"><span class="l">Document ${x}<span class="ok">${docStatus(x)}</span></span><span class="t">${SRCMAP[x].short}</span><span class="w">${SRCMAP[x].who}</span></span></button>`).join('')}</div>
+<div class="srcgrid">${P.ids.map(x=>`<button class="srcbtn${x===id?' on':''} ${docState(x).cls}" type="button" data-src="${x}">${portrait(x,46)}<span class="sb"><span class="l">Document ${x}<span class="ok">${docStatus(x)}</span></span><span class="t">${SRCMAP[x].short}</span><span class="w">${SRCMAP[x].who}</span></span></button>`).join('')}</div>
 ${graveLink}<div class="docbox">
 <div class="dochead">${portrait(id,96)}<div class="src">${s.src}</div></div>
 ${bodyHTML}
 <div${lateStyle}>
 <h4 class="sect">The person who wrote this</h4>
-${s.qs.map((q,i)=>{ const k=sq(id,i), a=S.srcAns[k], lk=!!S.lockedSrc[k]; const wr=!lk && S.checks[id] && a!==undefined; return `<div class="q${wr?' wrong':''}"><div class="qt">${q.q}${wr?' <span class="notyet">struck out — look again</span>':''}</div>${q.opts.map((o,j)=>`<label class="opt${a===j?(lk?' lock':' sel'):''}"><input type="radio" name="${k}" value="${j}" ${a===j?'checked':''} ${lk?'disabled':''}>${o.t}</label>`).join('')}</div>`; }).join('')}
+${s.qs.map((q,i)=>{ const k=sq(id,i), a=S.srcAns[k], lk=!!S.lockedSrc[k]; const wr=!lk && isStruck(k,a,S.checks[id]); return `<div class="q${wr?' wrong':''}"><div class="qt">${q.q}${wr?' <span class="notyet">struck out — look again</span>':''}</div>${q.opts.map((o,j)=>`<label class="opt${a===j?(lk?' lock':' sel'):''}"><input type="radio" name="${k}" value="${j}" ${a===j?'checked':''} ${lk?'disabled':''}>${o.t}</label>`).join('')}</div>`; }).join('')}
 <h4 class="sect">What it claims</h4>
 <div class="key"><b>Observed</b>: the writer, or someone named in the document, saw it or counted it. <b>Inference</b>: a conclusion drawn from what was seen. <b>Hearsay</b>: the writer is passing on what someone else said.</div>
-${s.claims.map(c=>{ const a=S.claims[c.id], lk=!!S.locked[c.id]; const wr=!lk && S.checks[id] && a!==undefined; return `<div class="claim${lk?' lock':''}${wr?' wrong':''}" data-c="${c.id}">${lk?'<span class="lockmark">he agrees</span>':(wr?'<span class="lockmark notyet">struck out</span>':'')}<p class="ct">${c.t}</p><div class="ans">${Object.keys(ANS).map(k=>`<label class="${a===k?(lk?'lk':'sel'):''}"><input type="radio" name="${c.id}" value="${k}" ${a===k?'checked':''} ${lk?'disabled':''}>${ANS[k]}</label>`).join('')}</div></div>`; }).join('')}
+${s.claims.map(c=>{ const a=S.claims[c.id], lk=!!S.locked[c.id]; const wr=!lk && isStruck(c.id,a,S.checks[id]); return `<div class="claim${lk?' lock':''}${wr?' wrong':''}" data-c="${c.id}">${lk?'<span class="lockmark">he agrees</span>':(wr?'<span class="lockmark notyet">struck out</span>':'')}<p class="ct">${c.t}</p><div class="ans">${Object.keys(ANS).map(k=>`<label class="${a===k?(lk?'lk':'sel'):''}"><input type="radio" name="${c.id}" value="${k}" ${a===k?'checked':''} ${lk?'disabled':''}>${ANS[k]}</label>`).join('')}</div></div>`; }).join('')}
 <div class="row" style="margin:18px 0 0">${prev?`<button class="btn quiet" type="button" id="btnPrevDoc">Back: Document ${prev}</button>`:(p===2?`<button class="btn quiet" type="button" id="btnPrevPart">Back to the old reports</button>`:'')}<button class="btn" type="button" id="btnCheck" ${docAnswered(id)&&!docAllLocked(id)?'':'disabled'}>${docAllLocked(id)?'Van Swieten agrees with all of it':'Hand your notes on '+id+' to van Swieten'}</button>${next?`<button class="btn quiet" type="button" id="btnNextDoc">Next: Document ${next}</button>`:(p===1?`<button class="btn quiet" type="button" id="btnNextPart" ${partDone(1)?'':'disabled'}>On to the village</button>`:`<button class="btn quiet" type="button" id="btnNextPart" ${partDone(2)?'':'disabled'}>Lay the documents side by side</button>`)}</div>
 </div>
 </div>`;
   pane.querySelectorAll('.placebtn').forEach(b=>b.addEventListener('click',()=>{ S.place=b.dataset.place; save(); if(has(SOUND.steps)) nextSfx='steps'; go('place'); }));
   pane.querySelectorAll('.srcbtn').forEach(b=>b.addEventListener('click',()=>{ S.open[key]=b.dataset.src; save(); renderWork(true); }));
-  pane.querySelectorAll('.q input[type=radio]').forEach(r=>r.addEventListener('change',()=>{ S.srcAns[r.name]=+r.value; S.srcTries[r.name]=(S.srcTries[r.name]||0)+1; save(); r.closest('.q').querySelectorAll('.opt').forEach(o=>o.classList.toggle('sel',o.querySelector('input').checked)); refreshNav(); }));
-  pane.querySelectorAll('.claim input[type=radio]').forEach(r=>r.addEventListener('change',()=>{ S.claims[r.name]=r.value; S.claimTries[r.name]=(S.claimTries[r.name]||0)+1; save(); r.closest('.claim').querySelectorAll('.ans label').forEach(l=>l.classList.toggle('sel',l.querySelector('input').checked)); refreshNav(); }));
+  pane.querySelectorAll('.q input[type=radio]').forEach(r=>r.addEventListener('change',()=>{ S.struck=S.struck||{}; if(!(r.name in S.struck) && S.checks[id] && S.srcAns[r.name]!==undefined) S.struck[r.name]=S.srcAns[r.name]; S.srcAns[r.name]=+r.value; { const el=r.closest('.q'), w=isStruck(r.name,+r.value,S.checks[id]); el.classList.toggle('wrong',w); el.querySelectorAll('.notyet').forEach(s=>s.style.display=w?'':'none'); } S.srcTries[r.name]=(S.srcTries[r.name]||0)+1; save(); r.closest('.q').querySelectorAll('.opt').forEach(o=>o.classList.toggle('sel',o.querySelector('input').checked)); refreshNav(); }));
+  pane.querySelectorAll('.claim input[type=radio]').forEach(r=>r.addEventListener('change',()=>{ S.struck=S.struck||{}; if(!(r.name in S.struck) && S.checks[id] && S.claims[r.name]!==undefined) S.struck[r.name]=S.claims[r.name]; S.claims[r.name]=r.value; { const el=r.closest('.claim'), w=isStruck(r.name,r.value,S.checks[id]); el.classList.toggle('wrong',w); el.querySelectorAll('.notyet').forEach(s=>s.style.display=w?'':'none'); } S.claimTries[r.name]=(S.claimTries[r.name]||0)+1; save(); r.closest('.claim').querySelectorAll('.ans label').forEach(l=>l.classList.toggle('sel',l.querySelector('input').checked)); refreshNav(); }));
   $('btnCheck').addEventListener('click',()=>{ sfx('quill'); checkDoc(id); save(); renderWork(true); });
   const nd=$('btnNextDoc'); if(nd) nd.addEventListener('click',()=>{ S.open[key]=next; save(); renderWork(); });
   const pd=$('btnPrevDoc'); if(pd) pd.addEventListener('click',()=>{ S.open[key]=prev; save(); renderWork(); });
@@ -982,8 +1001,8 @@ ${s.claims.map(c=>{ const a=S.claims[c.id], lk=!!S.locked[c.id]; const wr=!lk &&
 function renderX(pane){
   pane.innerHTML=`<div class="dlg"><span class="sp">Dr. Gasser</span>They cannot all be telling the truth. Lay the documents side by side and see which ones support each other.</div><p class="prog">Six questions that need two documents at once. Go back to the old reports or the statements if you need to reread one.</p>
 <div class="row" style="margin:0 0 14px"><button class="btn quiet" type="button" id="btnBackX">Back to the statements</button><button class="btn" type="button" id="btnCheckX" ${Object.keys(S.x).length?'':'disabled'}>Hand your comparisons to van Swieten</button></div>
-${XCHECK.map(x=>{ const a=S.x[x.id], lk=!!S.lockedX[x.id]; const wr=!lk && S.checks.X && a!==undefined; return `<div class="claim${lk?' lock':''}${wr?' wrong':''}">${lk?'<span class="lockmark">he agrees</span>':(wr?'<span class="lockmark notyet">struck out</span>':'')}<p class="ct">${x.q}</p><div class="ans">${x.opts.map(o=>`<label class="${a===o?(lk?'lk':'sel'):''}"><input type="radio" name="${x.id}" value="${esc(o)}" ${a===o?'checked':''} ${lk?'disabled':''}>${SRCMAP[o]?'Document '+o+' · '+SRCMAP[o].short:o}</label>`).join('')}</div></div>`; }).join('')}`;
-  pane.querySelectorAll('input[type=radio]').forEach(r=>r.addEventListener('change',()=>{ S.x[r.name]=r.value; S.xTries[r.name]=(S.xTries[r.name]||0)+1; save(); r.closest('.claim').querySelectorAll('.ans label').forEach(l=>l.classList.toggle('sel',l.querySelector('input').checked)); refreshNav(); }));
+${XCHECK.map(x=>{ const a=S.x[x.id], lk=!!S.lockedX[x.id]; const wr=!lk && isStruckX(x.id,a); return `<div class="claim${lk?' lock':''}${wr?' wrong':''}">${lk?'<span class="lockmark">he agrees</span>':(wr?'<span class="lockmark notyet">struck out</span>':'')}<p class="ct">${x.q}</p><div class="ans">${x.opts.map(o=>`<label class="${a===o?(lk?'lk':'sel'):''}"><input type="radio" name="${x.id}" value="${esc(o)}" ${a===o?'checked':''} ${lk?'disabled':''}>${SRCMAP[o]?'Document '+o+' · '+SRCMAP[o].short:o}</label>`).join('')}</div></div>`; }).join('')}`;
+  pane.querySelectorAll('input[type=radio]').forEach(r=>r.addEventListener('change',()=>{ S.struckX=S.struckX||{}; if(!(r.name in S.struckX) && S.checks.X && S.x[r.name]!==undefined) S.struckX[r.name]=S.x[r.name]; S.x[r.name]=r.value; { const el=r.closest('.claim'), w=isStruckX(r.name,r.value); el.classList.toggle('wrong',w); el.querySelectorAll('.notyet').forEach(s=>s.style.display=w?'':'none'); } S.xTries[r.name]=(S.xTries[r.name]||0)+1; save(); r.closest('.claim').querySelectorAll('.ans label').forEach(l=>l.classList.toggle('sel',l.querySelector('input').checked)); refreshNav(); }));
   $('btnCheckX').addEventListener('click',()=>{ sfx('quill'); checkX(); save(); renderWork(true); });
   $('btnBackX').addEventListener('click',()=>{ S.tab='p2'; save(); renderWork(); });
 }
